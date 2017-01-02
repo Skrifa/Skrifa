@@ -1,0 +1,9 @@
+.light [data-form] [type='submit'] {
+	background: #00bcd4;
+	color: #fff;
+}
+
+.light [data-form] [type='reset'] {
+	background: #90a4ae;
+	color: #fff;
+}

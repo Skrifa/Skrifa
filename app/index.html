@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Skrifa</title>
+
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="description" content="A simple word processor built with web technologies.">
+
+		<link rel="shortcut icon" href="img/favicon.ico"/>
+
+		<!-- Import Third Party, Frameworks and Fonts Stylesheets -->
+		<link type="text/css" rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+		<link type="text/css" rel="stylesheet" href="style/kayros.css"/>
+
+		<!-- Import Core Stylesheets -->
+		<link type="text/css" rel="stylesheet" href="style/main.css"/>
+		<link type="text/css" rel="stylesheet" href="style/login.css"/>
+		<link type="text/css" rel="stylesheet" href="style/notes.css"/>
+		<link type="text/css" rel="stylesheet" href="style/editor.css"/>
+		<link type="text/css" rel="stylesheet" href="style/prism.css"/>
+
+		<!-- Import Themes Stylesheets -->
+		<link type="text/css" rel="stylesheet" href="style/themes/light.css"/>
+		<link type="text/css" rel="stylesheet" href="style/themes/dark.css"/>
+
+
+		<!-- Import Third Party Scripts that can't be loaded via require -->
+		<script src="js/prism.js"></script>
+		<script src="node_modules/mathjax/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+		<!-- Import Core Scripts -->
+		<script src="js/artemis.js"></script>
+		<script src="js/conf.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/login.js"></script>
+		<script src="js/key.js"></script>
+		<script src="js/decrypt.js"></script>
+		<script src="js/notes.js"></script>
+		<script src="js/new-notebook.js"></script>
+		<script src="js/edit-notebook.js"></script>
+		<script src="js/delete-notebook.js"></script>
+		<script src="js/settings.js"></script>
+		<script src="js/editor.js"></script>
+		<script src="js/preview.js"></script>
+	</head>
+	<body class="light">
+
+		<section data-view="loading">
+			<div class="middle align-center">
+				<img src="img/skrifa.svg">
+				<h2 class="padded-2">Loading</h2>
+			</div>
+		</section>
+
+		<section class="active" data-view="login">
+			<div class="middle padded-2">
+				<form method="post" data-form="login" class="vertical align-center padded-1">
+					<h1>Log In</h1>
+					<p>Welcome! Please login to get started.</p>
+					<p>If you don't have an account yet, register at https://skrifa.xyz</p>
+					<label>User Name:</label>
+					<input type="text" name="user" placeholder="User" required="true">
+					<label>Password:</label>
+					<input type="password" placeholder="Password" name="password" required="true">
+					<button type="submit">Log In</button>
+					<span data-content="status"></span>
+				</form>
+			</div>
+		</section>
+
+		<section data-view="key">
+			<div class="middle padded-2">
+				<form method="post" data-form="key" class="vertical align-center padded-1">
+					<h1>Create your new Key Pair</h1>
+					<p>A new Key Pair will be created with the passphrase you provide.</p>
+					<label>Encryption Passphrase:</label>
+					<input type="password" name="passphrase" required="true">
+					<label>Repeat encryption Passphrase:</label>
+					<input type="password" name="rpassphrase" required="true">
+					<input type="submit" value="Create Key Pair">
+					<span data-content="status"></span>
+				</form>
+			</div>
+		</section>
+
+		<section data-view="decrypt">
+			<div class="middle padded-2">
+				<form method="post" data-form="decrypt" class="vertical align-center padded-1">
+					<h1>Decrypt Your Notes</h1>
+					<p>Enter your passphrase to decrypt your notes</p>
+					<label>Encryption Passphrase:</label>
+					<input type="password" placeholder="Passphrase" name="passphrase" required="true">
+					<input type="submit" value="Decrypt">
+					<span data-content="status"></span>
+				</form>
+			</div>
+		</section>
+
+		<section data-view="editor">
+			<div data-modal="insert-video" data-insert-element="Video">
+				<form data-form="insert-video" class="vertical align-center padded-1">
+					<label>Embed Code:</label>
+					<textarea placeholder="Video Embed Code"></textarea>
+					<div class="buttons">
+						<button type="submit">Ok</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+
+			<div data-modal="insert-html" data-insert-element="Video">
+				<form data-form="insert-html" class="vertical align-center padded-1">
+					<label>HTML Code:</label>
+					<textarea placeholder="HTML Code"></textarea>
+					<div class="buttons">
+						<button type="submit">Ok</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+
+			<div data-modal="insert-snippet" data-insert-element="Video">
+				<form data-form="insert-snippet" class="vertical align-center padded-1">
+					<h2>Select a Language</h2>
+					<select name="language"></select>
+					<div class="buttons">
+						<button type="submit">Ok</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+
+			<div data-modal="insert-table" data-insert-element="Table">
+				<form data-form="insert-table" class="vertical align-center padded-1">
+					<label>Rows:</label>
+					<input type="number" placeholder="Rows" data-input="rows" min="0">
+					<label>Columns:</label>
+					<input type="number" placeholder="Columns" data-input="columns" min="0">
+					<div class="buttons">
+						<button type="submit">Ok</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+
+			<div data-modal="insert-link" data-insert-element="Link">
+				<form data-form="insert-link" class="vertical align-center padded-1">
+					<label>Text to Show:</label>
+					<input type="text" placeholder="Text" data-input="text">
+					<label>URL to link to:</label>
+					<input type="text" placeholder="Link" data-input="link">
+					<div class="buttons">
+						<button type="submit">Ok</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+
+			<div data-modal="insert-image" data-insert-element="Image">
+				<form data-form="insert-image" class="vertical align-center padded-1">
+					<label>Image URL:</label>
+					<input type="text" placeholder="www.example.com/image.png">
+					<div class="buttons">
+						<button type="submit">Ok</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+
+			<div data-modal="unsaved" data-insert-element="Image">
+				<form data-form="unsaved" class="vertical align-center padded-1">
+					<h2>You have unsaved changes, do you want to exit? This changes will be lost.</h2>
+					<input type="hidden" required="true">
+					<div class="buttons">
+						<button type="submit">Exit</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+
+
+
+			<span class="menu-icon fa fa-bars" data-menu="editor"></span>
+			<div class="side-nav unselectable">
+	            <div class="editor-tools">
+	                <div>
+	                    <h3>Headers</h3>
+	                    <button data-tool="h1" title="Header 1">H1</button>
+	                    <button data-tool="h2" title="Header 2">H2</button>
+	                    <button data-tool="h3" title="Header 3">H3</button>
+	                    <button data-tool="h4" title="Header 4">H4</button>
+	                    <button data-tool="h5" title="Header 5">H5</button>
+	                    <button data-tool="h6" title="Header 6">H6</button>
+	                </div>
+
+	                <div>
+	                    <h3>Style</h3>
+	                    <button class="fa fa-bold" data-tool="bold"  title="Bold"></button>
+	                    <button class="fa fa-italic" data-tool="italic"  title="Italic"></button>
+	                    <button class="fa fa-underline" data-tool="underline"  title="Underline"></button>
+	                    <button class="fa fa-strikethrough" data-tool="strikeThrough"  title="Strike Through"></button>
+						<!--<button class="fa fa-pencil" data-tool="mark"  title="Highlight"></button>-->
+	                    <div>
+	                        <button class="fa fa-align-left" data-tool="Left" title="Align Left"></button>
+	                        <button class="fa fa-align-center" data-tool="Center" title="Align Center"></button>
+	                        <button class="fa fa-align-right" data-tool="Right" title="Align Right"></button>
+	                        <button class="fa fa-align-justify" data-tool="Full" title="Justify"></button>
+	                    </div>
+
+	                    <div>
+							<button class="fa fa-list-ul" data-tool="ul" title="Unordered List"></button>
+		                    <button class="fa fa-list-ol" data-tool="ol" title="Ordered List"></button>
+		                    <button class="fa fa-quote-right" data-tool="blockquote" title="Quote"></button>
+						</div>
+	                </div>
+
+	                <div>
+	                    <h3>Insert</h3>
+	                    <div>
+		                    <button class="fa fa-table" data-tool="table" title="Insert Table"></button>
+		                    <button class="fa fa-picture-o" data-tool="image" title="Insert Image"></button>
+		                    <button class="fa fa-video-camera" data-tool="video" title="Insert Video"></button>
+							<button class="fa fa-link" data-tool="link" title="Insert Link"></button>
+	                    </div>
+	                    <div>
+		                   <button class="fa fa-code" data-tool="insert-html" title="Insert Custom HTML"></button>
+						   <button class="fa fa-file-code-o" data-tool="snippet" title="Insert Snippet"></button>
+
+	                    </div>
+
+	                </div>
+
+	                <div>
+	                    <h3>Actions</h3>
+	                    <button class="fa fa-unlink" data-tool="unlink" title="Unlink"></button>
+	                    <button class="fa fa-undo" data-tool="undo" title="Undo"></button>
+	                    <button class="fa fa-repeat" data-tool="redo" title="Redo"></button>
+	                    <button class="fa fa-gears" data-tool="edit-html" title="Edit HTML"></button>
+	                </div>
+	            </div>
+	        </div>
+			<nav class="top-nav">
+				<ul>
+					<li data-action="back"><span class="fa fa-arrow-left"></span> Back</li>
+					<li data-action="preview"><span class="fa fa-eye"></span> View</li>
+					<li data-action="save"><span class="fa fa-save"></span> Save</li>
+				</ul>
+			</nav>
+
+			<div contenteditable="true" id="editor"></div>
+		</section>
+
+		<section data-view="preview">
+			<nav class="top-nav">
+				<ul>
+					<li data-action="back"><span class="fa fa-arrow-left"></span> Back</li>
+					<li data-action="export"><span class="fa fa-download"></span> Export</li>
+					<li data-action="print"><span class="fa fa-print"></span> Print</li>
+					<li data-action="edit"><span class='fa-pencil fa'></span> Edit</li>
+				</ul>
+			</nav>
+			<div id="preview"></div>
+		</section>
+
+		<section data-view="new-notebook">
+			<form method="post" data-form="new-notebook" class="vertical align-center middle">
+				<h1>New Notebook</h1>
+				<label>Name:</label>
+				<input type="text" placeholder="Notebook's name" data-input="name" required="true">
+				<label>Description:</label>
+				<input type="text" placeholder="What this notebook is for" data-input="description">
+				<div class="buttons">
+					<button type="submit">Ok</button>
+					<button type="reset">Cancel</button>
+				</div>
+			</form>
+		</section>
+
+		<section data-view="edit-notebook">
+			<form method="post" data-form="edit-notebook" class="vertical align-center middle">
+				<h1>Edit Notebook</h1>
+				<label>Name:</label>
+				<input type="text" placeholder="Notebook's name" data-input="name" required="true">
+				<label>Description:</label>
+				<input type="text" placeholder="What this notebook is for" data-input="description">
+				<div class="buttons">
+					<button type="submit">Save</button>
+					<button type="reset">Cancel</button>
+				</div>
+			</form>
+		</section>
+
+		<section data-view="delete-notebook">
+			<form method="post" data-form="delete-notebook" class="vertical align-center middle">
+				<h1>Delete Notebook</h1>
+				<p>What should happen to the notes currently inside this notebook?</p>
+				<p><input type='radio' name='strategy' value="move" required="true"> Move Notes to Inbox</p>
+				<p><input type='radio' name='strategy' value="delete" required="true"> Delete Everything</p>
+				<div class="buttons">
+					<button type="submit">Delete</button>
+					<button type="reset">Cancel</button>
+				</div>
+			</form>
+		</section>
+
+		<section data-view="export-note">
+
+			<form method="post" data-form="export-note" class="vertical align-center middle">
+				<h1>Export Note As:</h1>
+				<p>Remember that only the Skrifa Note format will remain encrypted, by exporting your note to any other format your content can be viewed by anyone.</p>
+				<p><input type="radio" name="format" value='skf' required="true"> <label>Skrifa Note</label></p>
+				<p><input type="radio" name="format" value='pdf' required="true"> <label>PDF Document</label></p>
+				<p><input type="radio" name="format" value='md' required="true"> <label>Markdown Note</label></p>
+				<!--
+				<input type="radio" name="format" value='html' required="true"> <label>HTML Document</label>
+				-->
+
+				<div class="buttons">
+					<button type="submit">Export</button>
+					<button type="reset">Cancel</button>
+				</div>
+			</form>
+		</section>
+
+		<section data-view="notes">
+			<div data-modal="delete-note" data-insert-element="Video">
+				<form data-form="delete-note" class="vertical align-center padded-1">
+					<h2>Are you sure you want to delete this note?</h2>
+					<div class="buttons">
+						<button type="submit">Delete</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+			<span class="menu-icon fa fa-bars" data-menu="notes"></span>
+			<nav class="side-nav">
+				<ul data-content='notebook-list'>
+					<li data-notebook="Inbox">Inbox</li>
+				</ul>
+			</nav>
+
+			<div class="wrapper">
+				<nav class="top-nav">
+					<div class="logo align-center padded-1">
+						<h1>Inbox</h1>
+						<small>A place for any note</small>
+					</div>
+				    <ul>
+						<li data-action="new-note" class="vertical"><span class="fa fa-plus"></span><small>New Note</small></li>
+						<li data-action="import-note" class="vertical"><span class="fa fa-upload"></span><small>Import Note</small></li>
+						<li data-action="new-notebook" class="vertical"><span class="fa fa-book"></span><small>New Notebook</small></li>
+						<!--<li class="fa fa-th" data-action="change-view"></li>-->
+						<li data-action="edit-notebook" class="vertical"><span class="fa fa-pencil"></span><small>Edit Notebook</small></li>
+						<li data-action="delete-notebook" class="vertical"><span class="fa fa-trash"></span><small>Delete Notebook</small></li>
+						<li data-action="settings" class="vertical"><span class="fa fa-cog"></span><small>Settings</small></li>
+
+				        <!--<li class="fa fa-moon-o" data-action=""></li>
+				        <li class="fa fa-question-circle" data-show="help"></li>
+				        <li class="fa fa-sign-out" data-action="logout"></li>-->
+				    </ul>
+				</nav>
+				<div class="middle align-center" data-content="welcome">
+					<h2>Add some notes</h2>
+					<p>Your notebook is empty, press the plus (+) button on the top bar to create a note.</p>
+				</div>
+				<div data-content="note-container" class="grid">
+
+				</div>
+			</div>
+		</section>
+
+		<section data-view="settings">
+			<div class="middle padded-1">
+				<!--<div class="vertical align-center">
+					<h2>Sync</h2>
+					<button data-action="sync-local">Restore from Sync</button>
+					<button data-action="sync-server">Sync to Server</button>
+				</div>-->
+				<div class="vertical align-center">
+					<h2>Backup</h2>
+					<button data-action="import-backup">Import Backup</button>
+					<button data-action="create-backup">Create Backup</button>
+				</div>
+				<form method="post" data-form="settings" class="vertical align-center">
+					<div class="buttons">
+						<button type="submit">Ok</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+		</section>
+
+	</body>
+</html>

@@ -1,0 +1,86 @@
+[data-action='save'].unsaved {
+	color: #b93d30;
+}
+
+iframe, embed, object, img, .video-wrapper{
+	max-width: 50%;
+	max-height: 50%;
+}
+
+table, code {
+	overflow-x: scroll;
+	max-width: 100%;
+}
+
+a {
+    color:rgb(0,184,212);
+}
+
+mark {
+    color: #FFEB3B;
+}
+
+#editor ul,
+#editor ol,
+#preview ul,
+#preview ol {
+    padding-left: 1.3em;
+}
+.video-wrapper iframe,  .video-wrapper webview{
+	max-width: 100%;
+	width: 100%;
+	max-height: 100%;
+}
+
+body.light tr, body.light td {
+	border: 1px solid #424242;
+	padding: 0.5em;
+}
+
+body.dark tr, body.dark td {
+	border: 1px solid #fafafa;
+	padding: 0.5em;
+}
+
+body.light pre {
+	border: 1px solid rgba(66, 66, 66, 0.11);
+	color: #424242;
+}
+
+body.dark pre {
+	border: 1px solid #333333;
+	color: #e0e0e0;
+}
+
+#view h1, #editor h1 {
+    margin-bottom: 0.5em;
+    font-size: 2em;
+}
+
+#view h2, #editor h2 {
+    margin-bottom: 0.5em;
+    font-size: 1.8em;
+}
+
+#view h3, #editor h3 {
+    margin-bottom: 0.5em;
+    font-size: 1.6em;
+}
+
+#view h4, #editor h4 {
+    margin-bottom: 0.5em;
+    font-size: 1.4em;
+}
+
+#view h5, #editor h5 {
+    margin-bottom: 0.5em;
+    font-size: 1.2em;
+}
+#view h6, #editor h6 {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1em;
+}

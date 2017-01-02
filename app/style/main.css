@@ -1,0 +1,374 @@
+/** Space for all imported Fonts **/
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;;
+  font-weight: 400;
+  src: url('../fonts/OpenSans-Light.ttf') format('truetype');
+}
+
+/** Main Style goes here**/
+
+body {
+	font-weight: lighter;
+	font-family: 'Open Sans', sans-serif;
+}
+
+section {
+	display: none;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+}
+
+section.active {
+	display: block;
+}
+
+[data-content='welcome']{
+	position: relative;
+}
+
+[data-modal] select{
+    margin: 1em;
+    padding: 0.5em;
+}
+
+body.light select {
+    background: fafafa;
+}
+
+button {
+	cursor: pointer;
+}
+
+
+.logo {
+	margin: 0;
+}
+
+[data-modal] {
+	display: none;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 12;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+}
+
+[data-modal] [data-form] {
+	top: 50%;
+    left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+	position: absolute;
+	padding: 2em;
+	background-color: #fff;
+}
+
+[data-modal] button {
+	padding: 1em;
+}
+
+[data-modal].active {
+	display: block;
+}
+
+.side-nav {
+    height: 100%;
+    width: 100%;
+    float: left;
+	position: fixed;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
+	overflow-x: hidden;
+    overflow-y: scroll;
+	display: none;
+	z-index: 11;
+}
+
+[data-content='notebook-list'] {
+	text-align: left;
+}
+
+.top-nav {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	text-align: left;
+	z-index: 10;
+	background: transparent;
+}
+
+.logo {
+	padding: 1em;
+	padding-bottom: 0;
+}
+
+[data-form] input {
+	margin: 0.7em auto;
+	padding: 0.5em;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid rgba(66, 66, 66, 0.5);
+}
+
+[data-form] [type='submit'],
+[data-form] [type='reset'],
+[data-view="settings"] button{
+	margin: 1em auto;
+	padding: 0.5em;
+	border-radius: 3px;
+}
+
+#editor,
+#preview {
+	width: 100%;
+	height: 100%;
+    max-height: 100%;
+	padding: 2em;
+	padding-top: 0;
+	overflow-x: hidden;
+    overflow-y: scroll;
+    outline: none;
+    line-height: 1.5em;
+}
+
+#preview {
+	margin: 0 auto;
+}
+
+.menu-icon {
+	display: inline-block;
+	position: absolute;
+	padding: 1em;
+	z-index: 12;
+}
+
+.side-nav.active {
+	display: block;
+}
+
+.top-nav li,
+.top-nav button,
+.side-nav li,
+.side-nav button {
+	padding: 1em;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.side-nav li,
+.side-nav button {
+	display: block;
+}
+
+
+.side-nav li:hover,
+.side-nav button:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+.top-nav li:hover,
+.top-nav button:hover {
+	color: #1ad6fd;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+[data-view="notes"] ul {
+	text-align: center;
+}
+
+[data-view="editor"] .side-nav button {
+	display: inline-block;
+}
+
+[data-view="editor"] .top-nav ul,
+[data-view="preview"] .top-nav ul {
+	text-align: right;
+}
+
+body.light .side-nav, body.light .view-nav {
+	background: #fafafa;
+}
+
+body.dark .side-nav, body.dark .view-nav {
+	background: #232323;
+}
+
+
+body.light .side-nav h3 {
+    border-top: 1px solid #ddd;
+    padding-top: 0.5em;
+}
+
+body.dark .side-nav h3 {
+    border-top: 1px solid #d3d3d3;
+    padding-top: 0.5em;
+}
+
+.side-nav button, .view-nav button, .notebook-nav button {
+    padding: 1em;
+    background: transparent;
+}
+
+[data-view='loading'] img {
+	width: 50%;
+	height: 50%;
+}
+
+textarea {
+    padding: 1em;
+    border: none;
+    outline: none;
+	border-bottom: 1px solid rgba(66, 66, 66, 0.5);
+
+}
+
+/** Place here all Media Queries and it's styles.**/
+
+/** Default Style. Don't change. (320px) **/
+@media screen and  (max-width: 20em) {}
+
+/** Extra Small Devices, Phones (480px) **/
+@media screen and (min-width : 30em) {
+
+}
+
+/** Medium Screens, Tablets (601px) **/
+@media screen and (min-width: 37.56255em) {
+	.side-nav {
+		display: block;
+		width: 30%;
+		float: left;
+	}
+
+	#editor,
+	.wrapper {
+		float: right;
+		width: 70%;
+	}
+
+	.menu-icon {
+		display: none;
+	}
+}
+
+/** Medium Devices, Desktops (992px)**/
+@media screen and (min-width: 62em) {
+	.side-nav {
+		width: 20%;
+	}
+
+	#editor,
+	.wrapper {
+		width: 80%;
+	}
+
+	#preview {
+		width: 80%;
+	}
+}
+
+/** HD Screen, Large Devices, Wide Screens (1200px) **/
+@media screen and (min-width: 75em) {
+
+}
+
+/** Full HD Screen, Large Devices, Wide Screens (1920px) **/
+@media screen and (min-width: 120em) {
+
+}
+
+/** Retina Screen , Large Devices, Wide Screens(2560px) **/
+@media screen and (min-width: 160em) {
+
+}
+
+/** 4k Screens, Large Devices, Wide Screens (3840px) **/
+@media screen and (min-width: 240em) {
+
+}
+
+/** 5k Screens, Large Devices, Wide Screens (5120px) **/
+@media screen and (min-width: 320em) {
+
+}
+
+/** CSS for Printing **/
+@media print {
+
+	.top-nav {
+		display: none;
+	}
+
+	a {
+        color: #424242;
+    }
+
+    #preview{
+        width: 100%;
+        float: none;
+        overflow: visible;
+        padding: 0;
+    }
+
+	body{
+        overflow: visible;
+        font-family: 'Arial', sans-serif;
+        font-size: 12pt;
+        color: #000 !important;
+    }
+
+    h1 {
+        font-size: 14pt;
+        margin: auto;
+    }
+
+    h2, h3, h4, h5{
+        font-size: 12pt;
+        font-weight: bold;
+        margin: auto;
+    }
+
+    pre {
+        overflow: visible;
+        max-width: 100%;
+        word-break: break-word;
+        color: #000 !important;
+    }
+
+    tr, td {
+		border: 1px solid #424242 !important;
+		padding: 0.5em;
+	}
+
+	hr {
+		color: #424242 !important;
+	}
+
+
+    pre *{
+        color: #000 !important;
+    }
+
+    code{
+        padding: 0;
+    }
+
+    [data-modal] {
+        display: none;
+    }
+
+    @page {
+        size: auto;
+        margin: 24.892mm;
+    }
+}

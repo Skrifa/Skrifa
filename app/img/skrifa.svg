@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="900px" height="900px" viewBox="0 0 900 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>Oval 192 + Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Artboard-9-Copy-6" sketch:type="MSArtboardGroup" transform="translate(-50.000000, -50.000000)">
+            <g id="Oval-192-+-Group" sketch:type="MSLayerGroup" transform="translate(50.000000, 50.000000)">
+                <circle id="Oval-192" fill="#FBFBFB" sketch:type="MSShapeGroup" cx="450" cy="450" r="450"></circle>
+                <g id="Group" transform="translate(168.000000, 168.000000)" sketch:type="MSShapeGroup">
+                    <circle id="Oval-29-Copy" stroke="#424242" stroke-width="22.68" cx="281.142897" cy="281.142897" r="271.420611"></circle>
+                    <path d="M426.442516,282.5 L564.627331,144.315185 L420.684815,0.37266909 L282.5,138.557484 L144.315185,0.37266909 L0.37266909,144.315185 L138.557484,282.5 L0.37266909,420.684815 L144.315185,564.627331 L282.5,426.442516 L420.684815,564.627331 L564.627331,420.684815 L426.442516,282.5 Z" id="Rectangle-47-Copy" fill="#FBFBFB"></path>
+                    <circle id="Oval-29" stroke="#424242" stroke-width="22.68" cx="281.142897" cy="281.142897" r="67.8551527"></circle>
+                    <circle id="Oval-35" fill="#FFCC00" cx="96.5912756" cy="96.5912756" r="67.8551527"></circle>
+                    <circle id="Oval-35-Copy" fill="#0BD318" cx="96.5912756" cy="465.00511" r="67.8551527"></circle>
+                    <circle id="Oval-35-Copy-2" fill="#1AD6FD" cx="465.421206" cy="465.00511" r="67.8551527"></circle>
+                    <circle id="Oval-35-Copy-3" fill="#FF3B30" cx="465.421206" cy="96.5912756" r="67.8551527"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,33 @@
+{
+	"name": "Skrifa",
+	"productName": "Skrifa",
+	"version": "0.2.0",
+	"description": "A simple word processor built with web technologies",
+	"devDependencies": {
+		"electron": "^1.4.13",
+		"electron-builder": "^10.9.2"
+	},
+	"scripts": {
+		"pack": "build --dir",
+		"dist": "build",
+		"postinstall": "install-app-deps",
+		"start": "electron ./app --enable-logging",
+		"dev": "NODE_ENV='development' npm run start",
+		"dist": "build -mwl"
+	},
+	"author": "Diego Islas Ocampo <hyuchia@gmail.com>",
+	"license": "GPLv3",
+	"build": {
+		"appId": "com.hyuchia.skrifa",
+		"mac": {
+			"category": "public.app-category.productivity",
+			"target": ["zip"]
+		},
+		"linux": {
+			"category": "Office",
+			"target": ["snap", "AppImage", "deb", "rpm"],
+			"executableName": "Skrifa",
+			"synopsis": "A simple word processor built with web technologies"
+		}
+	}
+}

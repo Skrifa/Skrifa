@@ -1,0 +1,62 @@
+.grid {
+    text-align: center;
+}
+
+.grid article {
+    width: 10em;
+    max-width: 10em;
+    display: inline-block;
+    margin: 0.5em;
+    word-break: break-word;
+    text-align: left;
+    padding: 1em;
+    height: 10em;
+    max-height: 10em;
+    vertical-align: middle;
+    position: relative;
+    background: #eee;
+
+    _font-size: 80%;
+}
+
+body.light .grid article {
+	color: #fff;
+}
+
+body.dark .grid article {
+	color: #e0e0e0;
+}
+
+.grid article h2 {
+    margin-bottom: 0.2em;
+    font-size: 1.2em;
+}
+
+.grid article .note-actions {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+}
+
+.grid .note-actions .fa {
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 1em;
+}
+
+.grid .note-actions .fa:hover {
+    background: rgba(0,0,0,0.2);
+}
+
+[data-content='note-container'] {
+    width: 100%;
+    height: auto;
+    float: right;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 1em;
+}
