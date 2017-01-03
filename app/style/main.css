@@ -68,7 +68,6 @@ button {
 	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
 	position: absolute;
 	padding: 2em;
-	background-color: #fff;
 }
 
 [data-modal] button {
@@ -111,12 +110,20 @@ button {
 	padding-bottom: 0;
 }
 
-[data-form] input {
+[data-form] input,
+[data-form] select,
+[data-form] textarea {
 	margin: 0.7em auto;
 	padding: 0.5em;
-	border: none;
-	outline: none;
-	border-bottom: 1px solid rgba(66, 66, 66, 0.5);
+	border: 0;
+	outline: 0;
+}
+
+
+[data-form]input[type="text"]:not(.button),
+[data-form] select {
+    font-size: 13px;
+    padding: 8px;
 }
 
 [data-form] [type='submit'],
@@ -169,15 +176,6 @@ button {
 }
 
 
-.side-nav li:hover,
-.side-nav button:hover {
-	background-color: rgba(0, 0, 0, 0.1);
-}
-.top-nav li:hover,
-.top-nav button:hover {
-	color: #1ad6fd;
-}
-
 ul {
 	margin: 0;
 	padding: 0;
@@ -196,19 +194,11 @@ ul {
 	text-align: right;
 }
 
-body.light .side-nav, body.light .view-nav {
-	background: #fafafa;
-}
 
 body.dark .side-nav, body.dark .view-nav {
 	background: #232323;
 }
 
-
-body.light .side-nav h3 {
-    border-top: 1px solid #ddd;
-    padding-top: 0.5em;
-}
 
 body.dark .side-nav h3 {
     border-top: 1px solid #d3d3d3;
@@ -232,7 +222,14 @@ textarea {
 	border-bottom: 1px solid rgba(66, 66, 66, 0.5);
 
 }
+::-webkit-scrollbar {
+    background: transparent;
+	width: 6px;
+}
 
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+}
 /** Place here all Media Queries and it's styles.**/
 
 /** Default Style. Don't change. (320px) **/

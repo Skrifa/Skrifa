@@ -53,34 +53,39 @@ body.dark pre {
 }
 
 #view h1, #editor h1 {
-	margin: 1em 0;
-    font-size: 2em;
+	margin: 1rem 0;
+    font-size: 2rem;
 }
 
 #view h2, #editor h2 {
-	margin: 1em 0;
-    font-size: 1.8em;
+	margin: 1rem 0;
+    font-size: 1.8rem;
 }
 
 #view h3, #editor h3 {
-	margin: 1em 0;
-    font-size: 1.6em;
+	margin: 1rem 0;
+    font-size: 1.6rem;
 }
 
 #view h4, #editor h4 {
 	margin: 1em 0;
-    font-size: 1.4em;
+    font-size: 1.4rem;
 }
 
 #view h5, #editor h5 {
-	margin: 1em 0;
-    font-size: 1.2em;
+	margin: 1rem 0;
+    font-size: 1.2rem;
 }
 #view h6, #editor h6 {
-	margin: 1em 0;
-    margin-bottom: 0.5em;
+	margin: 1rem 0;
+    margin-bottom: 0.5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	line-height: 1em;
+	font-weight: lighter;
+	line-height: normal;
+}
+
+b {
+	font-weight: bold;
 }

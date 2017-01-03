@@ -259,4 +259,11 @@ $_ready(function(){
 
 	});
 
+
+	$_("[data-action='change-theme']").change(function(){
+		$("body").removeClass();
+		$_("body").addClass($_("[data-action='change-theme'] :checked").value());
+		Storage.set("theme", $_("[data-action='change-theme'] :checked").value());
+	});
+
 });
