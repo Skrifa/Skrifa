@@ -15,16 +15,16 @@ $_ready(function(){
 
 	$("[data-form='export-note']").submit(function(event){
 		event.preventDefault();
-
+		var extension = $_("[data-form='export-note'] input[type='radio']:checked").value();
 		dialog.showSaveDialog({
 			title: "Choose Directory to Export Note",
 			buttonLabel: "Export",
-			defaultPath: $_("#preview h1").first().text()
+			defaultPath: $_("#preview h1").first().text()+'.'+extension
 		},
 		function(directory){
 			if(directory){
 				wait("Exporting Note to File");
-				var extension = $_("[data-form='export-note'] input[type='radio']:checked").value();
+
 				var content = '';
 				switch(extension){
 					case "skf":
@@ -33,8 +33,7 @@ $_ready(function(){
 							delete note.SyncDate;
 							content = JSON.stringify(note);
 						}).then(function(){
-							console.log(content);
-							fs.writeFile(directory + '.' + extension, content, 'utf8', function (error) {
+							fs.writeFile(directory, content, 'utf8', function (error) {
 								if(error){
 									console.log(error);
 								}else{
@@ -55,7 +54,7 @@ $_ready(function(){
 								var und = new upndown();
 								und.convert(plaintext.data, function(error, markdown) {
 									if(!error){
-										fs.writeFile(directory + '.' + extension, markdown, 'utf8', function (error) {
+										fs.writeFile(directory, markdown, 'utf8', function (error) {
 											if(error){
 												console.log(error);
 											}else{
