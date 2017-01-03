@@ -10,7 +10,7 @@ MathJax.Hub.Config({
 
 const {dialog} = require('electron').remote;
 const fs = require('fs');
-const MarkdownIt = require('markdown-it'),
+const MarkdownIt = require('markdown-it');
 const $ = require("jquery");
 const openpgp = require("openpgp");
 const Dexie = require("dexie");
