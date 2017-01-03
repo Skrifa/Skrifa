@@ -122,7 +122,7 @@ $_ready(function(){
 					title: "Import a Note",
 					buttonLabel: "Import",
 					filters: [
-					    {name: 'Custom File Type', extensions: ['skrifa', 'sk', 'md', 'txt', 'html', 'docx']},
+					    {name: 'Custom File Type', extensions: ['skrifa', 'skf', 'md', 'txt', 'html', 'docx']},
 					],
 					properties: ['openFile']
 				},
@@ -235,24 +235,21 @@ $_ready(function(){
 
 											wait("Importing New Note");
 											var date = new Date().toLocaleString();
-											openpgp.verify(openpgp.key.readArmored(Storage.get("PubKey")).keys, dearmor(json.Title)).then(function(cleartext){
-												if(cleartext.valid){
-													openpgp.verify(openpgp.key.readArmored(Storage.get("PubKey")).keys, dearmor(json.Title)).then(function(cleartext2){
-														if(cleartext2.valid){
-															db.note.add({
-																Title: json.Title,
-																Content: ciphertext2.data,
-																CreationDate: json.CreationDate,
-																ModificationDate: date,
-																SyncDate: '',
-																Color: json.Color,
-																Notebook: notebook
-															}).then(function(){
-																loadNotes();
-															});
-														}
-													});
-												}
+											decrypt(json.Title).then((plaintext) => {
+												db.note.add({
+													Title: json.Title,
+													Content: json.Content,
+													CreationDate: json.CreationDate,
+													ModificationDate: date,
+													SyncDate: '',
+													Color: json.Color,
+													Notebook: notebook
+												}).then(function(){
+													loadNotes();
+												});
+
+											}).catch((error) => {
+												console.log(error);
 											});
 										}
 
