@@ -9,6 +9,9 @@ $_ready(function(){
 			case "export":
 				show("export-note");
 				break;
+			case "share":
+				show("share");
+				break;
 		}
 	});
 

@@ -19,9 +19,14 @@ function show(view){
 	$_('[data-view="' + view + '"]').addClass("active");
 }
 
-function encrypt(data){
-	encryptOptions.data = data;
-	return openpgp.encrypt(encryptOptions);
+function encrypt(data, options){
+	if(typeof options == 'undefined'){
+		encryptOptions.data = data;
+		return openpgp.encrypt(encryptOptions);
+	}else{
+		options.data = data;
+		return openpgp.encrypt(options);
+	}
 }
 
 function decrypt(data){
@@ -144,6 +149,12 @@ $_ready(function(){
 			$_("[data-action='change-view']").removeClass("fa-th-list");
 			$_("[data-action='change-view']").addClass("fa-th");
 		}
+	}
+
+	if(Storage.get("theme") != null){
+		$("body").removeClass();
+		$_("body").addClass(Storage.get("theme"));
+		$_("[data-action='change-theme']").value(Storage.get("theme"));
 	}
 
 	$_(".menu-icon").click(function(){

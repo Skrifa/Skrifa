@@ -35,8 +35,6 @@ $_ready(function(){
 						if(typeof data.response.status != 'undefined'){
 							$_("[data-form='login'] input[name='password']").value("");
 
-
-
 							Storage.set("PubKey", pubkey);
 							Storage.set("PrivKey", inputs.key);
 
@@ -61,8 +59,6 @@ $_ready(function(){
 						}else{
 
 						}
-
-
 					},
 
 					error: function(data){
