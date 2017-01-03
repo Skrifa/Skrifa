@@ -18,7 +18,8 @@ section {
 	display: none;
 	height: 100vh;
 	width: 100vw;
-	overflow: hidden;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 section.active {
@@ -101,8 +102,9 @@ button {
 	overflow: hidden;
 	text-align: left;
 	z-index: 10;
-	background: transparent;
+	background: #fff;
 }
+
 
 .logo {
 	padding: 1em;
@@ -129,11 +131,8 @@ button {
 #preview {
 	width: 100%;
 	height: 100%;
-    max-height: 100%;
 	padding: 2em;
 	padding-top: 0;
-	overflow-x: hidden;
-    overflow-y: scroll;
     outline: none;
     line-height: 1.5em;
 }

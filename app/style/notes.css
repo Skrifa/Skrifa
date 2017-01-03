@@ -56,7 +56,5 @@ body.dark .grid article {
     width: 100%;
     height: auto;
     float: right;
-    overflow-x: hidden;
-    overflow-y: scroll;
     padding: 1em;
 }

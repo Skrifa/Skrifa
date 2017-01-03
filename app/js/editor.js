@@ -330,7 +330,7 @@ var map = {9: false, 16: false};
 		event.preventDefault();
 		var code = "<pre><code class='language-" + $_("[data-form='insert-snippet'] select").value() + "'>Your Code...</code></pre><br>";
 		$("span.insertSnippet").replaceWith(code);
-		$_("[data-form='insert-snippet']").removeClass("active");
+		$_("[data-modal='insert-snippet']").removeClass("active");
 		this.reset();
 		$_("span.insertSnippet").remove();
 	});
