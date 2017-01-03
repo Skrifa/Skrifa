@@ -1,7 +1,7 @@
 function saveNote(){
 	wait("Saving your note");
 	var html = cleanHTML($_("#editor").html().trim());
-	var date = new Date().toString();
+	var date = new Date().toLocaleString();
 	currentContent = html;
 	db.transaction('rw', db.note, function(){
 		var h1 = $_("#editor h1").first().text().trim();

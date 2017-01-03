@@ -28,7 +28,7 @@ $_ready(function(){
 
 			case "new-note":
 				wait("Wait while your note is created");
-				var date = new Date().toString();
+				var date = new Date().toLocaleString();
 
 				encrypt("New Note").then(function(ciphertext) {
 
@@ -140,7 +140,7 @@ $_ready(function(){
 									case "md":
 										var md = new Remarkable();
 										var html = md.render(data);
-										var date = new Date().toString();
+										var date = new Date().toLocaleString();
 										var h1 = $(html).filter("h1").text().trim();
 										h1 = h1 != "" ? h1: 'Imported Note';
 										if(h1 && html && date){
@@ -172,7 +172,7 @@ $_ready(function(){
 										mammoth.convertToHtml({path: file[0]}).then(function(result){
 											var html = result.value; // The generated HTML
 											var messages = result.messages; // Any messages, such as warnings during conversion
-											var date = new Date().toString();
+											var date = new Date().toLocaleString();
 											var h1 = $(html).filter("h1").text().trim();
 											h1 = h1 != "" ? h1: 'Imported Note';
 											if(h1 && html && date){
@@ -207,7 +207,7 @@ $_ready(function(){
 										if(json.Title && json.Content && json.CDate && json.MDate && json.Color){
 
 											wait("Importing New Note");
-											var date = new Date().toString();
+											var date = new Date().toLocaleString();
 
 											encrypt(json.Title).then(function(ciphertext) {
 
@@ -234,7 +234,7 @@ $_ready(function(){
 										if(json.Title && json.Content && json.CreationDate && json.ModificationDate && json.Color){
 
 											wait("Importing New Note");
-											var date = new Date().toString();
+											var date = new Date().toLocaleString();
 											openpgp.verify(openpgp.key.readArmored(Storage.get("PubKey")).keys, dearmor(json.Title)).then(function(cleartext){
 												if(cleartext.valid){
 													openpgp.verify(openpgp.key.readArmored(Storage.get("PubKey")).keys, dearmor(json.Title)).then(function(cleartext2){
@@ -259,7 +259,7 @@ $_ready(function(){
 										break;
 
 									case "txt":
-										var date = new Date().toString();
+										var date = new Date().toLocaleString();
 										wait("Importing New Note");
 										encrypt("Imported Note").then(function(ciphertext) {
 
@@ -282,7 +282,7 @@ $_ready(function(){
 
 									case "html":
 										var html = data;
-										var date = new Date().toString();
+										var date = new Date().toLocaleString();
 										var h1 = $(html).filter("h1").text().trim();
 										h1 = h1 != "" ? h1: 'Imported Note';
 										if(h1 && html && date){
