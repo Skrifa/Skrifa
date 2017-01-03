@@ -135,7 +135,9 @@ button {
 	padding-top: 0;
     outline: none;
     line-height: 1.5em;
+	margin-bottom: 1em;
 }
+
 
 #preview {
 	margin: 0 auto;

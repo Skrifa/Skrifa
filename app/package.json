@@ -20,11 +20,11 @@
     "html-boilerplate-pdf": "^5.0.0",
     "jquery": "^3.1.1",
     "mammoth": "^1.3.1",
+    "markdown-it": "^8.2.2",
     "materialize-css": "^0.97.8",
     "mathjax": "^2.7.0",
     "openpgp": "^2.3.5",
     "pickadate": "^3.5.6",
-    "remarkable": "^1.7.1",
     "require-all": "^2.1.0",
     "upndown": "^2.0.2"
   }

@@ -138,7 +138,7 @@ $_ready(function(){
 
 								switch(extension){
 									case "md":
-										var md = new Remarkable();
+										var md = new MarkdownIt();
 										var html = md.render(data);
 										var date = new Date().toLocaleString();
 										var h1 = $(html).filter("h1").text().trim();

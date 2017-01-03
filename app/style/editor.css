@@ -53,31 +53,31 @@ body.dark pre {
 }
 
 #view h1, #editor h1 {
-    margin-bottom: 0.5em;
+	margin: 1em 0;
     font-size: 2em;
 }
 
 #view h2, #editor h2 {
-    margin-bottom: 0.5em;
+	margin: 1em 0;
     font-size: 1.8em;
 }
 
 #view h3, #editor h3 {
-    margin-bottom: 0.5em;
+	margin: 1em 0;
     font-size: 1.6em;
 }
 
 #view h4, #editor h4 {
-    margin-bottom: 0.5em;
+	margin: 1em 0;
     font-size: 1.4em;
 }
 
 #view h5, #editor h5 {
-    margin-bottom: 0.5em;
+	margin: 1em 0;
     font-size: 1.2em;
 }
 #view h6, #editor h6 {
-    font-size: 1em;
+	margin: 1em 0;
     margin-bottom: 0.5em;
 }
 
