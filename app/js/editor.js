@@ -81,6 +81,8 @@ var map = {9: false, 16: false};
 
 
 	$_("[data-tool]").click(function(){
+		unsaved = true;
+		$_("[data-action='save']").addClass('unsaved');
 		switch($_(this).data("tool")){
 
 			case "h1":
@@ -302,7 +304,7 @@ var map = {9: false, 16: false};
 		}
 		$_("[data-modal='insert-link']").removeClass("active");
 		this.reset();
-		$_("span.insertLink-div").remove();
+		$_("span.insertLink-div").remove();;
 	});
 
 	$_("[data-form='insert-link'] [type='reset']").click(function(){
