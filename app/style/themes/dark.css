@@ -1,8 +1,7 @@
 body.dark {
-	color: #e0e0e0;
+	color: #fff;
 	background: #262626;
 }
-
 
 .dark [data-form] [type='submit'] {
 	background: #00bcd4;
@@ -61,31 +60,6 @@ body.dark {
 .dark select {
 	background: #232323;
 	color: #e0e0e0;
-}
-
-.dark [data-view='key'],
-.dark [data-view='settings'],
-.dark [data-view='login'],
-.dark [data-view='decrypt'],
-.dark [data-view='new-notebook'],
-.dark [data-view='export-note'],
-.dark [data-view='edit-notebook'],
-.dark [data-view='delete-notebook']{
-	background: #262626;
-}
-
-.dark [data-view='key'] h1,
-.dark [data-view='settings'] h1,
-.dark [data-view='login'] h1,
-.dark [data-view='decrypt'] h1,
-.dark [data-view='new-notebook'] h1,
-.dark [data-view='export-note'] h1,
-.dark [data-view='edit-notebook'] h1,
-.dark [data-view='delete-notebook'] h1,
-.dark [data-view='share'] h1{
-	font-size: 4em;
-	color: #fff;
-	text-align: center;
 }
 
 .dark [data-modal] [data-form] {

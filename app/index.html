@@ -94,7 +94,7 @@
 					<p>Enter your passphrase to decrypt your notes</p>
 					<label>Encryption Passphrase:</label>
 					<input type="password" placeholder="Passphrase" name="passphrase" required="true">
-					<input type="submit" value="Decrypt">
+					<button type="submit" class="suggested-action">Decrypt</button>
 					<span data-content="status"></span>
 				</form>
 			</div>
@@ -118,6 +118,17 @@
 					<textarea placeholder="HTML Code"></textarea>
 					<div class="buttons">
 						<button type="submit">Ok</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+
+			<div data-modal="edit-html" data-insert-element="Video">
+				<form data-form="edit-html" class="vertical align-center padded-1">
+					<label>HTML Code:</label>
+					<textarea placeholder="HTML Code"></textarea>
+					<div class="buttons">
+						<button type="submit">Edit</button>
 						<button type="reset">Cancel</button>
 					</div>
 				</form>
@@ -336,9 +347,10 @@
 				<form method="post" data-form="export-note" class="vertical align-center padded-2">
 					<p>Remember that only the Skrifa Note format will remain encrypted, by exporting your note to any other format your content can be viewed by anyone.</p>
 					<p><input type="radio" name="format" value='skf' required="true"> <label>Skrifa Note</label></p>
-					<p><input type="radio" name="format" value='pdf' required="true"> <label>PDF Document</label></p>
+					<p><input type="radio" name="format" value='skrifa' required="true"> <label>Chrome Skrifa Note (Unencrypted)</label></p>
 					<p><input type="radio" name="format" value='md' required="true"> <label>Markdown Note</label></p>
 					<!--
+					<p><input type="radio" name="format" value='pdf' required="true"> <label>PDF Document</label></p>
 					<input type="radio" name="format" value='html' required="true"> <label>HTML Document</label>
 					-->
 
@@ -368,6 +380,10 @@
 			</nav>
 
 			<div class="wrapper">
+				<div class="middle align-center" data-content="welcome">
+					<h2>Add some notes</h2>
+					<p>Your notebook is empty, press the plus (+) button on the top bar to create a note.</p>
+				</div>
 				<nav class="top-nav">
 					<div class="logo align-center padded-1">
 						<h1>Inbox</h1>
@@ -388,10 +404,7 @@
 				        <li class="fa fa-sign-out" data-action="logout"></li>-->
 				    </ul>
 				</nav>
-				<div class="middle align-center" data-content="welcome">
-					<h2>Add some notes</h2>
-					<p>Your notebook is empty, press the plus (+) button on the top bar to create a note.</p>
-				</div>
+
 				<div data-content="note-container" class="grid">
 
 				</div>

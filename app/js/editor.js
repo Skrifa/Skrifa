@@ -151,8 +151,8 @@ var map = {9: false, 16: false};
 				break;
 
 			case "edit-html":
-				$_(".edit-html textarea").value($_("#editor").html());
-				$_(".edit-html").addClass("active");
+				$_("[data-form='edit-html'] textarea").value($_("#editor").html());
+				$_("[data-modal='edit-html']").addClass("active");
 				break;
 
 			case "insert-html":
@@ -317,6 +317,17 @@ var map = {9: false, 16: false};
 	$_("[data-form='insert-html'] [type='reset']").click(function(){
 		$_("[data-modal='insert-html']").removeClass("active");
 		$_("span.insertHTML-div").remove();
+	});
+
+	$_("[data-form='edit-html']").submit(function(event){
+		event.preventDefault();
+		var value = $_("#editor").html($_("[data-form='edit-html'] textarea").value().trim());
+		this.reset();
+		$_("[data-modal='edit-html']").removeClass("active");
+	});
+
+	$_("[data-form='edit-html'] [type='reset']").click(function(){
+		$_("[data-modal='edit-html']").removeClass("active");
 	});
 
 	$_("[data-form='insert-snippet']").submit(function(event){

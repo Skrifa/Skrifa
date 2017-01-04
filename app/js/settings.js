@@ -62,6 +62,7 @@ $_ready(function(){
 															delete note.CDate;
 															delete note.MDate;
 															return encrypt(note.Title).then(function(ciphertext){
+																note.Content = note.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace("data-url", "src");
 																return encrypt(note.Content).then(function(ciphertext2){
 																	note.Title = ciphertext.data;
 																	note.Content = ciphertext2.data;
@@ -119,6 +120,7 @@ $_ready(function(){
 														delete note.CDate;
 														delete note.MDate;
 														return encrypt(note.Title).then(function(ciphertext){
+															note.Content = note.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace("data-url", "src");
 															return encrypt(note.Content).then(function(ciphertext2){
 																note.Title = ciphertext.data;
 																note.Content = ciphertext2.data;

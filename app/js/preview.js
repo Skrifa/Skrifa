@@ -9,6 +9,7 @@ $_ready(function(){
 			case "export":
 				show("export-note");
 				break;
+				
 			case "share":
 				show("share");
 				break;
@@ -34,6 +35,7 @@ $_ready(function(){
 						var promise = db.note.where("id").equals(parseInt(id)).first(function(note){
 							delete note.Notebook;
 							delete note.SyncDate;
+							delete note.id;
 							content = JSON.stringify(note);
 						}).then(function(){
 							fs.writeFile(directory, content, 'utf8', function (error) {
@@ -45,8 +47,33 @@ $_ready(function(){
 							});
 						});
 						break;
+
+					case "skrifa":
+						db.note.where("id").equals(parseInt(id)).first(function(note){
+							decrypt(note.Content).then((plaintext) => {
+								note.Content = plaintext.data;
+								note.MDate = note.ModificationDate;
+								note.CDate = note.CreationDate;
+								delete note.Notebook;
+								delete note.SyncDate;
+								delete note.CreationDate;
+								delete note.ModificationDate;
+								delete note.id;
+								note.Title = $_("#preview h1").first().text().trim() != "" ? $_("#preview h1").first().text() : "Untitled";
+								content = JSON.stringify(note);
+								fs.writeFile(directory, content, 'utf8', function (error) {
+									if(error){
+										console.log(error);
+									}else{
+										show("preview");
+									}
+								});
+							});
+						});
+						break;
+
 					case "pdf":
-						htmlBoilerplatePDF().from.string($_("#preview").html()).to(directory, function () {
+						htmlBoilerplatePDF({cssPath: "../../style/pdf.css"}).from.string($_("#preview").html()).to(directory, function () {
 							show("preview");
 						});
 						break;

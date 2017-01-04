@@ -127,7 +127,7 @@ $_ready(function(){
 					title: "Import a Note",
 					buttonLabel: "Import",
 					filters: [
-					    {name: 'Custom File Type', extensions: ['skrifa', 'skf', 'md', 'txt', 'html', 'docx']},
+					    {name: 'Custom File Type', extensions: ['skrifa', 'skf', 'md', 'txt', 'html', 'docx', 'rtf']},
 					],
 					properties: ['openFile']
 				},
@@ -219,7 +219,7 @@ $_ready(function(){
 											var date = new Date().toLocaleString();
 
 											encrypt(json.Title).then(function(ciphertext) {
-
+												json.Content = json.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace("data-url", "src");
 												encrypt(json.Content).then(function(ciphertext2) {
 													db.note.add({
 														Title: ciphertext.data,
@@ -272,7 +272,22 @@ $_ready(function(){
 										wait("Importing New Note");
 										encrypt("Imported Note").then(function(ciphertext) {
 
-											encrypt(data).then(function(ciphertext2) {
+											var regex = /.*\n/g;
+											var html = "";
+
+											while ((m = regex.exec(data)) !== null) {
+											    // This is necessary to avoid infinite loops with zero-width matches
+											    if (m.index === regex.lastIndex) {
+											        regex.lastIndex++;
+											    }
+
+											    // The result can be accessed through the `m`-variable.
+											    m.forEach((match, groupIndex) => {
+													html += `<p>${match}</p>`
+											    });
+											}
+
+											encrypt(html).then(function(ciphertext2) {
 												var color = colors[Math.floor(Math.random()*colors.length)];
 												db.note.add({
 													Title: ciphertext.data,

@@ -1,11 +1,15 @@
 .light [data-form] [type='submit'] {
-	background: #00bcd4;
+	background: #268bd2;
 	color: #fff;
 }
 
 .light .side-nav,
 .light .view-nav {
 	background: #fafafa;
+}
+
+.light .grid article {
+	color: #fff;
 }
 
 .light .side-nav h3 {
@@ -23,40 +27,9 @@
 	color: #1ad6fd;
 }
 
-.light [data-form] [type='reset'],
-.light [data-view='settings'] button {
-	background: #90a4ae;
+.light [data-form] [type='reset'] {
+	background: #d53c12;
 	color: #fff;
-}
-
-.light [data-form] input:not([type="submit"]),
-.light [data-form] select {
-    background-clip: padding-box;
-    background-color: #fff;
-    background-image: linear-gradient(to bottom, #fafafa, #fdfdfd);
-    border: 1px solid rgba(0, 0, 0, 0.22);
-    border-radius: 3px;
-    box-shadow:
-        inset 0 1px 0 0 rgba(0, 0, 0, 0.04),
-        inset 0 0 0 1px rgba(0, 0, 0, 0.02),
-        0 1px 0 1px rgba(255, 255, 255, 0.3);
-    color: #323232;
-    outline: 0;
-    text-shadow: 0 1px rgba(255, 255, 255, 0.4);
-    transition: all 200ms ease-out;
-}
-
-.light [data-view='key'] h1,
-.light [data-view='settings'] h1,
-.light [data-view='login'] h1,
-.light [data-view='decrypt'] h1,
-.light [data-view='new-notebook'] h1,
-.light [data-view='export-note'] h1,
-.light [data-view='edit-notebook'] h1,
-.light [data-view='delete-notebook'] h1,
-.light [data-view='share'] h1{
-	font-size: 4em;
-	text-align: center;
 }
 
 .light [data-modal] [data-form] {

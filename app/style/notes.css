@@ -19,13 +19,6 @@
     _font-size: 80%;
 }
 
-body.light .grid article {
-	color: #fff;
-}
-
-body.dark .grid article {
-	color: #e0e0e0;
-}
 
 .grid article h2 {
     margin-bottom: 0.2em;
