@@ -333,4 +333,31 @@ var map = {9: false, 16: false};
 		$_("span.insertSnippet").remove();
 	});
 
+	$_("[data-action='local-image']").click(function(){
+		dialog.showOpenDialog({
+			title: "Load Image",
+			buttonLabel: "Load",
+			filters: [
+				{name: 'Custom File Type', extensions: ['png', 'jpg', 'jpeg', 'svg', 'gif']},
+			],
+			properties: ['openFile']
+		},
+		function(file){
+			if(file){
+				fs.readFile(file[0], 'utf8', function (error, data) {
+					if(error){
+						console.log(error);
+						$_("[data-modal='insert-image']").removeClass("active");
+					}else{
+
+						$("span.insertImage-div").replaceWith("<img class='lazy' src='" + file[0] + "' alt='" + file[0] + "' data-url='" + file[0] + "'>");
+						$_("span.insertImage-div").remove();
+						$_("[data-modal='insert-image']").removeClass("active");
+
+					}
+				});
+			}
+		});
+	});
+
 });

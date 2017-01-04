@@ -82,6 +82,10 @@ button {
 	display: none;
 }
 
+[data-action='local-image'] {
+	margin: 0 auto;
+}
+
 .side-nav {
     height: 100%;
     width: 100%;
