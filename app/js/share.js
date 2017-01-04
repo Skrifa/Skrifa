@@ -23,7 +23,7 @@ $_ready(() => {
 			}
 		}).then((shareKey) => {
 			var options = {
-				publicKeys: openpgp.key.readArmored(Storage.get(shareKey)).keys,
+				publicKeys: openpgp.key.readArmored(shareKey).keys,
 				privateKey: encryptOptions.privateKey
 			};
 
