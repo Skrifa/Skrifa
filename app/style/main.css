@@ -78,6 +78,10 @@ button {
 	display: block;
 }
 
+.top-nav li[data-action='update'] {
+	display: none;
+}
+
 .side-nav {
     height: 100%;
     width: 100%;

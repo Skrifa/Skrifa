@@ -16,6 +16,10 @@ $_ready(function(){
 				$_("[data-modal='delete-note']").addClass("active");
 				break;
 
+			case "update":
+				shell.openExternal("https://skrifa.xyz/#Download");
+				break;
+
 			case "edit-notebook":
 				$_("[data-form='edit-notebook'] [data-input='name']").value($_('.logo h1').text()),
 				$_("[data-form='edit-notebook'] [data-input='description']").value($_('.logo small').text())

@@ -141,6 +141,19 @@ function cleanHTML(html){
 
 $_ready(function(){
 
+	Request.json('https://api.github.com/repos/Skrifa/Skrifa/releases/latest', {
+		onload: function(data){
+			if(data.response.tagname){
+				if(parseInt(data.response.tagname.replace("v", "")) > parseInt(pkg.version)){
+					$_("[data-action='update']").show();
+				}
+			}
+		},
+		error: function(error){
+			
+		}
+	});
+
 	$_("[data-action='edit-notebook']").hide();
 	$_("[data-action='delete-notebook']").hide();
 

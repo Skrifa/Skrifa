@@ -9,6 +9,7 @@ MathJax.Hub.Config({
 });
 
 const {dialog} = require('electron').remote;
+const {shell} = require('electron');
 const fs = require('fs');
 const MarkdownIt = require('markdown-it');
 const $ = require("jquery");
@@ -18,6 +19,7 @@ const CryptoJS = require("crypto-js");
 const htmlBoilerplatePDF = require('html-boilerplate-pdf');
 const upndown = require('upndown');
 const mammoth = require("mammoth");
+const pkg = require('./package.json');
 
 openpgp.initWorker({ path:'node_modules/openpgp/dist/openpgp.worker.min.js' }); // set the relative web worker path
 
