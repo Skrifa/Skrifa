@@ -250,6 +250,7 @@ $_ready(function(){
 
 											}).catch((error) => {
 												console.log(error);
+												show('notes');
 											});
 										}
 
