@@ -6,6 +6,7 @@ function saveNote(){
 	db.transaction('rw', db.note, function(){
 		var h1 = $_("#editor h1").first().text().trim();
 		h1 = h1 != "" ? h1 : "Untitled";
+		$_("[data-nid='" + id + "'] h2").text(h1);
 		if(html && h1 && date){
 
 			encrypt(html).then(function(ciphertext) {
@@ -161,26 +162,18 @@ var map = {9: false, 16: false};
 		}
 	});
 
+	$("[data-action='save']").click(function(){
+		saveNote();
+	});
 
-	$_("body").on("click", "[data-action]",function(){
-		switch ($_(this).data("action")) {
-			case "save":
-				saveNote();
-				break;
-
-			case "back":
-				if(unsaved){
-					$_("[data-form='unsaved'] input").value('back');
-					$_("[data-modal='unsaved']").addClass('active');
-				}else{
-					id = null;
-					$_("[data-view]").removeClass("active");
-					loadNotes();
-					$("[data-view='notes']").addClass("active");
-					currentContent = null;
-				}
-
-				break;
+	$("[data-action='back']").click(function(){
+		if(unsaved){
+			$_("[data-form='unsaved'] input").value('back');
+			$_("[data-modal='unsaved']").addClass('active');
+		}else{
+			id = null;
+			currentContent = null;
+			show('notes');
 		}
 	});
 
@@ -189,10 +182,8 @@ var map = {9: false, 16: false};
 		switch($_("[data-form='unsaved'] input").value()){
 			case 'back':
 				id = null;
-				$_("[data-view]").removeClass("active");
-				loadNotes();
-				$("[data-view='notes']").addClass("active");
 				currentContent = null;
+				show('notes');
 				break;
 
 			case 'preview':

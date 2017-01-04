@@ -34,6 +34,26 @@ function decrypt(data){
 	return openpgp.decrypt(decryptOptions);
 }
 
+function addNote(noteID, noteTitle, noteColor){
+	$_("[data-content='note-container']").append(`<article data-color='${noteColor}' draggable='true' data-nid='${noteID}'><div class='content' ><h2>${noteTitle}</h2></div><div class='note-actions'><span class='fa fa-eye' data-id='${noteID}' data-action='preview'></span><span class='fa-pencil fa' data-id='${noteID}' data-action='edit'></span><span class='fa-trash fa' data-id='${noteID}' data-action='delete'></span></div></article>`);
+	colorNote(noteID);
+}
+
+function colorNote(id){
+	if(typeof id == 'undefined'){
+		$_(".list article").each(function(element){
+			$_(element).style("border-color", $_(element).data("color"));
+		});
+
+		$_(".grid article").each(function(element){
+			$_(element).style("background", $_(element).data("color"));
+		});
+	}else{
+		$_(`.list [data-nid='${id}']`).style("border-color", $_(`.list [data-nid='${id}']`).data("color"));
+		$_(`.grid [data-nid='${id}']`).style("background", $_(`.grid [data-nid='${id}']`).data("color"));
+	}
+}
+
 function loadNotes(){
 	if(key != null){
 		$_("[data-content='note-container']").html("");
@@ -50,16 +70,7 @@ function loadNotes(){
 				var item = item;
 
 				decrypt(item.Title).then(function(plaintext) {
-
-					$_("[data-content='note-container']").append("<article data-color='" + item.Color + "' draggable='true' data-nid='"+item.id+"'><div class='content' ><h2>" + plaintext.data + "</h2></div><div class='note-actions'><span class='fa fa-eye' data-id='" + item.id + "' data-action='preview'></span><span class='fa-pencil fa' data-id='"+item.id+"' data-action='edit'></span><span class='fa-trash fa' data-id='"+item.id+"' data-action='delete'></span></div></article>");
-
-					$_(".list article").each(function(element){
-						$_(element).style("border-color", $_(element).data("color"));
-					});
-
-					$_(".grid article").each(function(element){
-						$_(element).style("background", $_(element).data("color"));
-					});
+					addNote(item.id, plaintext.data, item.Color);
 				});
 			});
 		}).then(function(){

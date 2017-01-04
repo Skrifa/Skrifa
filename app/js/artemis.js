@@ -69,10 +69,12 @@ class Artemis {
 	}
 
 	value(value){
-		if (typeof value === 'undefined'){
-			return this.collection[0].value;
-		}else{
-			this.collection[0].value = value;
+		if(this.length > 0){
+			if (typeof value === 'undefined'){
+				return this.collection[0].value;
+			}else{
+				this.collection[0].value = value;
+			}
 		}
 	}
 
@@ -132,35 +134,43 @@ class Artemis {
 	}
 
 	filter(element){
-		return new Artemis(this.collection[0].querySelector(element));
+		if(this.length > 0){
+			return new Artemis(this.collection[0].querySelector(element));
+		}
 	}
 
 	data(name, value){
-		if (typeof value === 'undefined'){
-			return this.collection[0].dataset[name];
-		}else{
-			this.collection[0].dataset[name] = value;
+		if(this.length > 0){
+			if (typeof value === 'undefined'){
+				return this.collection[0].dataset[name];
+			}else{
+				this.collection[0].dataset[name] = value;
+			}
 		}
 	}
 
 	text(value){
-		if (typeof value === 'undefined'){
-			return this.collection[0].textContent;
-		}else{
-			this.collection[0].textContent = value;
+		if(this.length > 0){
+			if (typeof value === 'undefined'){
+				return this.collection[0].textContent;
+			}else{
+				this.collection[0].textContent = value;
+			}
 		}
 	}
 
 	html(value){
-		if (typeof value === 'undefined'){
-			return this.collection[0].innerHTML;
-		}else{
-			this.collection[0].innerHTML = value;
+		if(this.length > 0){
+			if (typeof value === 'undefined'){
+				return this.collection[0].innerHTML;
+			}else{
+				this.collection[0].innerHTML = value;
+			}
 		}
 	}
 
 	append(data){
-		if(this.collection[0]){
+		if(this.length > 0){
 			var div = document.createElement('div');
 			div.innerHTML = data;
 			this.collection[0].appendChild(div.firstChild);
@@ -178,7 +188,9 @@ class Artemis {
 	}
 
 	first(){
-		return new Artemis(this.collection[0]);
+		if(this.length > 0){
+			return new Artemis(this.collection[0]);
+		}
 	}
 
 	isVisible(){
@@ -362,7 +374,9 @@ class Artemis {
 	}
 
 	reset(){
-		this.collection[0].reset();
+		if(this.length > 0){
+			this.collection[0].reset();
+		}
 	}
 
 	property(property, value){

@@ -31,18 +31,19 @@ $_ready(function(){
 				var date = new Date().toLocaleString();
 
 				encrypt("New Note").then(function(ciphertext) {
-
 					encrypt('<h1>New Note</h1>').then(function(ciphertext2) {
+						var color = colors[Math.floor(Math.random()*colors.length)];
 						db.note.add({
 							Title: ciphertext.data,
 							Content: ciphertext2.data,
 							CreationDate: date,
 							ModificationDate: date,
 							SyncDate: "",
-							Color: colors[Math.floor(Math.random()*colors.length)],
+							Color: color,
 							Notebook: notebook
 						}).then(function(lastID){
-							loadNotes();
+							addNote(lastID, "New Note", color);
+							show('notes');
 						});
 
 					});
@@ -149,16 +150,18 @@ $_ready(function(){
 											encrypt(h1).then(function(ciphertext) {
 
 												encrypt(html).then(function(ciphertext2) {
+													var color = colors[Math.floor(Math.random()*colors.length)];
 													db.note.add({
 														Title: ciphertext.data,
 														Content: ciphertext2.data,
 														CreationDate: date,
 														ModificationDate: date,
 														SyncDate: '',
-														Color: colors[Math.floor(Math.random()*colors.length)],
+														Color: color,
 														Notebook: notebook
-													}).then(function(){
-														loadNotes();
+													}).then(function(lastID){
+														addNote(lastID, h1, color);
+														show('notes');
 													});
 												});
 
@@ -181,16 +184,18 @@ $_ready(function(){
 												encrypt(h1).then(function(ciphertext) {
 
 													encrypt(html).then(function(ciphertext2) {
+														var color = colors[Math.floor(Math.random()*colors.length)];
 														db.note.add({
 															Title: ciphertext.data,
 															Content: ciphertext2.data,
 															CreationDate: date,
 															ModificationDate: date,
 															SyncDate: '',
-															Color: colors[Math.floor(Math.random()*colors.length)],
+															Color: color,
 															Notebook: notebook
-														}).then(function(){
-															loadNotes();
+														}).then(function(lastID){
+															addNote(lastID, h1, color);
+															show('notes');
 														});
 													});
 
@@ -220,8 +225,9 @@ $_ready(function(){
 														SyncDate: '',
 														Color: json.Color,
 														Notebook: notebook
-													}).then(function(){
-														loadNotes();
+													}).then(function(lastID){
+														addNote(lastID, json.Title, json.Color);
+														show('notes');
 													});
 												});
 
@@ -244,8 +250,9 @@ $_ready(function(){
 													SyncDate: '',
 													Color: json.Color,
 													Notebook: notebook
-												}).then(function(){
-													loadNotes();
+												}).then(function(lastID){
+													addNote(lastID, plaintext.data, json.Color);
+													show('notes');
 												});
 
 											}).catch((error) => {
@@ -262,16 +269,18 @@ $_ready(function(){
 										encrypt("Imported Note").then(function(ciphertext) {
 
 											encrypt(data).then(function(ciphertext2) {
+												var color = colors[Math.floor(Math.random()*colors.length)];
 												db.note.add({
 													Title: ciphertext.data,
 													Content: ciphertext2.data,
 													CreationDate: date,
 													ModificationDate: date,
 													SyncDate: '',
-													Color: colors[Math.floor(Math.random()*colors.length)],
+													Color: color,
 													Notebook: notebook
-												}).then(function(){
-													loadNotes();
+												}).then(function(lastID){
+													addNote(lastID, "Imported Note", color);
+													show('notes');
 												});
 											});
 
@@ -287,16 +296,18 @@ $_ready(function(){
 											wait("Importing New Note");
 											encrypt(h1).then(function(ciphertext) {
 												encrypt(html).then(function(ciphertext2) {
+													var color = colors[Math.floor(Math.random()*colors.length)];
 													db.note.add({
 														Title: ciphertext.data,
 														Content: ciphertext2.data,
 														CreationDate: date,
 														ModificationDate: date,
 														SyncDate: '',
-														Color: colors[Math.floor(Math.random()*colors.length)],
+														Color: color,
 														Notebook: notebook
-													}).then(function(){
-														loadNotes();
+													}).then(function(lastID){
+														addNote(lastID, h1, color);
+														show('notes');
 													});
 												});
 
