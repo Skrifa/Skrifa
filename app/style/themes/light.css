@@ -52,7 +52,7 @@
 .light [data-view='decrypt'] h1,
 .light [data-view='new-notebook'] h1,
 .light [data-view='export-note'] h1,
-.light [data-view='edit-notebook'] h1
+.light [data-view='edit-notebook'] h1,
 .light [data-view='delete-notebook'] h1{
 	font-size: 4em;
 	text-align: center;

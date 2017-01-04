@@ -80,7 +80,7 @@ body.dark {
 .dark [data-view='decrypt'] h1,
 .dark [data-view='new-notebook'] h1,
 .dark [data-view='export-note'] h1,
-.dark [data-view='edit-notebook'] h1
+.dark [data-view='edit-notebook'] h1,
 .dark [data-view='delete-notebook'] h1{
 	font-size: 4em;
 	color: #fff;

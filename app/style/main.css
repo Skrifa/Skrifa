@@ -194,6 +194,10 @@ ul {
 	text-align: right;
 }
 
+[data-view] .middle {
+	width: 100%;
+}
+
 
 body.dark .side-nav, body.dark .view-nav {
 	background: #232323;
@@ -211,8 +215,8 @@ body.dark .side-nav h3 {
 }
 
 [data-view='loading'] img {
-	width: 50%;
-	height: 50%;
+	width: 30%;
+	height: 30%;
 }
 
 textarea {
