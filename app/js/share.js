@@ -2,26 +2,29 @@ $_ready(() => {
 
 	$_("[data-form='share']").submit(function(event){
 		event.preventDefault();
-
+		var self = this;
 		var user = $_("[data-form='share'] input").value().trim();
 		var promise = new Promise((resolve, reject) => {
 			if(Storage.get(user) != null){
 				resolve(Storage.get(user));
 			}else{
-
-				Request.json(base + "/key/" + user, {
-					onload: function(data){
-						if(!data.response.error){
-							Storage.set(user, data.response.key);
-							resolve(data.response.key);
-						}else{
-							reject(data.response.error);
+				if(navigator.onLine){
+					Request.json(base + "/key/" + user, {
+						onload: function(data){
+							if(!data.response.error){
+								Storage.set(user, data.response.key);
+								resolve(data.response.key);
+							}else{
+								reject(data.response.error);
+							}
+						},
+						onerror: function(error){
+							reject(error);
 						}
-					},
-					error: function(error){
-						reject(error);
-					}
-				});
+					});
+				}else{
+					reject("Unable to retrieve public key, you must be online.");
+				}
 			}
 		}).then((shareKey) => {
 			var options = {
@@ -54,6 +57,8 @@ $_ready(() => {
 											if(error){
 												console.log(error);
 											}else{
+												self.reset();
+												$_("[data-view='share'] span").text("");
 												show("preview");
 											}
 										});
@@ -68,10 +73,13 @@ $_ready(() => {
 					show("preview");
 				}
 			});
+		}).catch(function(error){
+			$_("[data-view='share'] span").text(error);
 		});
 	});
 
 	$_("[data-view='share'] [type='reset']").click(function(){
+		$_("[data-view='share'] span").text("");
 		show("preview");
 	});
 });

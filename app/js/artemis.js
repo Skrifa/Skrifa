@@ -422,9 +422,9 @@ class Request {
 			}
 		}
 
-		if(typeof events.error === "function"){
-			request.error = function(){
-				events.error(request);
+		if(typeof events.onerror === "function"){
+			request.onerror = function(){
+				events.onerror(request);
 			}
 		}
 
@@ -441,9 +441,9 @@ class Request {
 			}
 		}
 
-		if(typeof events.error === "function"){
-			request.error = function(){
-				events.error(request);
+		if(typeof events.onerror === "function"){
+			request.onerror = function(){
+				events.onerror(request);
 			}
 		}
 
@@ -462,9 +462,9 @@ class Request {
 			}
 		}
 
-		if(typeof events.error === "function"){
-			request.error = function(){
-				events.error(request);
+		if(typeof events.onerror === "function"){
+			request.onerror = function(){
+				events.onerror(request);
 			}
 		}
 
