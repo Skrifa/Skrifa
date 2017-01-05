@@ -14,17 +14,19 @@ $_ready(() => {
 						if(!data.response.error){
 							Storage.set(user, data.response.key);
 							resolve(data.response.key);
+						}else{
+							reject(data.response.error);
 						}
 					},
-					error: function(data){
-
+					error: function(error){
+						reject(error);
 					}
 				});
 			}
 		}).then((shareKey) => {
 			var options = {
 				publicKeys: openpgp.key.readArmored(shareKey).keys,
-				privateKey: encryptOptions.privateKey
+				privateKeys: encryptOptions.privateKeys
 			};
 
 			var content;

@@ -34,6 +34,15 @@ function decrypt(data){
 	return openpgp.decrypt(decryptOptions);
 }
 
+function getTitle(html){
+	var found = $(html).filter("h1").first().text().trim();
+	if(found){
+		return found;
+	}else{
+		return "Untitled"
+	}
+}
+
 function addNote(noteID, noteTitle, noteColor){
 	$_("[data-content='note-container']").append(`<article data-color='${noteColor}' draggable='true' data-nid='${noteID}'><div class='content' ><h2>${noteTitle}</h2></div><div class='note-actions'><span class='fa fa-eye' data-id='${noteID}' data-action='preview'></span><span class='fa-pencil fa' data-id='${noteID}' data-action='edit'></span><span class='fa-trash fa' data-id='${noteID}' data-action='delete'></span></div></article>`);
 	colorNote(noteID);
@@ -150,7 +159,7 @@ $_ready(function(){
 			}
 		},
 		error: function(error){
-			
+
 		}
 	});
 

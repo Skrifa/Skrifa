@@ -46,7 +46,7 @@ $_ready(function(){
 
 							encryptOptions = {
 								publicKeys: openpgp.key.readArmored(Storage.get("PubKey")).keys,
-								privateKey: openpgp.key.readArmored(key).keys
+								privateKeys: openpgp.key.readArmored(key).keys
 							};
 
 							decryptOptions = {
@@ -67,6 +67,8 @@ $_ready(function(){
 
 				}, "json");
 			});
+		}else{
+			$_("[data-form='key'] [data-content='status']").text("Passphrases does not match");
 		}
 	});
 });

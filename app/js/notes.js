@@ -49,9 +49,7 @@ $_ready(function(){
 							addNote(lastID, "New Note", color);
 							show('notes');
 						});
-
 					});
-
 				});
 				break;
 
@@ -85,8 +83,6 @@ $_ready(function(){
 				break;
 
 			case "preview":
-
-
 				if(unsaved){
 					$_("[data-form='unsaved'] input").value('preview');
 					$_("[data-modal='unsaved']").addClass('active');
@@ -242,7 +238,6 @@ $_ready(function(){
 									case "skf":
 										var json = JSON.parse(data);
 										if(json.Title && json.Content && json.CreationDate && json.ModificationDate && json.Color){
-
 											wait("Importing New Note");
 											var date = new Date().toLocaleString();
 											decrypt(json.Title).then((plaintext) => {
@@ -258,13 +253,11 @@ $_ready(function(){
 													addNote(lastID, plaintext.data, json.Color);
 													show('notes');
 												});
-
 											}).catch((error) => {
 												console.log(error);
 												show('notes');
 											});
 										}
-
 										break;
 
 									case "txt":
