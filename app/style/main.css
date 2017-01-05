@@ -65,9 +65,16 @@ button {
 	-moz-transform: translate(-50%,-50%);
 	-o-transform: translate(-50%,-50%);
 	-ms-transform: translate(-50%,-50%);
-	box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+	box-shadow:
+	   inset 1px 0 0 0 rgba(255, 255, 255, 0.2),
+	   inset -1px 0 0 0 rgba(255, 255, 255, 0.2),
+	   inset 0 1px 0 0 #fff,
+	   0 0 0 1px rgba(0, 0, 0, 0.2),
+	   0 10px 20px rgba(0, 0, 0, 0.19),
+	   0 6px 6px rgba(0, 0, 0, 0.23);
 	position: absolute;
 	padding: 2em;
+	border-radius: 4px;
 }
 
 [data-modal] button {

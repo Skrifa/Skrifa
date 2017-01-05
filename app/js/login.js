@@ -25,42 +25,47 @@ $_ready(function(){
 		$("[data-view]").removeClass("active");
 		$("[data-view='loading']").addClass("active");
 
-		wait("Logging In");
+		// Check if the user is online
+		if(navigator.onLine){
+			wait("Logging In");
+			// Make the Post request to the server
+			Request.post(base + "/login", str,
+				{
+					onload: function(data){
+						// Check if data was received
+						if(data.response != null){
 
-		// Make the Post request to the server
-		Request.post(base + "/login", str,
-			{
-				onload: function(data){
-					// Check if data was received
-					if(data.response != null){
+							// Check if there was not any error
+							if(typeof data.response.error == 'undefined'){
 
-						// Check if there was not any error
-						if(typeof data.response.error == 'undefined'){
+								// Save user data to localstorage
+								Storage.set("User", data.response.User);
+								Storage.set("PubKey", data.response.Public);
+								Storage.set("PrivKey", data.response.Secret);
+								logged = true;
 
-							// Save user data to localstorage
-							Storage.set("User", data.response.User);
-							Storage.set("PubKey", data.response.Public);
-							Storage.set("PrivKey", data.response.Secret);
-							logged = true;
-
-							// Check if a key was received
-							if(data.response.Public != null){
-								show("decrypt");
+								// Check if a key was received
+								if(data.response.Public != null){
+									show("decrypt");
+								}else{
+									show("key");
+								}
 							}else{
-								show("key");
+								// Show error at login page
+								$_("[data-form='login'] [data-content='status']").text(data.response.error);
+								show("login");
 							}
-						}else{
-							// Show error at login page
-							$_("[data-form='login'] [data-content='status']").text(data.response.error);
-							show("login");
-						}
 
+						}
+					},
+					error: function(error){
+						console.log(error);
 					}
-				},
-				error: function(error){
-					console.log(error);
-				}
-			}, "json"
-		);
+				}, "json"
+			);
+		}else{
+			$_("[data-form='login'] [data-content='status']").text("You must be online to login.");
+		}
+
 	});
 });

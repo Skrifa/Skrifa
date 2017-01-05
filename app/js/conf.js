@@ -4,10 +4,13 @@
  * This file contains the initial configurations,
  * note colors and database information.
  */
+
+// Set MathJax settings
 MathJax.Hub.Config({
 	tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
 });
 
+// Import all needed modules
 const {dialog} = require('electron').remote;
 const {shell} = require('electron');
 const fs = require('fs');
@@ -25,7 +28,7 @@ openpgp.initWorker({ path:'node_modules/openpgp/dist/openpgp.worker.min.js' }); 
 
 openpgp.config.aead_protect = true; // activate fast AES-GCM mode (not yet OpenPGP standard)
 
-
+// Required global variables for many functions
 var storage = localStorage;
 
 var base = "https://skrifa.xyz/";
@@ -44,6 +47,7 @@ var currentContent = null;
 
 var unsaved = false;
 
+// Colors used for the notes
 var colors = [
 	"#F06868", "#80D6FF", "#FAB57A", "#41B3D3", "#61D2DC", "#444444", "#63B75D",
 	"#217756", "#118DF0", "#FF304F", "#B7569A", "#883C82", "#FFBF00", "#2E3837",
@@ -53,12 +57,21 @@ var colors = [
 	"#0086B3"
 ];
 
-var settings = {
-	autosave: false
-};
+// Settings variables, some saved for the future
+if(Storage.get("settings")){
+	var settings = JSON.parse(Storage.get("settings"));
+}else{
+	var settings = {
+		autosave: false,
+		theme: "light",
+		view: "grid"
+	};
+}
 
+// Initiate the database object
 var db = new Dexie("Skrifa");
 
+// Database Scheme declaration
 db.version(1).stores({
 	note: "++id, Title, Content, CreationDate, ModificationDate, SyncDate, Color, Notebook",
 	notebook: "++id, Name, Description"

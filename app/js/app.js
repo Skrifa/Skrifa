@@ -13,12 +13,13 @@ function wait(message){
 	$_('[data-view="loading"]').addClass("active");
 }
 
-// Show a given view
+// Show a given view, it will hide all views and then show the given one.
 function show(view){
 	$_('[data-view]').removeClass("active");
 	$_('[data-view="' + view + '"]').addClass("active");
 }
 
+// Encrypt data using OpenPGP.js
 function encrypt(data, options){
 	if(typeof options == 'undefined'){
 		encryptOptions.data = data;
@@ -29,25 +30,29 @@ function encrypt(data, options){
 	}
 }
 
+// Decrypt data
 function decrypt(data){
 	decryptOptions.message = openpgp.message.readArmored(data);
 	return openpgp.decrypt(decryptOptions);
 }
 
-function getTitle(html){
+// Get the title of a note
+function getTitle(html, suggested){
 	var found = $(html).filter("h1").first().text().trim();
 	if(found){
 		return found;
 	}else{
-		return "Untitled"
+		return suggested;
 	}
 }
 
+// Function to add a note to the notes container
 function addNote(noteID, noteTitle, noteColor){
 	$_("[data-content='note-container']").append(`<article data-color='${noteColor}' draggable='true' data-nid='${noteID}'><div class='content' ><h2>${noteTitle}</h2></div><div class='note-actions'><span class='fa fa-eye' data-id='${noteID}' data-action='preview'></span><span class='fa-pencil fa' data-id='${noteID}' data-action='edit'></span><span class='fa-trash fa' data-id='${noteID}' data-action='delete'></span></div></article>`);
 	colorNote(noteID);
 }
 
+// Function to set the background color of the notes, accepts the note id
 function colorNote(id){
 	if(typeof id == 'undefined'){
 		$_(".list article").each(function(element){
@@ -63,21 +68,30 @@ function colorNote(id){
 	}
 }
 
+// Load notes of the current notebook
 function loadNotes(){
+	// Check if the key is actually set
 	if(key != null){
+		// Remove previous content
 		$_("[data-content='note-container']").html("");
+
+		// Remove welcome screen
 		$_("[data-content='welcome']").hide();
 		wait("Loading your notes");
+
 		db.transaction('r', db.note, function() {
 			var ht = "";
+			// Check if the notebook is empty
 			db.note.where("Notebook").equals(notebook).count(function(count){
 				if(count <= 0){
 					$_("[data-content='welcome']").show();
 				}
 			});
+			// Get all notes from the notebook
 			db.note.where("Notebook").equals(notebook).each(function(item, cursor){
 				var item = item;
 
+				// Decrypt the note title and add it
 				decrypt(item.Title).then(function(plaintext) {
 					addNote(item.id, plaintext.data, item.Color);
 				});
@@ -88,17 +102,27 @@ function loadNotes(){
 	}
 }
 
+// Load notebook list
 function loadNotebooks(){
 	return new Promise((resolve, reject) => {
 		wait("Wait while your notebooks are decrypted");
 		if(key != null){
+			// Remove previous content
 			$_("[data-content='notebook-list']").html("");
+
+			// Add Inbox notebook
 			$_("[data-content='notebook-list']").append('<li data-notebook="Inbox">Inbox</li>');
+
+			// Temporary array to store the notebooks
 			var notebooksTemp = [];
+
+			// Get all notebooks
 			db.transaction('r', db.notebook, function() {
 				db.notebook.each(function(item, cursor){
 
+					// Decrypt the name of each notebook
 					decrypt(item.Name).then(function(plaintext) {
+						// Push decrypted notebook to array
 						notebooksTemp.push({
 							id: item.id,
 							Name: plaintext.data
@@ -107,6 +131,7 @@ function loadNotebooks(){
 
 				});
 			}).then(function(){
+				// Order notebooks alphabetically
 				notebooksTemp.sort(function(a, b){
 					var A = a.Name.toLowerCase();
 					var B = b.Name.toLowerCase();
@@ -118,6 +143,7 @@ function loadNotebooks(){
 					}
 					return 0;
 				});
+				// Build the buttons
 				for(var i in notebooksTemp){
 					$_("[data-content='notebook-list']").append('<li data-notebook="' + notebooksTemp[i].id + '">' + notebooksTemp[i].Name + '</li>');
 				}
@@ -127,12 +153,14 @@ function loadNotebooks(){
 	});
 }
 
+// Load notebook list and notes
 function loadContent(){
 	loadNotebooks().then(() => {
 		loadNotes();
 	});
 }
 
+// Get the currently selected text
 function getSelectionText() {
     var text = "";
     if(window.getSelection){
@@ -148,8 +176,10 @@ function cleanHTML(html){
 	return html.replace(/(<\/span>|<span style=\"line-height: 1.5em;\">)/g, '').replace(/<div>/g, '<p>').replace(/<\/div>/g, '</p>\r\n').replace(/<p><br><\/p>/g, '').replace(/&nbsp;/g, ' ');
 }
 
+
 $_ready(function(){
 
+	// Check if there are any updates available
 	if(navigator.onLine){
 		Request.json('https://api.github.com/repos/Skrifa/Skrifa/releases/latest', {
 			onload: function(data){
@@ -165,43 +195,40 @@ $_ready(function(){
 		});
 	}
 
+	// Hide the notebook edition options
 	$_("[data-action='edit-notebook']").hide();
 	$_("[data-action='delete-notebook']").hide();
 
+	// Build the select options for language highlightning
 	for(var key in Prism.languages){
 		$_("[data-form='insert-snippet'] select").append("<option value='" + key + "'>"+ Text.capitalize(key) +"</option>");
 	}
 
+	// Go to decrypt screen if a private key is already stored
 	if(Storage.get("PrivKey") != null){
 		show("decrypt");
 	}
 
-	if(Storage.get("view") != null){
-
-		if(Storage.get("view") == "list"){
-			$_("[data-content='note-container']").removeClass("grid");
-			$_("[data-content='note-container']").addClass("list");
-			$_("[data-action='change-view']").removeClass("fa-th-list");
-			$_("[data-action='change-view']").addClass("fa-th");
-		}
+	// Change view settings
+	if(settings.view == "list"){
+		$_("[data-content='note-container']").removeClass("grid");
+		$_("[data-content='note-container']").addClass("list");
+		$_("[data-action='change-view']").removeClass("fa-th-list");
+		$_("[data-action='change-view']").addClass("fa-th");
 	}
 
-	if(Storage.get("theme") != null){
-		$("body").removeClass();
-		$_("body").addClass(Storage.get("theme"));
-		$_("[data-action='change-theme']").value(Storage.get("theme"));
-	}
+	// Set the theme for the application
+	$("body").removeClass();
+	$_("body").addClass(settings.theme);
+	$_("[data-action='change-theme']").value(settings.theme);
 
+	// Listener for when the menu icon is clicked
 	$_(".menu-icon").click(function(){
 		if($_("[data-view='" +$_(this).data("menu") + "'] .side-nav").isVisible()){
 			$("[data-view='" +$_(this).data("menu") + "'] .side-nav").removeClass("active");
 		}else{
 			$("[data-view='" +$_(this).data("menu") + "'] .side-nav").addClass("active");
 		}
-	});
-
-	$_("[data-view='settings'] [type='reset']").click(function(){
-		show("notes");
 	});
 
 });

@@ -34,10 +34,6 @@ $_ready(function(){
 
 												}).then(function(){
 													wait("Encrypting Data From Backup");
-													var options = {
-														publicKeys: openpgp.key.readArmored(Storage.get("PubKey")).keys,
-														privateKeys: openpgp.key.readArmored(key).keys
-													};
 
 													var notebooksTemp = [];
 													var notesTemp = [];
@@ -113,12 +109,12 @@ $_ready(function(){
 													var notesTemp = [];
 													var notes = Object.keys(backup).map(function(k) { return backup[k] });
 													var promises = notes.map(function(note) {
-														note.id = parseInt(note.id);
 														note.Notebook = "Inbox";
 														note.CreationDate = note.CDate;
 														note.ModificationDate = note.MDate;
 														delete note.CDate;
 														delete note.MDate;
+														delete note.id;
 														return encrypt(note.Title).then(function(ciphertext){
 															note.Content = note.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace("data-url", "src");
 															return encrypt(note.Content).then(function(ciphertext2){
@@ -202,7 +198,6 @@ $_ready(function(){
 
 					db.note.where('Notebook').equals("Inbox").each(function(item, cursor){
 						json.notebooks["Inbox"].notes.push({
-							id: item.id,
 							Title: item.Title,
 							Content: item.Content,
 							CreationDate: item.CreationDate,
@@ -223,7 +218,6 @@ $_ready(function(){
 
 						db.note.where('Notebook').equals('' + item.id).each(function(item2, cursor2){
 							json.notebooks[item.id].notes.push({
-								id: item2.id,
 								Title: item2.Title,
 								Content: item2.Content,
 								CreationDate: item2.CreationDate,
@@ -261,11 +255,20 @@ $_ready(function(){
 
 	});
 
+	$_("[data-form='settings']").submit(function(event){
+		event.preventDefault();
+		show('notes');
+	});
+
+	$_("[data-form='settings'] [type='reset']").click(function(){
+		show("notes");
+	});
 
 	$_("[data-action='change-theme']").change(function(){
 		$("body").removeClass();
 		$_("body").addClass($_("[data-action='change-theme'] :checked").value());
-		Storage.set("theme", $_("[data-action='change-theme'] :checked").value());
+		settings.theme = $_("[data-action='change-theme'] :checked").value();
+		Storage.set("settings", JSON.stringify(settings));
 	});
 
 });

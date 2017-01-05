@@ -1,7 +1,6 @@
 $_ready(function(){
 	$("body").on("click", "[data-action]",function(){
 		switch ($_(this).data("action")) {
-
 			case "print":
 				window.print();
 				break;

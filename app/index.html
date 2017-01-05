@@ -148,9 +148,9 @@
 			<div data-modal="insert-table" data-insert-element="Table">
 				<form data-form="insert-table" class="vertical align-center padded-1">
 					<label>Rows:</label>
-					<input type="number" placeholder="Rows" data-input="rows" min="0">
+					<input type="number" placeholder="Rows" data-input="rows" min="0" required="true">
 					<label>Columns:</label>
-					<input type="number" placeholder="Columns" data-input="columns" min="0">
+					<input type="number" placeholder="Columns" data-input="columns" min="0" required="true">
 					<div class="buttons">
 						<button type="submit">Ok</button>
 						<button type="reset">Cancel</button>
@@ -161,9 +161,9 @@
 			<div data-modal="insert-link" data-insert-element="Link">
 				<form data-form="insert-link" class="vertical align-center padded-1">
 					<label>Text to Show:</label>
-					<input type="text" placeholder="Text" data-input="text">
+					<input type="text" placeholder="Text" data-input="text" required="true">
 					<label>URL to link to:</label>
-					<input type="text" placeholder="Link" data-input="link">
+					<input type="text" placeholder="Link" data-input="link" required="true">
 					<div class="buttons">
 						<button type="submit">Ok</button>
 						<button type="reset">Cancel</button>
@@ -176,7 +176,7 @@
 					<label>Load local Image:</label>
 					<button data-action='local-image' class="button">Select Image</button>
 					<label>Image URL:</label>
-					<input type="text" placeholder="www.example.com/image.png">
+					<input type="text" placeholder="www.example.com/image.png" required="true">
 					<div class="buttons">
 						<button type="submit">Ok</button>
 						<button type="reset">Cancel</button>

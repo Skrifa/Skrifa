@@ -1,28 +1,34 @@
 function saveNote(){
 	wait("Saving your note");
+	// Set the note content to save
 	var html = cleanHTML($_("#editor").html().trim());
 	var date = new Date().toLocaleString();
 	currentContent = html;
 	db.transaction('rw', db.note, function(){
+		// Get note title
 		var h1 = $_("#editor h1").first().text().trim();
 		h1 = h1 != "" ? h1 : "Untitled";
+		// Change title in the note container
 		$_("[data-nid='" + id + "'] h2").text(h1);
 		if(html && h1 && date){
-
+			// Encrypt content
 			encrypt(html).then(function(ciphertext) {
 
 				encrypt(h1).then(function(ciphertext2) {
+					// Update the note
 					db.note.where("id").equals(parseInt(id)).modify({
 						Content: ciphertext.data,
 						Title: ciphertext2.data,
-						MDate: date
+						ModificationDate: date
 					});
 				});
 			});
 		}
 	}).then(function(){
+		// Set the unsaved state to false
 		unsaved = false;
 		$_("[data-action='save']").removeClass('unsaved');
+		// Show the editor again
 		show("editor");
 	});
 }
@@ -38,7 +44,8 @@ $_ready(function(){
 	    document.execCommand('insertText', false, plainText);
 	});
 
-var map = {9: false, 16: false};
+	// Handle indent events
+	var map = {9: false, 16: false};
 	$("#editor").on('keydown', function(e) {
 	  var keyCode = e.keyCode || e.which;
 		if (keyCode in map) {
@@ -56,6 +63,7 @@ var map = {9: false, 16: false};
 
 			}
         }
+		// Check if there are unsaved contents
 		if($_("#editor").html() != currentContent){
 			unsaved = true;
 			$_("[data-action='save']").addClass('unsaved');
@@ -68,7 +76,7 @@ var map = {9: false, 16: false};
 	    if (keyCode in map) {
 	        map[keyCode] = false;
 	    }
-
+		// Check if there are unsaved contents
 		if($_("#editor").html() != currentContent){
 			unsaved = true;
 			$_("[data-action='save']").addClass('unsaved');
@@ -80,7 +88,7 @@ var map = {9: false, 16: false};
 
 	});
 
-
+	// All the actions for the editor buttons
 	$_("[data-tool]").click(function(){
 		unsaved = true;
 		$_("[data-action='save']").addClass('unsaved');

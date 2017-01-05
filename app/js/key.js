@@ -1,74 +1,95 @@
 $_ready(function(){
+
+	// Listener for the submit button
 	$_("[data-form='key']").submit(function(event){
 		event.preventDefault();
 
-		if($_("[data-form='key'] input[name='passphrase']").value() == $_("[data-form='key'] input[name='rpassphrase']").value()){
-			var options = {
-				userIds: [{
-					name: Storage.get("User"),
-					email: Storage.get("User") + "@skrifa.xyz"
-				}],
-				numBits: 4096,
-				passphrase: $_("[data-form='key'] input[name='passphrase']").value()         // protects the private key
-			};
+		// Check if the user is online
+		if(navigator.onLine){
+			// Check if the passphrases match
+			if($_("[data-form='key'] input[name='passphrase']").value() == $_("[data-form='key'] input[name='rpassphrase']").value()){
 
-			wait("Generating new Key Pair");
-
-			openpgp.generateKey(options).then(function(key) {
-				var privkey = key.privateKeyArmored; // '-----BEGIN PGP PRIVATE KEY BLOCK ... '
-				var pubkey = key.publicKeyArmored;   // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
-
-				var inputs = {
-					"user": Storage.get("User"),
-					"key": CryptoJS.AES.encrypt(privkey, $_("[data-form='key'] input[name='passphrase']").value()).toString(),
-					"pub": pubkey,
-					"password": $_("[data-form='login'] input[name='password']").value()
+				// Set options for key generation
+				var options = {
+					userIds: [{
+						name: Storage.get("User"),
+						email: Storage.get("User") + "@skrifa.xyz"
+					}],
+					numBits: 4096,
+					passphrase: $_("[data-form='key'] input[name='passphrase']").value()         // protects the private key
 				};
 
-				var str = [];
-				for(var value in inputs){
-					str.push(encodeURIComponent(value) + "=" + encodeURIComponent(inputs[value]));
-				}
+				wait("Generating new Key Pair");
 
-				Request.post(base + "/key", str.join("&"), {
-					onload: function(data){
-						if(typeof data.response.status != 'undefined'){
-							$_("[data-form='login'] input[name='password']").value("");
+				// Generate key
+				openpgp.generateKey(options).then(function(key) {
+					var privkey = key.privateKeyArmored; // '-----BEGIN PGP PRIVATE KEY BLOCK ... '
+					var pubkey = key.publicKeyArmored;   // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
 
-							Storage.set("PubKey", pubkey);
-							Storage.set("PrivKey", inputs.key);
+					// Build the data that will be sent to the server
+					var inputs = {
+						"user": Storage.get("User"),
+						// Encrypt the key using CryptoJS
+						"key": CryptoJS.AES.encrypt(privkey, $_("[data-form='key'] input[name='passphrase']").value()).toString(),
+						"pub": pubkey,
+						"password": $_("[data-form='login'] input[name='password']").value()
+					};
 
-							key = CryptoJS.AES.decrypt(inputs.key, $_("[data-form='key'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8);
-							key = openpgp.key.readArmored(key).keys[0];
-							key.decrypt($_("[data-form='key'] input[name='passphrase']").value());
-
-							key = key.armor();
-
-							encryptOptions = {
-								publicKeys: openpgp.key.readArmored(Storage.get("PubKey")).keys,
-								privateKeys: openpgp.key.readArmored(key).keys
-							};
-
-							decryptOptions = {
-								publicKeys:  openpgp.key.readArmored(Storage.get("PubKey")).keys,
-								privateKey: openpgp.key.readArmored(key).keys[0]
-							};
-
-							show("notes");
-
-						}else{
-
-						}
-					},
-
-					error: function(data){
-
+					var str = [];
+					for(var value in inputs){
+						str.push(encodeURIComponent(value) + "=" + encodeURIComponent(inputs[value]));
 					}
 
-				}, "json");
-			});
+					// Make post request to the server to save the key
+					Request.post(base + "/key", str.join("&"), {
+						onload: function(data){
+							if(typeof data.response.status != 'undefined'){
+								// Clear the login form
+								$_("[data-form='login'] input[name='password']").value("");
+
+								// Save the keys locally
+								Storage.set("PubKey", pubkey);
+								Storage.set("PrivKey", inputs.key);
+
+								// Decrypt the key from CryptoJS
+								key = CryptoJS.AES.decrypt(inputs.key, $_("[data-form='key'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8);
+								key = openpgp.key.readArmored(key).keys[0];
+
+								// Decrypt the Key from OpenPGP.js
+								key.decrypt($_("[data-form='key'] input[name='passphrase']").value());
+								key = key.armor();
+
+								// Set option values for the encryption function
+								encryptOptions = {
+									publicKeys: openpgp.key.readArmored(Storage.get("PubKey")).keys,
+									privateKeys: openpgp.key.readArmored(key).keys
+								};
+
+								// Set option values for the decryption function
+								decryptOptions = {
+									publicKeys:  openpgp.key.readArmored(Storage.get("PubKey")).keys,
+									privateKey: openpgp.key.readArmored(key).keys[0]
+								};
+
+								show("notes");
+
+							}else{
+
+							}
+						},
+
+						error: function(data){
+
+						}
+
+					}, "json");
+				});
+			}else{
+				$_("[data-form='key'] [data-content='status']").text("Passphrases does not match");
+			}
 		}else{
-			$_("[data-form='key'] [data-content='status']").text("Passphrases does not match");
+			$_("[data-form='key'] [data-content='status']").text("You need to be online so that we can save your keys.");
 		}
+
 	});
 });
