@@ -30,6 +30,10 @@ function saveNote(){
 		$_("[data-action='save']").removeClass('unsaved');
 		// Show the editor again
 		show("editor");
+	}).catch(function(){
+		dialog.showErrorBox("Error saving", "There was an error saving yoru note, please try again.");
+		unsaved = true;
+		show("editor");
 	});
 }
 
@@ -380,11 +384,20 @@ $_ready(function(){
 						$_("[data-modal='insert-image']").removeClass("active");
 					}else{
 						var imageName = file[0].split('/').pop();
-						toDataUrl(file[0], function(url){
-							$("span.insertImage-div").replaceWith("<img class='lazy' src='" + url + "' alt='" + imageName + "' data-url='" + imageName + "'>");
+						var extension = file[0].split('.').pop();
+
+						if(extension == "png"){
+							var image = nativeImage.createFromPath(file[0]);
+							image = image.resize({quality: settings.imageCompression});
+							$("span.insertImage-div").replaceWith("<img class='lazy' src='" + image.toDataURL() + "' alt='" + imageName + "' data-url='" + imageName + "'>");
+						}else{
+							toDataUrl(file[0], function(url){
+								$("span.insertImage-div").replaceWith("<img class='lazy' src='" + url + "' alt='" + imageName + "' data-url='" + imageName + "'>");
+							});
+						}
+
 							$_("span.insertImage-div").remove();
 							$_("[data-modal='insert-image']").removeClass("active");
-						});
 
 					}
 				});

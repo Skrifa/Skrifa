@@ -266,6 +266,8 @@ $_ready(function(){
 
 	$_("[data-form='settings']").submit(function(event){
 		event.preventDefault();
+		settings.imageCompression = $_("[data-input='imageCompression'] :checked").value();
+		Storage.set("settings", JSON.stringify(settings));
 		show('notes');
 	});
 

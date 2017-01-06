@@ -179,18 +179,28 @@ function cleanHTML(html){
 
 // Transform images to base64 encoding
 function toDataUrl(url, callback) {
+	wait("Loading Image");
 	var xhr = new XMLHttpRequest();
 	xhr.responseType = 'blob';
 	xhr.onload = function() {
 		var reader = new FileReader();
 		reader.onloadend = function() {
-			callback(reader.result);
+			if(xhr.response.type == "image/png"){
+				var image = nativeImage.createFromDataURL(reader.result);
+				image = image.resize({quality: settings.imageCompression});
+				show('editor');
+				callback(image.toDataURL());
+			}else{
+				show('editor');
+				callback(reader.result);
+			}
 		}
 		reader.readAsDataURL(xhr.response);
 	};
 	xhr.onerror = function(){
 		$_("span.insertImage-div").remove();
 		dialog.showErrorBox("Error loading your image", "There was an error loading your image, it was not inserted.");
+		show('editor');
 	};
 	xhr.open('GET', url);
 	xhr.send();

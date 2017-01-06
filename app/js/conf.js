@@ -12,6 +12,7 @@ MathJax.Hub.Config({
 
 // Import all needed modules
 const {dialog} = require('electron').remote;
+const nativeImage = require('electron').nativeImage
 const {shell} = require('electron');
 const fs = require('fs');
 const MarkdownIt = require('markdown-it');
@@ -64,7 +65,8 @@ if(Storage.get("settings")){
 	var settings = {
 		autosave: false,
 		theme: "light",
-		view: "grid"
+		view: "grid",
+		imageCompression: "good"
 	};
 }
 
