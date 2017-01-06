@@ -170,6 +170,9 @@ $_ready(function(){
 		}
 	});
 
+	/*
+	 * Actions for the editor toolbar
+	 */
 	$("[data-action='save']").click(function(){
 		saveNote();
 	});
@@ -234,6 +237,10 @@ $_ready(function(){
 		$_("[data-modal='unsaved']").removeClass("active");
 		$_("[data-form='unsaved']").get(0).reset();
 	});
+
+	/*
+	 * Listeners for every modal window on the editor
+	 */
 
 	$_("[data-form='insert-table']").submit(function(event){
 		event.preventDefault();
