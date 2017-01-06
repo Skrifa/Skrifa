@@ -372,7 +372,7 @@ $_ready(function(){
 			if(file){
 				fs.readFile(file[0], 'utf8', function (error, data) {
 					if(error){
-						console.log(error);
+						dialog.showErrorBox("Error loading image", "There was an error loading your image.");
 						$_("[data-modal='insert-image']").removeClass("active");
 					}else{
 

@@ -58,7 +58,7 @@ $_ready(function(){
 															delete note.CDate;
 															delete note.MDate;
 															return encrypt(note.Title).then(function(ciphertext){
-																note.Content = note.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace("data-url", "src");
+																note.Content = note.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace(/data\-url/g, "src");
 																return encrypt(note.Content).then(function(ciphertext2){
 																	note.Title = ciphertext.data;
 																	note.Content = ciphertext2.data;
@@ -81,7 +81,7 @@ $_ready(function(){
 																loadContent();
 															}).catch(function(error) {
 
-															    console.log(error);
+															    dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
 
 															});
 
@@ -89,7 +89,7 @@ $_ready(function(){
 													});
 												}).catch(function(error) {
 
-												    console.log(error);
+												    dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
 
 												});
 
@@ -134,12 +134,12 @@ $_ready(function(){
 															loadContent();
 														}).catch(function(error) {
 
-															console.log(error);
+															dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
 
 														});
 													});
 												}).catch(function(error){
-													console.log(error);
+													dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
 												});
 
 
@@ -228,16 +228,18 @@ $_ready(function(){
 							});
 						});
 					}).then(function(){
+						var date = new Date().toLocaleDateString().replace(/\//g, "-");
 						dialog.showSaveDialog({
 							title: "Choose Directory to Save Backup",
-							buttonLabel: "Choose"
+							buttonLabel: "Choose",
+							defaultPath: `Skrifa Backup ${date}.skb`
 						},
 						function(directory){
 							if(directory){
 								wait("Writing Backup to File");
-								fs.writeFile(directory + '.skb', JSON.stringify(json), 'utf8', function (error) {
+								fs.writeFile(directory, JSON.stringify(json), 'utf8', function (error) {
 									if(error){
-										console.log(error);
+										dialog.showErrorBox("Error creating backup", "There was an error creating your backup, file was not created.");
 									}else{
 										show("notes");
 									}

@@ -132,7 +132,7 @@ $_ready(function(){
 						wait("Reading File");
 						fs.readFile(file[0], 'utf8', function (error, data) {
 							if(error){
-								console.log(error);
+								dialog.showErrorBox("Error reading file", "There was an error reading the file, note was not imported.");
 								show("notes");
 							}else{
 								var extension = file[0].split(".").pop();
@@ -254,7 +254,7 @@ $_ready(function(){
 													show('notes');
 												});
 											}).catch((error) => {
-												console.log(error);
+												dialog.showErrorBox("Error decrypting your note", "There was an error decrypting your note, it was not imported.");
 												show('notes');
 											});
 										}

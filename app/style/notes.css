@@ -15,8 +15,7 @@
     vertical-align: middle;
     position: relative;
     background: #eee;
-
-    _font-size: 80%;
+	overflow: hidden;
 }
 
 

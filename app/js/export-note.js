@@ -29,7 +29,7 @@ $_ready(function(){
 						}).then(function(){
 							fs.writeFile(directory, content, 'utf8', function (error) {
 								if(error){
-									console.log(error);
+									dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
 								}else{
 									show("preview");
 								}
@@ -52,7 +52,7 @@ $_ready(function(){
 								content = JSON.stringify(note);
 								fs.writeFile(directory, content, 'utf8', function (error) {
 									if(error){
-										console.log(error);
+										dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
 									}else{
 										show("preview");
 									}
@@ -75,11 +75,14 @@ $_ready(function(){
 									if(!error){
 										fs.writeFile(directory, markdown, 'utf8', function (error) {
 											if(error){
-												console.log(error);
+												dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
 											}else{
 												show("preview");
 											}
 										});
+									}else{
+										dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
+										show("preview");
 									}
 								});
 							});
