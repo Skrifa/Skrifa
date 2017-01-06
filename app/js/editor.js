@@ -288,11 +288,15 @@ $_ready(function(){
 	$_("[data-form='insert-image']").submit(function(event){
 		event.preventDefault();
 		var value = $_("[data-form='insert-image'] input").value().trim();
+		var self = this;
 		if(value != ""){
-			$("span.insertImage-div").replaceWith("<img class='lazy' src='" + value + "' alt='" + value + "' data-url='" + value + "'>");
-			$_("span.insertImage-div").remove();
-			$_("[data-modal='insert-image']").removeClass("active");
-			this.reset();
+			toDataUrl(value, function(url){
+				$("span.insertImage-div").replaceWith("<img class='lazy' src='" + url+ "' alt='" + value + "' data-url='" + value + "'>");
+				$_("span.insertImage-div").remove();
+				$_("[data-modal='insert-image']").removeClass("active");
+				self.reset();
+			});
+
 		}
 	});
 
@@ -375,10 +379,12 @@ $_ready(function(){
 						dialog.showErrorBox("Error loading image", "There was an error loading your image.");
 						$_("[data-modal='insert-image']").removeClass("active");
 					}else{
-
-						$("span.insertImage-div").replaceWith("<img class='lazy' src='" + file[0] + "' alt='" + file[0] + "' data-url='" + file[0] + "'>");
-						$_("span.insertImage-div").remove();
-						$_("[data-modal='insert-image']").removeClass("active");
+						var imageName = file[0].split('/').pop();
+						toDataUrl(file[0], function(url){
+							$("span.insertImage-div").replaceWith("<img class='lazy' src='" + url + "' alt='" + imageName + "' data-url='" + imageName + "'>");
+							$_("span.insertImage-div").remove();
+							$_("[data-modal='insert-image']").removeClass("active");
+						});
 
 					}
 				});

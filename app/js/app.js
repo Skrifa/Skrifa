@@ -177,6 +177,24 @@ function cleanHTML(html){
 	return html.replace(/(<\/span>|<span style=\"line-height: 1.5em;\">)/g, '').replace(/<div>/g, '<p>').replace(/<\/div>/g, '</p>\r\n').replace(/<p><br><\/p>/g, '').replace(/&nbsp;/g, ' ');
 }
 
+// Transform images to base64 encoding
+function toDataUrl(url, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.responseType = 'blob';
+	xhr.onload = function() {
+		var reader = new FileReader();
+		reader.onloadend = function() {
+			callback(reader.result);
+		}
+		reader.readAsDataURL(xhr.response);
+	};
+	xhr.onerror = function(){
+		$_("span.insertImage-div").remove();
+		dialog.showErrorBox("Error loading your image", "There was an error loading your image, it was not inserted.");
+	};
+	xhr.open('GET', url);
+	xhr.send();
+}
 
 $_ready(function(){
 
