@@ -118,7 +118,7 @@ $_ready(function(){
 														delete note.MDate;
 														delete note.id;
 														return encrypt(note.Title).then(function(ciphertext){
-															note.Content = note.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace("data-url", "src");
+															note.Content = note.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace(/data-url/g, "src");
 															return encrypt(note.Content).then(function(ciphertext2){
 																note.Title = ciphertext.data;
 																note.Content = ciphertext2.data;

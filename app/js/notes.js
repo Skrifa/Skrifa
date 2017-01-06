@@ -215,7 +215,7 @@ $_ready(function(){
 											var date = new Date().toLocaleString();
 
 											encrypt(json.Title).then(function(ciphertext) {
-												json.Content = json.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace("data-url", "src");
+												json.Content = json.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace(/data-url/g, "src");
 												encrypt(json.Content).then(function(ciphertext2) {
 													db.note.add({
 														Title: ciphertext.data,

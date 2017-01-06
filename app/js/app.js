@@ -182,10 +182,10 @@ $_ready(function(){
 
 	// Check if there are any updates available
 	if(navigator.onLine){
-		Request.json('https://api.github.com/repos/Skrifa/Skrifa/releases/latest', {
+		Request.json('https://skrifa.xyz/latest', {
 			onload: function(data){
-				if(data.response.tagname){
-					if(parseInt(data.response.tagname.replace("v", "")) > parseInt(pkg.version)){
+				if(data.response.version){
+					if(parseInt(data.response.version.replace(/\./g,"")) > parseInt(pkg.version.replace(/\./g,""))){
 						$_("[data-action='update']").show();
 					}
 				}
