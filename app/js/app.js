@@ -251,6 +251,8 @@ $_ready(function(){
 	$_("body").addClass(settings.theme);
 	$_("[data-action='change-theme']").value(settings.theme);
 
+	$_("[data-input='imageCompression']").value(settings.imageCompression);
+
 	// Listener for when the menu icon is clicked
 	$_(".menu-icon").click(function(){
 		if($_("[data-view='" +$_(this).data("menu") + "'] .side-nav").isVisible()){
