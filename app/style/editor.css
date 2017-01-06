@@ -30,6 +30,8 @@ mark {
 	max-width: 100%;
 	width: 100%;
 	max-height: 100%;
+	min-height: 30vh;
+	min-width: 30vw;
 }
 
 body.light tr, body.light td {
