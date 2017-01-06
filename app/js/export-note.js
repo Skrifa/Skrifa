@@ -30,6 +30,7 @@ $_ready(function(){
 							fs.writeFile(directory, content, 'utf8', function (error) {
 								if(error){
 									dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
+									show("preview");
 								}else{
 									show("preview");
 								}
@@ -53,6 +54,7 @@ $_ready(function(){
 								fs.writeFile(directory, content, 'utf8', function (error) {
 									if(error){
 										dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
+										show("preview");
 									}else{
 										show("preview");
 									}
@@ -76,6 +78,7 @@ $_ready(function(){
 										fs.writeFile(directory, markdown, 'utf8', function (error) {
 											if(error){
 												dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
+												show("preview");
 											}else{
 												show("preview");
 											}

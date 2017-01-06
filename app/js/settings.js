@@ -82,6 +82,7 @@ $_ready(function(){
 															}).catch(function(error) {
 
 															    dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
+																show('settings');
 
 															});
 
@@ -90,6 +91,7 @@ $_ready(function(){
 												}).catch(function(error) {
 
 												    dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
+													show('settings');
 
 												});
 
@@ -135,11 +137,13 @@ $_ready(function(){
 														}).catch(function(error) {
 
 															dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
+															show('settings');
 
 														});
 													});
 												}).catch(function(error){
 													dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
+													show('settings');
 												});
 
 
@@ -169,6 +173,9 @@ $_ready(function(){
 											});
 										}).then(function(){
 											loadContent();
+										}).catch(function(){
+											dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
+											show('settings');
 										});
 										break;
 								}

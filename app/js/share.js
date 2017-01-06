@@ -73,6 +73,7 @@ $_ready(() => {
 										fs.writeFile(directory, JSON.stringify(note), 'utf8', function (error) {
 											if(error){
 												dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
+												show("preview");
 											}else{
 												self.reset();
 												$_("[data-view='share'] span").text("");
