@@ -3,11 +3,6 @@ body.dark {
 	background: #262626;
 }
 
-.dark [data-form] [type='submit'] {
-	background: #00bcd4;
-	color: #fff;
-}
-
 .dark pre {
 	background: transparent;
 }
@@ -32,11 +27,6 @@ body.dark {
 	color: #1ad6fd;
 }
 
-.dark [data-form] [type='reset'],
-.dark [data-view='settings'] button {
-	background: #90a4ae;
-	color: #fff;
-}
 
 .dark [data-form] input:not([type="submit"]),
 .dark [data-form] select {
@@ -63,5 +53,27 @@ body.dark {
 }
 
 .dark [data-modal] [data-form] {
-	background-color: #232323;
+	background-color: #262626;
+}
+
+.dark [data-form] button,
+.dark [data-form] select,
+.dark [data-form] .button {
+    box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 0 rgba(0, 0, 0, 0.45),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.15),
+        0 1px 0 0 rgba(0, 0, 0, 0.15);
+    color: #fff;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+}
+
+.dark [data-modal] [data-form] {
+	box-shadow:
+	   inset 1px 0 0 0 rgba(0, 0, 0, 0.2),
+	   inset -1px 0 0 0 rgba(0, 0, 0, 0.2),
+	   inset 0 1px 0 0 #333,
+	   0 0 0 1px rgba(0, 0, 0, 0.2),
+	   0 10px 20px rgba(0, 0, 0, 0.19),
+	   0 6px 6px rgba(0, 0, 0, 0.23);
 }

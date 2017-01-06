@@ -77,6 +77,16 @@ button {
 	border-radius: 4px;
 }
 
+[data-form] [type='submit'] {
+   background: #268bd2;
+   color: #fff;
+}
+
+[data-form] [type='reset'] {
+	background: #d53c12;
+	color: #fff;
+}
+
 [data-modal] button {
 	padding: 1em;
 }
@@ -157,6 +167,7 @@ button {
     text-shadow: 0 1px rgba(255, 255, 255, 0.4);
     transition: all 200ms ease-out;
 }
+
 [data-form] button,
 [data-form] select,
 [data-form] .button {

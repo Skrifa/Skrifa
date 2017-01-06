@@ -1,8 +1,3 @@
-.light [data-form] [type='submit'] {
-	background: #268bd2;
-	color: #fff;
-}
-
 .light .side-nav,
 .light .view-nav {
 	background: #fafafa;
@@ -25,11 +20,6 @@
 .light .top-nav li:hover,
 .light .top-nav button:hover {
 	color: #1ad6fd;
-}
-
-.light [data-form] [type='reset'] {
-	background: #d53c12;
-	color: #fff;
 }
 
 .light [data-modal] [data-form] {
