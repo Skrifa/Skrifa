@@ -188,6 +188,7 @@ $_ready(function(){
 		}else{
 			id = null;
 			currentContent = null;
+			$_("#preview").html("");
 			$_("#editor").html("");
 			show('notes');
 		}
@@ -213,6 +214,7 @@ $_ready(function(){
 				db.note.where(":id").equals(parseInt(id)).first().then(function (note) {
 
 					decrypt(note.Content).then(function(plaintext) {
+						$_("#editor").html("");
 						$_("#preview").html(plaintext.data);
 						Prism.highlightAll(true, null);
 						(function(){
