@@ -10,8 +10,8 @@ $_ready(() => {
 		var promise = new Promise((resolve, reject) => {
 
 			// Check if the key of the requested user is already locally stored
-			if(Storage.get(user) != null){
-				resolve(Storage.get(user));
+			if(Storage.get("pubKey_" + user) != null){
+				resolve(Storage.get("pubKey_" + user));
 			}else{
 				// Check if the user is online
 				if(navigator.onLine){
@@ -21,7 +21,7 @@ $_ready(() => {
 							// Check if server returned any error
 							if(!data.response.error){
 								// Save the key locally
-								Storage.set(user, data.response.key);
+								Storage.set("pubKey_" + user, data.response.key);
 								resolve(data.response.key);
 							}else{
 								reject(data.response.error);
@@ -88,6 +88,7 @@ $_ready(() => {
 
 
 				}else{
+					self.reset();
 					show("preview");
 				}
 			});

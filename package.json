@@ -1,7 +1,7 @@
 {
 	"name": "Skrifa",
 	"productName": "Skrifa",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "A simple word processor built with web technologies",
 	"devDependencies": {
 		"electron": "^1.4.13",
@@ -28,6 +28,13 @@
 			"target": ["snap", "AppImage", "deb", "rpm"],
 			"executableName": "Skrifa",
 			"synopsis": "A simple word processor built with web technologies"
+		},
+		"appx": {
+			"backgroundColor": "",
+			"publisher": "",
+			"displayName": "Skrifa",
+			"publisherDisplayName": "Hyuchia",
+			"identityName": ""
 		}
 	}
 }

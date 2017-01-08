@@ -123,7 +123,7 @@ $_ready(function(){
 					title: "Import a Note",
 					buttonLabel: "Import",
 					filters: [
-					    {name: 'Custom File Type', extensions: ['skrifa', 'skf', 'md', 'txt', 'html', 'docx', 'rtf']},
+					    {name: 'Custom File Type', extensions: ['skrifa', 'skf', 'md', 'txt', 'html', 'docx', 'skn']},
 					],
 					properties: ['openFile']
 				},

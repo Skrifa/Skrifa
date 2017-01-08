@@ -188,6 +188,7 @@ $_ready(function(){
 		}else{
 			id = null;
 			currentContent = null;
+			$_("#editor").html("");
 			show('notes');
 		}
 	});
@@ -198,6 +199,7 @@ $_ready(function(){
 			case 'back':
 				id = null;
 				currentContent = null;
+				$_("#editor").html("");
 				show('notes');
 				break;
 
