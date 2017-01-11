@@ -1,7 +1,7 @@
 {
   "name": "Skrifa",
   "productName": "Skrifa",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A simple word processor built with web technologies",
   "main": "main.js",
   "keywords": [
