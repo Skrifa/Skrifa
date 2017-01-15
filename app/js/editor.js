@@ -40,14 +40,6 @@ function saveNote(){
 
 $_ready(function(){
 
-	// Prevents external styles from being copied.
-	$_('#editor').on('paste',function(e) {
-	    e.preventDefault();
-	    var plainText = (e.originalEvent || e).clipboardData.getData('text/plain');
-	    var originalText = (e.originalEvent || e).clipboardData.getData('text/html');
-	    document.execCommand('insertText', false, plainText);
-	});
-
 	// Handle indent events
 	var map = {9: false, 16: false};
 	$("#editor").on('keydown', function(e) {
