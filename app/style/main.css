@@ -425,6 +425,10 @@ textarea {
         color: #424242;
     }
 
+	[data-view="preview"] {
+		overflow: visible;
+	}
+
     #preview{
         width: 100%;
         float: none;
