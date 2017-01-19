@@ -85,7 +85,11 @@ function createWindow () {
         {
           label: 'Learn More',
           click () { require('electron').shell.openExternal('https://skrifa.xyz') }
-        }
+      },
+      {
+        label: 'Report Error',
+        click () { require('electron').shell.openExternal('https://github.com/Skrifa/Skrifa/issues') }
+      }
       ]
     }
   ]

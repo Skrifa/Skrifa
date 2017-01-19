@@ -1,6 +1,7 @@
 function saveNote(){
 	wait("Saving your note");
 	// Set the note content to save
+	$('#editor span').contents().unwrap();
 	var html = $_("#editor").html();
 	var date = new Date().toLocaleString();
 	currentContent = html;

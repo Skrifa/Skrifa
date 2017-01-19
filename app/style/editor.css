@@ -54,31 +54,31 @@ body.dark pre {
 	color: #e0e0e0;
 }
 
-#view h1, #editor h1 {
+#preview h1, #editor h1 {
 	margin: 1rem 0;
     font-size: 2rem;
 }
 
-#view h2, #editor h2 {
+#preview h2, #editor h2 {
 	margin: 1rem 0;
     font-size: 1.8rem;
 }
 
-#view h3, #editor h3 {
+#preview h3, #editor h3 {
 	margin: 1rem 0;
     font-size: 1.6rem;
 }
 
-#view h4, #editor h4 {
+#preview h4, #editor h4 {
 	margin: 1em 0;
     font-size: 1.4rem;
 }
 
-#view h5, #editor h5 {
+#preview h5, #editor h5 {
 	margin: 1rem 0;
     font-size: 1.2rem;
 }
-#view h6, #editor h6 {
+#preview h6, #editor h6 {
 	margin: 1rem 0;
     margin-bottom: 0.5rem;
 }
