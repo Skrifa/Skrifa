@@ -66,7 +66,8 @@ if(Storage.get("settings")){
 		autosave: false,
 		theme: "light",
 		view: "grid",
-		imageCompression: "good"
+		imageCompression: "good",
+		sort: "older"
 	};
 }
 

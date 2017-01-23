@@ -282,4 +282,10 @@ $_ready(function(){
 		Storage.set("settings", JSON.stringify(settings));
 	});
 
+	$_("[data-action='change-sort']").change(function(){
+		settings.sort = $_("[data-action='change-sort'] :checked").value();
+		Storage.set("settings", JSON.stringify(settings));
+		loadNotes();
+	});
+
 });

@@ -89,14 +89,28 @@ function loadNotes(){
 				}
 			});
 			// Get all notes from the notebook
-			db.note.where("Notebook").equals(notebook).each(function(item, cursor){
-				var item = item;
 
-				// Decrypt the note title and add it
-				decrypt(item.Title).then(function(plaintext) {
-					addNote(item.id, plaintext.data, item.Color);
+			if(settings.sort == "newer"){
+				db.note.where("Notebook").equals(notebook).reverse().each(function(item, cursor){
+					var item = item;
+
+					// Decrypt the note title and add it
+					decrypt(item.Title).then(function(plaintext) {
+						addNote(item.id, plaintext.data, item.Color);
+					});
 				});
-			});
+			}else{
+				db.note.where("Notebook").equals(notebook).each(function(item, cursor){
+					var item = item;
+
+					// Decrypt the note title and add it
+					decrypt(item.Title).then(function(plaintext) {
+						addNote(item.id, plaintext.data, item.Color);
+					});
+				});
+
+			}
+
 		}).then(function(){
 			show("notes");
 		});
@@ -250,6 +264,7 @@ $_ready(function(){
 	$("body").removeClass();
 	$_("body").addClass(settings.theme);
 	$_("[data-action='change-theme']").value(settings.theme);
+	$_("[data-action='change-sort']").value(settings.sort);
 
 	$_("[data-input='imageCompression']").value(settings.imageCompression);
 
