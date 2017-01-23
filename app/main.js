@@ -10,91 +10,93 @@ function createWindow () {
   // Create the browser window.
   win = new BrowserWindow({width: 800, height: 600})
 
-  const {Menu} = require('electron')
 
-  const template = [
-    {
-      label: 'Edit',
-      submenu: [
-        {
-          role: 'undo'
-        },
-        {
-          role: 'redo'
-        },
-        {
-          type: 'separator'
-        },
-        {
-          role: 'cut'
-        },
-        {
-          role: 'copy'
-        },
-        {
-          role: 'paste'
-        },
-        {
-          role: 'pasteandmatchstyle'
-        },
-        {
-          role: 'delete'
-        },
-        {
-          role: 'selectall'
-        }
-      ]
-    },
-    {
-      label: 'View',
-      submenu: [
-        {
-          role: 'resetzoom'
-        },
-        {
-          role: 'zoomin'
-        },
-        {
-          role: 'zoomout'
-        },
-        {
-          type: 'separator'
-        },
-        {
-          role: 'togglefullscreen'
-	  },
-	  {
-		  role: 'toggledevtools'
-	  }
-      ]
-    },
-    {
-      role: 'window',
-      submenu: [
-        {
-          role: 'minimize'
-        },
-        {
-          role: 'close'
-        }
-      ]
-    },
-    {
-      role: 'help',
-      submenu: [
-        {
-          label: 'Learn More',
-          click () { require('electron').shell.openExternal('https://skrifa.xyz') }
-      },
-      {
-        label: 'Report Error',
-        click () { require('electron').shell.openExternal('https://github.com/Skrifa/Skrifa/issues') }
-      }
-      ]
-    }
-  ]
 
   if (process.platform === 'darwin') {
+
+      const {Menu} = require('electron')
+
+      const template = [
+        {
+          label: 'Edit',
+          submenu: [
+            {
+              role: 'undo'
+            },
+            {
+              role: 'redo'
+            },
+            {
+              type: 'separator'
+            },
+            {
+              role: 'cut'
+            },
+            {
+              role: 'copy'
+            },
+            {
+              role: 'paste'
+            },
+            {
+              role: 'pasteandmatchstyle'
+            },
+            {
+              role: 'delete'
+            },
+            {
+              role: 'selectall'
+            }
+          ]
+        },
+        {
+          label: 'View',
+          submenu: [
+            {
+              role: 'resetzoom'
+            },
+            {
+              role: 'zoomin'
+            },
+            {
+              role: 'zoomout'
+            },
+            {
+              type: 'separator'
+            },
+            {
+              role: 'togglefullscreen'
+    	  },
+    	  {
+    		  role: 'toggledevtools'
+    	  }
+          ]
+        },
+        {
+          role: 'window',
+          submenu: [
+            {
+              role: 'minimize'
+            },
+            {
+              role: 'close'
+            }
+          ]
+        },
+        {
+          role: 'help',
+          submenu: [
+            {
+              label: 'Learn More',
+              click () { require('electron').shell.openExternal('https://skrifa.xyz') }
+          },
+          {
+            label: 'Report Error',
+            click () { require('electron').shell.openExternal('https://github.com/Skrifa/Skrifa/issues') }
+          }
+          ]
+        }
+      ]
     template.unshift({
       label: app.getName(),
       submenu: [
@@ -169,10 +171,11 @@ function createWindow () {
         role: 'front'
       }
     ]
+    const menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
   }
 
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
+
 
 
   // and load the index.html of the app.
