@@ -66,9 +66,6 @@ function createWindow () {
             },
             {
               role: 'togglefullscreen'
-    	  },
-    	  {
-    		  role: 'toggledevtools'
     	  }
           ]
         },
