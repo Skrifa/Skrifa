@@ -122,6 +122,7 @@ b {
 .side-nav button {
 	padding: 1em;
 	cursor: pointer;
+	background: transparent;
 }
 
 .side-nav li,

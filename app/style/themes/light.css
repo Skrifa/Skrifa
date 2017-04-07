@@ -43,16 +43,6 @@
 	background: #fff;
 }
 
-.light .side-nav button,
-.light .side-nav li {
-	background: transparent;
-}
-
-.light .top-nav button,
-.light .top-nav li {
-	background: transparent;
-}
-
 .light .side-nav button:hover,
 .light .side-nav li:hover {
 	background-color: rgba(0, 0, 0, 0.1);
