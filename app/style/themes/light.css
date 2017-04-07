@@ -1,27 +1,176 @@
-.light .side-nav,
-.light .view-nav {
+/*
+ * Theme: Light
+ * Author: Diego Islas Ocampo <hyuchia@gmail.com>
+ */
+
+
+/*
+ * ==========================================================================
+ * Common Elements Styling
+ * ==========================================================================
+ */
+
+.light a {
+	color: #08c;
+}
+
+.light tr,
+.light td {
+	border: 1px solid #424242;
+}
+
+.light mark {
+	color: #FFEB3B;
+}
+
+.light pre {
+	border: 1px solid rgba(66, 66, 66, 0.11);
+	color: #424242;
+}
+
+/*
+ * ==========================================================================
+ * Navigation Styling
+ * ==========================================================================
+ */
+
+.light .side-nav {
+	box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
 	background: #fafafa;
 }
 
-.light .grid article {
-	color: #fff;
+.light .top-nav {
+	background: #fff;
+}
+
+.light .side-nav button,
+.light .side-nav li {
+	background: transparent;
+}
+
+.light .top-nav button,
+.light .top-nav li {
+	background: transparent;
+}
+
+.light .side-nav button:hover,
+.light .side-nav li:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.light .top-nav button:hover,
+.light .top-nav li:hover {
+	color: #1ad6fd;
 }
 
 .light .side-nav h3 {
     border-top: 1px solid #ddd;
-    padding-top: 0.5em;
 }
 
-.light .side-nav li:hover,
-.light .side-nav button:hover {
-	background-color: rgba(0, 0, 0, 0.1);
-}
+/*
+ * ==========================================================================
+ * Modal/Form Elements Styling
+ * ==========================================================================
+ */
 
-.light .top-nav li:hover,
-.light .top-nav button:hover {
-	color: #1ad6fd;
+.light [data-modal] {
+	background: rgba(0, 0, 0, 0.5);
 }
 
 .light [data-modal] [data-form] {
 	background-color: #fff;
+	box-shadow:
+	   inset 1px 0 0 0 rgba(255, 255, 255, 0.2),
+	   inset -1px 0 0 0 rgba(255, 255, 255, 0.2),
+	   inset 0 1px 0 0 #fff,
+	   0 0 0 1px rgba(0, 0, 0, 0.2),
+	   0 10px 20px rgba(0, 0, 0, 0.19),
+	   0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.light [data-form] button,
+.light [data-form] select {
+	background-color: transparent;
+    background-image: linear-gradient(to bottom, transparent, transparent 50%, rgba(0, 0, 0, 0.04));
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 0 0 rgba(255, 255, 255, 0.15),
+        0 1px 0 0 rgba(255, 255, 255, 0.15);
+    color: #333;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.light [data-form] button:focus {
+	border-color: rgba(77, 156, 209, 0.8);
+}
+
+.light [data-form] button:active {
+	background-color: rgba(0, 0, 0, 0.05);
+    background-image: none;
+    color: inherit;
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+.light [data-form] input,
+.light [data-form] textarea {
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #fafafa, #fdfdfd);
+    border: 1px solid rgba(0, 0, 0, 0.22);
+    box-shadow:
+        inset 0 1px 0 0 rgba(0, 0, 0, 0.04),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.02),
+        0 1px 0 1px rgba(255, 255, 255, 0.3);
+    color: #323232;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.light [data-form] [type='submit'] {
+	background: #268bd2;
+    color: #fff;
+}
+
+.light [data-form] [type='reset'] {
+	background: #d53c12;
+	color: #fff;
+}
+
+.light [data-form] [type='submit']:active {
+	color: #268bd2;
+	border: 1px solid #268bd2;
+}
+
+.light [data-form] [type='reset']:active {
+	color: #d53c12;
+	border: 1px solid #d53c12;
+}
+
+/*
+ * ==========================================================================
+ * Note List Elements Styling
+ * ==========================================================================
+ */
+
+.light .grid article {
+	background: #eee;
+	color: #fff;
+}
+
+.light .grid .note-actions {
+	background: rgba(0,0,0,0.2);
+}
+
+.light .grid .note-actions .fa:hover {
+	background: rgba(0,0,0,0.2);
+}
+
+/*
+ * ==========================================================================
+ * Editor and Preview Elements Styling
+ * ==========================================================================
+ */
+
+.light [data-action='save'].unsaved {
+	color: #b93d30;
 }
