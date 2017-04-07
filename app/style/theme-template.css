@@ -1,0 +1,183 @@
+/*
+ * Theme: Theme Name
+ * Author: Author Name <example@example.com>
+ */
+
+/*
+ * ==========================================================================
+ * Font Importing
+ * ==========================================================================
+ */
+
+/*
+ * ==========================================================================
+ * Common Elements Styling
+ * ==========================================================================
+ */
+
+body.theme-template {
+
+}
+
+.theme-template a {
+
+}
+
+.theme-template section {
+
+}
+
+.theme-template tr,
+.theme-template td {
+
+}
+
+.theme-template mark {
+
+}
+
+.theme-template pre {
+
+}
+
+/*
+ * ==========================================================================
+ * Navigation Styling
+ * ==========================================================================
+ */
+
+.theme-template .side-nav {
+
+}
+
+.theme-template .top-nav {
+
+}
+
+.theme-template .side-nav button,
+.theme-template .side-nav li {
+
+}
+
+.theme-template .top-nav button,
+.theme-template .top-nav li {
+
+}
+
+.theme-template .side-nav button:hover,
+.theme-template .side-nav li:hover {
+
+}
+
+.theme-template .top-nav button:hover,
+.theme-template .top-nav li:hover {
+
+}
+
+/*
+ * ==========================================================================
+ * View Elements Styling
+ * ==========================================================================
+ */
+
+
+
+/*
+ * ==========================================================================
+ * Modal/Form Elements Styling
+ * ==========================================================================
+ */
+
+.theme-template [data-modal] {
+
+}
+
+.theme-template [data-modal] [data-form] {
+
+}
+
+.theme-template [data-form] button {
+
+}
+
+.theme-template [data-form] button:focus {
+
+}
+
+.theme-template [data-form] button:active {
+
+}
+
+.theme-template [data-form] input {
+
+}
+
+.theme-template [data-form] select {
+
+}
+
+.theme-template [data-form] textarea {
+
+}
+
+.theme-template [data-form] [type='submit'] {
+
+}
+
+.theme-template [data-form] [type='reset'] {
+
+}
+
+.theme-template [data-form] [type='submit']:active {
+
+}
+
+.theme-template [data-form] [type='reset']:active {
+
+}
+
+.theme-template [data-form] [type='submit']:focus {
+
+}
+
+.theme-template [data-form] [type='reset']:focus {
+
+}
+
+/*
+ * ==========================================================================
+ * Note List Elements Styling
+ * ==========================================================================
+ */
+
+.theme-template .grid article {
+
+}
+
+.theme-template .grid .note-actions {
+
+}
+
+.theme-template .grid .note-actions .fa {
+
+}
+
+.theme-template .grid .note-actions .fa:hover {
+
+}
+
+/*
+ * ==========================================================================
+ * Editor and Preview Elements Styling
+ * ==========================================================================
+ */
+
+.theme-template [data-action='save'].unsaved {
+
+ }
+
+/*
+ * ==========================================================================
+ * Extra Styling
+ * ==========================================================================
+ */
