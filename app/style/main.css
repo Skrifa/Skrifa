@@ -1,13 +1,21 @@
-/** Space for all imported Fonts **/
+/*
+ * ==========================================================================
+ * Font Importing
+ * ==========================================================================
+ */
 
 @font-face {
   font-family: 'Open Sans';
-  font-style: normal;;
+  font-style: normal;
   font-weight: 400;
   src: url('../fonts/OpenSans-Light.ttf') format('truetype');
 }
 
-/** Main Style goes here**/
+/*
+ * ==========================================================================
+ * Common Elements Styling
+ * ==========================================================================
+ */
 
 body {
 	font-weight: lighter;
@@ -17,6 +25,7 @@ body {
 section {
 	display: none;
 	height: 100vh;
+	max-height: 100vh;
 	width: 100vw;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -26,82 +35,66 @@ section.active {
 	display: block;
 }
 
-[data-content='welcome']{
-	position: relative;
-}
-
-[data-modal] select{
-    margin: 1em;
-    padding: 0.5em;
-}
-
-body.light select {
-    background: fafafa;
-}
-
 button {
 	cursor: pointer;
 }
 
+button:focus {
+    text-decoration: none;
+}
 
-.logo {
+ul {
 	margin: 0;
+	padding: 0;
 }
 
-[data-modal] {
-	display: none;
-	text-align: center;
-	background: rgba(0, 0, 0, 0.5);
-	z-index: 12;
-	width: 100vw;
-	height: 100vh;
-	position: absolute;
+iframe,
+embed,
+object,
+img,
+.video-wrapper {
+	max-width: 50%;
+	max-height: 50%;
 }
 
-[data-modal] [data-form] {
-	top: 50%;
-    left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	-moz-transform: translate(-50%,-50%);
-	-o-transform: translate(-50%,-50%);
-	-ms-transform: translate(-50%,-50%);
-	box-shadow:
-	   inset 1px 0 0 0 rgba(255, 255, 255, 0.2),
-	   inset -1px 0 0 0 rgba(255, 255, 255, 0.2),
-	   inset 0 1px 0 0 #fff,
-	   0 0 0 1px rgba(0, 0, 0, 0.2),
-	   0 10px 20px rgba(0, 0, 0, 0.19),
-	   0 6px 6px rgba(0, 0, 0, 0.23);
-	position: absolute;
-	padding: 2em;
-	border-radius: 4px;
+table,
+code {
+	overflow-x: scroll;
+	max-width: 100%;
 }
 
-[data-form] [type='submit'] {
-   background: #268bd2;
-   color: #fff;
+tr,
+td {
+	padding: 0.5em;
 }
 
-[data-form] [type='reset'] {
-	background: #d53c12;
-	color: #fff;
+h1, h2, h3, h4, h5, h6 {
+	font-weight: lighter;
+	line-height: normal;
 }
 
-[data-modal] button {
-	padding: 1em;
+b {
+	font-weight: bold;
 }
 
-[data-modal].active {
-	display: block;
+::-webkit-scrollbar {
+    background: transparent;
+	width: 6px;
 }
 
-.top-nav li[data-action='update'] {
-	display: none;
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
 }
 
 [data-action='local-image'] {
 	margin: 0 auto;
 }
+
+/*
+ * ==========================================================================
+ * Navigation Styling
+ * ==========================================================================
+ */
 
 .side-nav {
     height: 100%;
@@ -109,15 +102,36 @@ button {
     float: left;
 	position: fixed;
     text-align: center;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.23), 0 3px 12px rgba(0, 0, 0, 0.16);
 	overflow-x: hidden;
     overflow-y: scroll;
 	display: none;
 	z-index: 11;
 }
 
-[data-content='notebook-list'] {
-	text-align: left;
+.side-nav.active {
+	display: block;
+}
+
+.side-nav h3 {
+    padding-top: 0.5em;
+}
+
+.top-nav li,
+.top-nav button,
+.side-nav li,
+.side-nav button {
+	padding: 1em;
+	cursor: pointer;
+}
+
+.side-nav li,
+.side-nav button {
+	display: block;
+}
+
+.top-nav li,
+.top-nav button {
+	display: inline-block;
 }
 
 .top-nav {
@@ -126,128 +140,16 @@ button {
 	overflow: hidden;
 	text-align: left;
 	z-index: 10;
-	background: #fff;
 }
 
+.top-nav li[data-action='update'] {
+	display: none;
+}
 
 .logo {
+	margin: 0;
 	padding: 1em;
 	padding-bottom: 0;
-}
-
-[data-form] input,
-[data-form] select,
-[data-form] textarea {
-	margin: 0.7em auto;
-	padding: 0.5em;
-	border: 0;
-	outline: 0;
-}
-
-
-[data-form]input[type="text"]:not(.button),
-[data-form] select {
-    font-size: 13px;
-    padding: 8px;
-}
-
-.light [data-form] input:not([type="submit"]),
-.light [data-form] select {
-    background-clip: padding-box;
-    background-color: #fff;
-    background-image: linear-gradient(to bottom, #fafafa, #fdfdfd);
-    border: 1px solid rgba(0, 0, 0, 0.22);
-    border-radius: 3px;
-    box-shadow:
-        inset 0 1px 0 0 rgba(0, 0, 0, 0.04),
-        inset 0 0 0 1px rgba(0, 0, 0, 0.02),
-        0 1px 0 1px rgba(255, 255, 255, 0.3);
-    color: #323232;
-    outline: 0;
-    text-shadow: 0 1px rgba(255, 255, 255, 0.4);
-    transition: all 200ms ease-out;
-}
-
-[data-form] button,
-[data-form] select,
-[data-form] .button {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    background-color: transparent;
-    background-image: linear-gradient(to bottom, transparent, transparent 50%, rgba(0, 0, 0, 0.04));
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
-        inset 0 -1px 0 0 rgba(255, 255, 255, 0.15),
-        0 1px 0 0 rgba(255, 255, 255, 0.15);
-    color: #333;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 16px;
-    margin: 24px auto;
-    outline: none;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 0 1px rgba(255, 255, 255, 0.4);
-    transition: all 100ms ease-in;
-}
-
-[data-form] button:focus,
-[data-form] .button:focus {
-    border-color: rgba(77, 156, 209, 0.8);
-    box-shadow:
-        inset 0 0 0 1px rgba(255, 255, 255, 0.05),
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.45),
-        inset 0 -1px 0 0 rgba(255, 255, 255, 0.15),
-        0 3px 6px rgba(12, 128, 200, 0.16),
-        0 3px 6px rgba(12, 128, 200, 0.23);
-    text-decoration: none;
-}
-
-[data-form] button:active,
-[data-form] .button:active,
-[data-form] button.active,
-[data-form] .button.active {
-    background-color: rgba(0, 0, 0, 0.05);
-    background-image: none;
-    border-color: rgba(0, 0, 0, 0.25);
-    box-shadow:
-        inset 0 0 0 1px rgba(0, 0, 0, 0.05),
-        0 1px 0 0 rgba(255, 255, 255, 0.3);
-}
-
-[data-form] button.suggested-action,
-[data-form] .button.suggested-action {
-    background-color: #64b9f1;
-    background-image: linear-gradient(to bottom, #4ca7e4, #328ecc);
-    border-color: #337cac;
-    color: #fff;
-    text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-}
-
-[data-modal] textarea {
-	min-width: 50vw;
-	min-height: 30vh;
-	resize: both;
-}
-
-#editor,
-#preview {
-	width: 100%;
-	height: 100%;
-	padding: 2em;
-	padding-top: 0;
-    outline: none;
-    line-height: 1.5em;
-	margin-bottom: 1em;
-}
-
-
-#preview {
-	margin: 0 auto;
 }
 
 .menu-icon {
@@ -257,32 +159,19 @@ button {
 	z-index: 12;
 }
 
-.side-nav.active {
-	display: block;
+[data-content='notebook-list'] {
+	text-align: left;
 }
 
-.top-nav li,
-.top-nav button,
-.side-nav li,
-.side-nav button {
-	padding: 1em;
-	display: inline-block;
-	cursor: pointer;
-}
+/*
+ * ==========================================================================
+ * View Elements Styling
+ * ==========================================================================
+ */
 
-.side-nav li,
-.side-nav button {
-	display: block;
-}
-
-
-ul {
-	margin: 0;
-	padding: 0;
-}
-
-[data-view="notes"] ul {
-	text-align: center;
+[data-view] .middle {
+	width: 100%;
+	max-height: 100vh;
 }
 
 [data-view="editor"] .side-nav button {
@@ -294,32 +183,13 @@ ul {
 	text-align: right;
 }
 
-[data-view] .middle {
-	width: 100%;
-}
-
-
-body.dark .side-nav, body.dark .view-nav {
-	background: #232323;
-}
-
-
-.side-nav button, .view-nav button, .notebook-nav button {
-    padding: 1em;
-    background: transparent;
+[data-view="notes"] ul {
+	text-align: center;
 }
 
 [data-view='loading'] img {
 	width: 30%;
 	height: 30%;
-}
-
-textarea {
-    padding: 1em;
-    border: none;
-    outline: none;
-	border-bottom: 1px solid rgba(66, 66, 66, 0.5);
-
 }
 
 [data-view='key'] h1,
@@ -336,14 +206,202 @@ textarea {
 	margin-bottom: 0;
 }
 
-::-webkit-scrollbar {
-    background: transparent;
-	width: 6px;
+/*
+ * ==========================================================================
+ * Modal/Form Elements Styling
+ * ==========================================================================
+ */
+
+[data-modal] {
+	display: none;
+	text-align: center;
+	z-index: 12;
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
 }
 
-::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
+[data-modal].active {
+	display: block;
 }
+
+[data-modal] [data-form] {
+	top: 50%;
+    left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	position: absolute;
+	padding: 2em;
+	border-radius: 4px;
+}
+
+[data-form] textarea {
+	min-width: 50vw;
+	min-height: 30vh;
+	resize: both;
+}
+
+[data-form] input,
+[data-form] select,
+[data-form] textarea {
+	margin: 0.7em auto;
+	padding: 0.5em;
+	border: 0;
+	outline: 0;
+	border-radius: 3px;
+}
+
+[data-form]input[type="text"] {
+    font-size: 13px;
+    padding: 8px;
+}
+
+[data-form] button,
+[data-form] select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    margin: 24px auto;
+    outline: none;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 100ms ease-in;
+}
+
+/*
+ * ==========================================================================
+ * Note List Elements Styling
+ * ==========================================================================
+ */
+
+.grid {
+    text-align: center;
+}
+
+.grid article {
+    width: 10em;
+    max-width: 10em;
+    display: inline-block;
+    margin: 0.5em;
+    word-break: break-word;
+    text-align: left;
+    padding: 1em;
+    height: 10em;
+    max-height: 10em;
+    vertical-align: middle;
+    position: relative;
+	overflow: hidden;
+}
+
+.grid article h2 {
+    margin-bottom: 0.2em;
+    font-size: 1.2em;
+}
+
+.grid article .note-actions {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+.grid .note-actions .fa {
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 1em;
+}
+
+[data-content='note-container'] {
+    width: 100%;
+    height: auto;
+    float: right;
+    padding: 1em;
+}
+
+[data-content='welcome']{
+	position: relative;
+}
+
+/*
+ * ==========================================================================
+ * Editor and Preview Elements Styling
+ * ==========================================================================
+ */
+
+#editor,
+#preview {
+	width: 100%;
+	height: 100%;
+	padding: 2em;
+	padding-top: 0;
+    outline: none;
+    line-height: 1.5em;
+	margin-bottom: 1em;
+}
+
+#preview {
+	margin: 0 auto;
+}
+
+#editor ul,
+#editor ol,
+#preview ul,
+#preview ol {
+    padding-left: 1.3em;
+}
+
+#preview h1,
+#editor h1 {
+	margin: 1rem 0;
+    font-size: 2rem;
+}
+
+#preview h2,
+#editor h2 {
+	margin: 1rem 0;
+    font-size: 1.8rem;
+}
+
+#preview h3,
+#editor h3 {
+	margin: 1rem 0;
+    font-size: 1.6rem;
+}
+
+#preview h4,
+#editor h4 {
+	margin: 1em 0;
+    font-size: 1.4rem;
+}
+
+#preview h5,
+#editor h5 {
+	margin: 1rem 0;
+    font-size: 1.2rem;
+}
+#preview h6,
+#editor h6 {
+	margin: 1rem 0;
+    margin-bottom: 0.5rem;
+}
+
+.video-wrapper iframe,
+.video-wrapper webview{
+	max-width: 100%;
+	width: 100%;
+	max-height: 100%;
+	min-height: 30vh;
+	min-width: 30vw;
+}
+
 /** Place here all Media Queries and it's styles.**/
 
 /** Default Style. Don't change. (320px) **/
@@ -429,7 +487,7 @@ textarea {
 		overflow: visible;
 	}
 
-    #preview{
+    #preview {
         width: 100%;
         float: none;
         overflow: visible;
@@ -440,7 +498,6 @@ textarea {
         overflow: visible;
         font-family: 'Arial', sans-serif;
         font-size: 12pt;
-        color: #000 !important;
     }
 
     h1 {
@@ -458,7 +515,6 @@ textarea {
         overflow: visible;
         max-width: 100%;
         word-break: break-word;
-        color: #000 !important;
     }
 
     tr, td {
@@ -469,11 +525,6 @@ textarea {
 	hr {
 		color: #424242 !important;
 	}
-
-
-    pre *{
-        color: #000 !important;
-    }
 
     code{
         padding: 0;
