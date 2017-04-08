@@ -1,0 +1,185 @@
+/*
+ * Theme: Ghost
+ * Author: Diego Islas Ocampo <hyuchia@gmail.com>
+ */
+
+/*
+ * ==========================================================================
+ * Font Importing
+ * ==========================================================================
+ */
+
+/*
+ * ==========================================================================
+ * Common Elements Styling
+ * ==========================================================================
+ */
+
+body.ghost {
+
+}
+
+.ghost a {
+	color: #08c;
+}
+
+.ghost tr,
+.ghost td {
+	border: 1px solid #424242;
+}
+
+.ghost mark {
+	color: #FFEB3B;
+}
+
+.ghost pre {
+	border: 1px solid rgba(66, 66, 66, 0.11);
+	color: #424242;
+}
+
+/*
+ * ==========================================================================
+ * Navigation Styling
+ * ==========================================================================
+ */
+
+.ghost .side-nav {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.ghost .top-nav {
+
+}
+
+.ghost .side-nav button,
+.ghost .side-nav li {
+
+}
+
+.ghost .top-nav button,
+.ghost .top-nav li {
+
+}
+
+.ghost .side-nav button:hover,
+.ghost .side-nav li:hover {
+	font-weight: bold;
+}
+
+.ghost .top-nav button:hover,
+.ghost .top-nav li:hover {
+	font-weight: bold;
+}
+
+/*
+ * ==========================================================================
+ * View Elements Styling
+ * ==========================================================================
+ */
+
+
+
+/*
+ * ==========================================================================
+ * Modal/Form Elements Styling
+ * ==========================================================================
+ */
+
+.ghost [data-modal] {
+	background: rgba(0,0,0,0.2);
+}
+
+.ghost [data-modal] [data-form] {
+	background: #fff;
+}
+
+.ghost [data-form] button,
+.ghost [data-form] select,
+.ghost [data-form] textarea {
+	background: transparent;
+	border: 1px solid #ddd;
+}
+
+.ghost [data-form] button:focus {
+
+}
+
+.ghost [data-form] button:active {
+
+}
+
+.ghost [data-form] input {
+	border-bottom: 1px dotted #ddd;
+}
+
+.ghost [data-form] input:active,
+.ghost [data-form] input:focus {
+	border-bottom: 1px dotted #333;
+}
+
+.ghost [data-form] [type='submit'] {
+	color: #268bd2;
+	border: 1px solid #268bd2;
+}
+
+.ghost [data-form] [type='reset'] {
+	color: #d53c12;
+	border: 1px solid #d53c12;
+}
+
+.ghost [data-form] [type='submit']:active {
+	background: #268bd2;
+	color: #fff;
+
+}
+
+.ghost [data-form] [type='reset']:active {
+	background: #d53c12;
+	color: #fff;
+}
+
+.ghost [data-form] [type='submit']:focus {
+	font-weight: bold;
+}
+
+.ghost [data-form] [type='reset']:focus {
+	font-weight: bold;
+}
+
+/*
+ * ==========================================================================
+ * Note List Elements Styling
+ * ==========================================================================
+ */
+
+.ghost .grid article {
+
+}
+
+.ghost .grid .note-actions {
+
+}
+
+.ghost .grid .note-actions .fa {
+
+}
+
+.ghost .grid .note-actions .fa:hover {
+	font-weight: bold;
+}
+
+/*
+ * ==========================================================================
+ * Editor and Preview Elements Styling
+ * ==========================================================================
+ */
+
+.ghost [data-action='save'].unsaved {
+	color: #b93d30;
+}
+
+/*
+ * ==========================================================================
+ * Extra Styling
+ * ==========================================================================
+ */
