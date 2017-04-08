@@ -50,22 +50,34 @@ function getTitle(html, suggested){
 function addNote(noteID, noteTitle, noteColor){
 	$_("[data-content='welcome']").hide();
 	$_("[data-content='note-container']").append(`<article data-color='${noteColor}' draggable='true' data-nid='${noteID}'><div class='content' ><h2>${noteTitle}</h2></div><div class='note-actions'><span class='fa fa-eye' data-id='${noteID}' data-action='preview'></span><span class='fa-pencil fa' data-id='${noteID}' data-action='edit'></span><span class='fa-trash fa' data-id='${noteID}' data-action='delete'></span></div></article>`);
-	colorNote(noteID);
+	styleNote(noteID);
 }
 
 // Function to set the background color of the notes, accepts the note id
-function colorNote(id){
+function styleNote(id){
 	if(typeof id == 'undefined'){
-		$_(".list article").each(function(element){
-			$_(element).style("border-color", $_(element).data("color"));
-		});
+		if ($_("body").hasClass("light") || $_("body").hasClass("dark")) {
+			$_(".grid article").each(function(element){
+				$_(element).style("background", $_(element).data("color"));
+			});
+		}
 
-		$_(".grid article").each(function(element){
-			$_(element).style("background", $_(element).data("color"));
-		});
+		if ($_("body").hasClass("ghost")) {
+			$_(".grid article").each(function(element){
+				$_(element).style("border", "1px solid " + $_(element).data("color"));
+				$_(element).style("color", $_(element).data("color"));
+			});
+		}
+
 	}else{
-		$_(`.list [data-nid='${id}']`).style("border-color", $_(`.list [data-nid='${id}']`).data("color"));
-		$_(`.grid [data-nid='${id}']`).style("background", $_(`.grid [data-nid='${id}']`).data("color"));
+		if ($_("body").hasClass("light") || $_("body").hasClass("dark")) {
+			$_(`.grid [data-nid='${id}']`).style("background", $_(`.grid [data-nid='${id}']`).data("color"));
+		}
+
+		if ($_("body").hasClass("ghost")) {
+			$_(`.grid [data-nid='${id}']`).style("border", "1px solid " + $_(`.grid [data-nid='${id}']`).data("color"));
+			$_(`.grid [data-nid='${id}']`).style("color", $_(`.grid [data-nid='${id}']`).data("color"));
+		}
 	}
 }
 
