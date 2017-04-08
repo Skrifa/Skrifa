@@ -6,8 +6,8 @@ function saveNote(){
 	currentContent = html;
 	db.transaction('rw', db.note, function(){
 		// Get note title
-		var h1 = $_("#editor h1").first().text().trim();
-		h1 = h1 != "" ? h1 : "Untitled";
+		var h1 = $_("#editor h1").first();
+		h1 = h1 != "" && typeof h1 != 'undefined' ? h1.text().trim() : "Untitled";
 		// Change title in the note container
 		$_("[data-nid='" + id + "'] h2").text(h1);
 		if(html && h1 && date){
