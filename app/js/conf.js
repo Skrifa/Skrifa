@@ -24,6 +24,7 @@ const htmlBoilerplatePDF = require('html-boilerplate-pdf');
 const upndown = require('upndown');
 const mammoth = require("mammoth");
 const pkg = require('./package.json');
+const {clipboard} = require('electron');
 
 openpgp.initWorker({ path:'node_modules/openpgp/dist/openpgp.worker.min.js' }); // set the relative web worker path
 

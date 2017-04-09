@@ -123,7 +123,7 @@ $_ready(function(){
 					title: "Import a Note",
 					buttonLabel: "Import",
 					filters: [
-					    {name: 'Custom File Type', extensions: ['skrifa', 'skf', 'md', 'txt', 'html', 'docx', 'skn']},
+					    {name: 'Custom File Type', extensions: ['skrifa', 'skf', 'md', 'txt', 'html', 'docx', 'skn', 'asc']},
 					],
 					properties: ['openFile']
 				},
@@ -327,6 +327,43 @@ $_ready(function(){
 										}else{
 											show("notes");
 										}
+										break;
+									case "asc":
+										decrypt(data).then((plaintext) => {
+											var regex = /.*\n/g;
+											var html = "";
+
+											while ((m = regex.exec(plaintext)) !== null) {
+											    // This is necessary to avoid infinite loops with zero-width matches
+											    if (m.index === regex.lastIndex) {
+											        regex.lastIndex++;
+											    }
+
+											    // The result can be accessed through the `m`-variable.
+											    m.forEach((match, groupIndex) => {
+													html += `<p>${match}</p>`
+											    });
+											}
+
+											encrypt(html).then(function(ciphertext2) {
+												var color = colors[Math.floor(Math.random()*colors.length)];
+												db.note.add({
+													Title: ciphertext.data,
+													Content: ciphertext2.data,
+													CreationDate: date,
+													ModificationDate: date,
+													SyncDate: '',
+													Color: color,
+													Notebook: notebook
+												}).then(function(lastID){
+													addNote(lastID, "Imported Note", color);
+													show('notes');
+												});
+											});
+										}).catch((error) => {
+											dialog.showErrorBox("Error decrypting your note", "There was an error decrypting your note, it was not imported.");
+											show('notes');
+										});
 										break;
 								}
 

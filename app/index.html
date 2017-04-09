@@ -45,6 +45,7 @@
 		<script src="js/preview.js"></script>
 		<script src="js/export-note.js"></script>
 		<script src="js/share.js"></script>
+		<script src="js/pgp-message.js"></script>
 	</head>
 	<body class="light">
 
@@ -312,14 +313,12 @@
 							</div>
 						<div class="col s12 m6 vertical">
 							<h2>Using a Public Key File</h2>
-							<label>If you want to share this note using a public PGP key or Skrifa public key just select the file:</label>
-							<button data-action="choose-key">Select Key</button>
+							<label>If you want to share this note using a public PGP key or Skrifa public key just select the format in which you want to share the note:</label>
+
 							<p>Share as:</p>
 							<div class="horizontal">
-								<input type="radio" name="type" checked="true" value="skrifa">
-								<label>Skrifa Note</label>
-								<input type="radio" name="type" value="text">
-								<label>Plain Text</label>
+								<button data-action="pgp-skrifa">Skrifa Note</button>
+								<button data-action="pgp-plain">Plain Text</button>
 							</div>
 						</div>
 						<div class="col s12 vertical">
@@ -330,6 +329,20 @@
 						</div>
 					</form>
 				</div>
+			</div>
+		</section>
+
+		<section data-view="pgp-message">
+			<div class="middle padded-2 align-center">
+				<h1>Message</h1>
+				<pre data-content="message"></pre>
+				<form method="post" data-form="pgp-message">
+					<div class="buttons">
+						<button type="submit">Write to File</button>
+						<button data-action="copy-message">Copy to Clipboard</button>
+						<button type="reset">Back</button>
+					</div>
+				</form>
 			</div>
 		</section>
 
@@ -501,8 +514,17 @@
 					<div class="vertical align-center">
 						<h2>Backup</h2>
 						<p>Restoring from a backup will delete all your notes and notebooks and replace them with the backup content.</p>
-						<button data-action="import-backup">Restore from Backup</button>
-						<button data-action="create-backup">Create Backup</button>
+						<div>
+							<button data-action="import-backup">Restore from Backup</button>
+							<button data-action="create-backup">Create Backup</button>
+						</div>
+					</div>
+
+					<div class="vertical align-center">
+						<h2>Manage Keys</h2>
+						<div>
+							<button data-action="export-public-key">Export Public Key</button>
+						</div>
 					</div>
 					<div class="buttons">
 						<button type="submit">Ok</button>

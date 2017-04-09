@@ -260,6 +260,29 @@ $_ready(function(){
 				});
 				break;
 
+			case "export-public-key":
+				dialog.showSaveDialog(
+					{
+						title: "Choose Directory to Save your Key",
+						buttonLabel: "Save",
+						defaultPath: Storage.get("User")+ '-public-key.asc'
+					},
+					function(directory){
+						if(directory){
+
+							fs.writeFile(directory, Storage.get("PubKey"), 'utf8', function (error) {
+								if(error){
+									dialog.showErrorBox("Error saving your key", "There was an error saving your key, file was not created.");
+								}else{
+								}
+							});
+
+						}
+					});
+				break;
+			case "import-key":
+				break;
+
 		}
 
 	});
