@@ -16,14 +16,12 @@
 
 		<!-- Import Core Stylesheets -->
 		<link type="text/css" rel="stylesheet" href="style/main.css"/>
-		<link type="text/css" rel="stylesheet" href="style/login.css"/>
-		<link type="text/css" rel="stylesheet" href="style/notes.css"/>
-		<link type="text/css" rel="stylesheet" href="style/editor.css"/>
 		<link type="text/css" rel="stylesheet" href="style/prism.css"/>
 
 		<!-- Import Themes Stylesheets -->
 		<link type="text/css" rel="stylesheet" href="style/themes/light.css"/>
 		<link type="text/css" rel="stylesheet" href="style/themes/dark.css"/>
+		<link type="text/css" rel="stylesheet" href="style/themes/ghost.css"/>
 
 
 		<!-- Import Third Party Scripts that can't be loaded via require -->
@@ -36,6 +34,7 @@
 		<script src="js/app.js"></script>
 		<script src="js/login.js"></script>
 		<script src="js/key.js"></script>
+		<script src="js/offline-key.js"></script>
 		<script src="js/decrypt.js"></script>
 		<script src="js/notes.js"></script>
 		<script src="js/new-notebook.js"></script>
@@ -56,33 +55,66 @@
 			</div>
 		</section>
 
-		<section class="active" data-view="login">
-			<div class="middle padded-2">
-				<h1>Log In</h1>
-				<form method="post" data-form="login" class="vertical align-center padded-2">
-					<p>Welcome! Please login to get started.</p>
-					<p>If you don't have an account yet, register at https://skrifa.xyz</p>
-					<label>User Name:</label>
-					<input type="text" name="user" placeholder="User" required="true">
-					<label>Password:</label>
-					<input type="password" placeholder="Password" name="password" required="true">
-					<button type="submit">Log In</button>
-					<span data-content="status"></span>
-				</form>
-			</div>
+		<section class="active align-center" data-view="login">
+			<h1>Welcome to Skrifa!</h1>
+			<p class="padded-2">Skrifa is a step towards <b>taking your privacy back</b>, to make this happen all your notes are <b>encrypted using a PGP key and saved locally</b>, please pick the option that matches your preferences best.</p>
+				<div class="row md-depth-2">
+					<div class="col s12 m6 padded-1">
+
+						<form method="post" data-form="login" class="vertical align-center padded-2">
+							<h2>Log In</h2>
+							<p>If you want to keep your key backed up online you can create an account at <a href="https://skrifa.xyz/#Register" target="_blank">skrifa.xyz</a>, your key will be stored encrypted with a passphrase of your own. This is recommended for most users.</p>
+							<label>User Name:</label>
+							<input type="text" name="user" placeholder="User" required="true">
+							<label>Password:</label>
+							<input type="password" placeholder="Password" name="password" required="true">
+							<button type="submit">Log In</button>
+							<span data-content="status"></span>
+						</form>
+					</div>
+					<div class="col s12 m6">
+						<form method="post" data-form="local-key" class="align-center padded-2">
+							<h2>Use Local Key</h2>
+							<p>If you don't trust your key to anyone even if it's encrypted, you can keep it offline but you'll be resposible for keeping your key safe. Please create a new key if you don't have one or import it if you've previously created one.</p>
+							<button data-action="new-offline-key">Create new Key</button>
+							<button data-action="import-offline-key">Import Key</button>
+						</form>
+					</div>
+				</div>
+				<img src="img/white.svg" class="undraggable">
 		</section>
 
 		<section data-view="key">
 			<div class="middle padded-2">
 				<h1>Create your new Key Pair</h1>
 				<form method="post" data-form="key" class="vertical align-center padded-2">
-
-					<p>A new Key Pair will be created with the passphrase you provide.</p>
+					<p>A new Key pair will be created with the passphrase you provide.</p>
 					<label>Encryption Passphrase:</label>
-					<input type="password" name="passphrase" required="true">
+					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<label>Repeat encryption Passphrase:</label>
-					<input type="password" name="rpassphrase" required="true">
-					<input type="submit" value="Create Key Pair">
+					<input type="password" name="rpassphrase" required="true" placeholder="Passphrase">
+					<button type="submit">Create Key Pair</button>
+					<span data-content="status"></span>
+				</form>
+			</div>
+		</section>
+
+
+		<section data-view="offline-key">
+			<div class="middle padded-2">
+				<h1>Create your new Key Pair</h1>
+				<form method="post" data-form="offline-key" class="vertical align-center padded-2">
+					<p>A new key pair will be created with the passphrase you provide. You must backup and keep this key save.</p>
+					<label>Your Email:</label>
+					<input type="email" name="user" required="true" placeholder="example@example.com">
+					<label>Encryption Passphrase:</label>
+					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
+					<label>Repeat encryption Passphrase:</label>
+					<input type="password" name="rpassphrase" required="true" placeholder="Passphrase">
+					<div class="buttons">
+						<button type="submit">Create Key Pair</button>
+						<button type="reset">Cancel</button>
+					</div>
 					<span data-content="status"></span>
 				</form>
 			</div>
@@ -95,7 +127,7 @@
 					<p>Enter your passphrase to decrypt your notes</p>
 					<label>Encryption Passphrase:</label>
 					<input type="password" placeholder="Passphrase" name="passphrase" required="true">
-					<button type="submit" class="suggested-action">Decrypt</button>
+					<button type="submit">Decrypt</button>
 					<span data-content="status"></span>
 				</form>
 			</div>
@@ -270,15 +302,34 @@
 		<section data-view="share">
 			<div class="middle padded-2">
 				<h1>Share</h1>
-				<form data-form="share" class="align-center vertical padded-2">
-					<label>User Name of who you want to share it to.</label>
-					<input type='text' name="username" placeholder="Username" required="true">
-					<span data-content="status"></span>
-					<div class="buttons">
-						<button type="submit">Share</button>
-						<button type="reset">Cancel</button>
-					</div>
-				</form>
+					<form data-form="share" class="align-center padded-2 col s12 m6">
+						<div class="row">
+							<div class="col s12 m6 vertical">
+								<h2>To a Skrifa User</h2>
+								<label>If the person you want to share this note with has an Skrifa account, just type his username here and then press share.</label>
+								<input type='text' name="username" placeholder="Username" required="true">
+								<button type="submit">Share</button>
+							</div>
+						<div class="col s12 m6 vertical">
+							<h2>Using a Public Key File</h2>
+							<label>If you want to share this note using a public PGP key or Skrifa public key just select the file:</label>
+							<button data-action="choose-key">Select Key</button>
+							<p>Share as:</p>
+							<div class="horizontal">
+								<input type="radio" name="type" checked="true" value="skrifa">
+								<label>Skrifa Note</label>
+								<input type="radio" name="type" value="text">
+								<label>Plain Text</label>
+							</div>
+						</div>
+						<div class="col s12 vertical">
+							<span data-content="status"></span>
+							<div class="buttons">
+								<button type="reset">Cancel</button>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 		</section>
 
@@ -444,6 +495,7 @@
 						<select data-action='change-theme'>
 							<option value="light">Light</option>
 							<option value="dark">Dark</option>
+							<option value="ghost">Ghost</option>
 						</select>
 					</div>
 					<div class="vertical align-center">

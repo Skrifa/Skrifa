@@ -68,4 +68,45 @@ $_ready(function(){
 		}
 
 	});
+
+	$_("[data-form='local-key']").submit(function(event){
+		event.preventDefault();
+	});
+
+	$_("[data-view='login'] [data-action='new-offline-key']").click(function(){
+		show("offline-key");
+	});
+
+	$_("[data-view='login'] [data-action='import-offline-key']").click(function(){
+		dialog.showOpenDialog({
+			title: "Import Your Key",
+			buttonLabel: "Import",
+			filters: [
+			    {name: 'Custom File Type', extensions: ['skk']},
+			],
+			properties: ['openFile']
+		},
+		function(file){
+			if(file){
+				wait("Reading File");
+				fs.readFile(file[0], 'utf8', function (error, data) {
+					if(error){
+						dialog.showErrorBox("Error reading file", "There was an error reading the file, key was not imported.");
+					}else{
+						var extension = file[0].split(".").pop();
+
+						switch(extension){
+							case "skk":
+								Storage.set("PrivKey", data);
+								show("decrypt");
+								break;
+						}
+					}
+
+				});
+
+			}
+		});
+	});
+
 });

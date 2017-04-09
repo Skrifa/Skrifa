@@ -129,11 +129,13 @@
 .light [data-form] [type='submit']:active {
 	color: #268bd2;
 	border: 1px solid #268bd2;
+	background: #fff;
 }
 
 .light [data-form] [type='reset']:active {
 	color: #d53c12;
 	border: 1px solid #d53c12;
+	background: #fff;
 }
 
 /*

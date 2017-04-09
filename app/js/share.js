@@ -97,6 +97,116 @@ $_ready(() => {
 		});
 	});
 
+	$_("[data-view='share'] [data-action='choose-key']").click(function(){
+
+		dialog.showOpenDialog({
+			title: "Select Public Key",
+			buttonLabel: "Select",
+			filters: [
+			    {name: 'Custom File Type', extensions: ['skp', 'asc']},
+			],
+			properties: ['openFile']
+		},
+		function(file){
+			if(file){
+				wait("Reading File");
+				fs.readFile(file[0], 'utf8', function (error, data) {
+					if(error){
+						dialog.showErrorBox("Error reading file", "There was an error reading the file.");
+					}else{
+						var extension = file[0].split(".").pop();
+
+						switch(extension){
+							case "asc":
+								try{
+								var options = {
+									publicKeys: openpgp.key.readArmored(data).keys,
+									privateKeys: encryptOptions.privateKeys
+								};
+
+								var content;
+								// Ask where the note should be saved
+								var type = $_("[data-view='share'] [name='type']:checked").value();
+								dialog.showSaveDialog({
+									title: "Choose Directory to Save the Note",
+									buttonLabel: "Save",
+									defaultPath:  $_("#preview h1").first().text()+ '.'  + (type == "skrifa" ? 'skf' : 'txt')
+								},
+								function(directory){
+									if(directory){
+										wait("Exporting Note to File");
+
+										db.note.where("id").equals(parseInt(id)).first(function(note){
+											delete note.Notebook;
+											delete note.SyncDate;
+											// Decrypt note content
+
+											if (type == "skrifa") {
+												decrypt(note.Content).then((plaintext) => {
+													note.Content = plaintext.data;
+													decrypt(note.Title).then((plaintext2) => {
+														note.Title = plaintext2.data;
+
+														// Encrypt note content with the user's public key
+														encrypt(note.Content, options).then((cipher) => {
+															encrypt(note.Title, options).then((cipher2) => {
+																note.Content = cipher.data;
+																note.Title = cipher2.data;
+																// Write data to file
+																fs.writeFile(directory, JSON.stringify(note), 'utf8', function (error) {
+																	if(error){
+																		dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
+																		show("preview");
+																	}else{
+																		$_("[data-view='share'] span").text("");
+																		show("preview");
+																	}
+																});
+															});
+														});
+													});
+												});
+											} else {
+												decrypt(note.Content).then((plaintext) => {
+													note.Content = $(plaintext.data).text();
+
+													// Encrypt note content with the user's public key
+													encrypt(note.Content, options).then((cipher) => {
+															note.Content = cipher.data;
+															// Write data to file
+															fs.writeFile(directory, note.Content, 'utf8', function (error) {
+																if(error){
+																	dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
+																	show("preview");
+																}else{
+																	$_("[data-view='share'] span").text("");
+																	show("preview");
+																}
+															});
+													});
+												});
+											}
+										});
+
+
+									}else{
+										show("preview");
+									}
+								});
+							} catch(e) {
+								$_("[data-view='share'] span").text("You must enter a valid key to share this note.");
+							}
+								break;
+						}
+					}
+
+				});
+
+			}
+		});
+
+	});
+
 	// Listener for the cancel button
 	$_("[data-view='share'] [type='reset']").click(function(){
 		$_("[data-view='share'] span").text("");

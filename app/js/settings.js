@@ -280,6 +280,7 @@ $_ready(function(){
 		$_("body").addClass($_("[data-action='change-theme'] :checked").value());
 		settings.theme = $_("[data-action='change-theme'] :checked").value();
 		Storage.set("settings", JSON.stringify(settings));
+		styleNote();
 	});
 
 	$_("[data-action='change-sort']").change(function(){

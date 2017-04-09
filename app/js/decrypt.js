@@ -10,6 +10,14 @@ $_ready(function(){
 			key = CryptoJS.AES.decrypt(Storage.get('PrivKey'), $_("[data-form='decrypt'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8);
 			key = openpgp.key.readArmored(key).keys[0];
 
+			if (Storage.get("PubKey") == null) {
+				Storage.set("PubKey", key.toPublic().armor());
+			}
+
+			if (Storage.get("User") == null) {
+				Storage.set("User", key.getUserIds()[0].split("<")[0].trim());
+			}
+
 			// Decrypt the Key from OpenPGP.js
 			key.decrypt($_("[data-form='decrypt'] input[name='passphrase']").value());
 			key = key.armor();
