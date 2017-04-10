@@ -3,6 +3,7 @@ $_ready(function(){
 	// Listener for the submit button
 	$_("[data-form='offline-key']").submit(function(event){
 		event.preventDefault();
+		var self = this;
 		// Check if the passphrases match
 		if($_("[data-form='offline-key'] input[name='passphrase']").value() == $_("[data-form='offline-key'] input[name='rpassphrase']").value() && $_("[data-form='offline-key'] input[name='passphrase']").value().trim() != ""){
 
@@ -39,6 +40,7 @@ $_ready(function(){
 							fs.writeFile(directory, privateKey, 'utf8', function (error) {
 								if(error){
 									dialog.showErrorBox("Error saving your key", "There was an error saving your key, file was not created.");
+									show("login");
 								}else{
 									Storage.set("PubKey", pubkey);
 									Storage.set("PrivKey", privateKey);
@@ -64,6 +66,7 @@ $_ready(function(){
 									};
 
 									privateKey = null;
+									self.reset();
 									show("notes");
 								}
 							});

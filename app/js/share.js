@@ -162,7 +162,7 @@ $_ready(() => {
 			title: "Select Public Key",
 			buttonLabel: "Select",
 			filters: [
-			    {name: 'Custom File Type', extensions: ['skp', 'asc']},
+			    {name: 'Custom File Type', extensions: ['asc']},
 			],
 			properties: ['openFile']
 		},

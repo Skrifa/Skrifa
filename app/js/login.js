@@ -60,6 +60,7 @@ $_ready(function(){
 					},
 					error: function(error){
 						console.log(error);
+						show("login");
 					}
 				}, "json"
 			);
@@ -82,16 +83,17 @@ $_ready(function(){
 			title: "Import Your Key",
 			buttonLabel: "Import",
 			filters: [
-			    {name: 'Custom File Type', extensions: ['skk']},
+			    {name: 'Custom File Type', extensions: ['skk', 'asc']},
 			],
 			properties: ['openFile']
 		},
 		function(file){
 			if(file){
-				wait("Reading File");
+				wait("Reading Key File");
 				fs.readFile(file[0], 'utf8', function (error, data) {
 					if(error){
 						dialog.showErrorBox("Error reading file", "There was an error reading the file, key was not imported.");
+						show("login");
 					}else{
 						var extension = file[0].split(".").pop();
 
@@ -99,6 +101,22 @@ $_ready(function(){
 							case "skk":
 								Storage.set("PrivKey", data);
 								show("decrypt");
+								break;
+							case "asc":
+								var importedKey = openpgp.key.readArmored(data).keys;
+								if (importedKey.length > 0) {
+									if(importedKey[0].isPrivate()){
+										Storage.set("TempKey", data);
+										show("encrypt-key");
+									} else {
+										dialog.showErrorBox("Error parsing Key", "No private key was found, make sure you are trying to import a private key.");
+										show("login");
+									}
+
+								} else {
+									dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP key to import it.");
+									show("login");
+								}
 								break;
 						}
 					}

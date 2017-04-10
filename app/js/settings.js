@@ -281,6 +281,7 @@ $_ready(function(){
 					});
 				break;
 			case "import-key":
+				$_("[data-modal='import-key']").addClass('active');
 				break;
 
 		}
@@ -310,6 +311,16 @@ $_ready(function(){
 		settings.sort = $_("[data-action='change-sort'] :checked").value();
 		Storage.set("settings", JSON.stringify(settings));
 		loadNotes();
+	});
+
+	$_("[data-form='import-key'] [type='reset']").click(function(){
+		$_("[data-modal='import-key']").removeClass('active');
+	});
+
+
+	$_("[data-form='import-key']").submit(function(event){
+		event.preventDefault();
+		$_("[data-modal='import-key']").removeClass('active');
 	});
 
 });

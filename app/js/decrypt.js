@@ -3,6 +3,7 @@ $_ready(function(){
 	// Listener for the submit button
 	$_("[data-form='decrypt']").submit(function(event){
 		event.preventDefault();
+		var self = this;
 
 		// Attempt to decrypt and set the key with the passphrase given
 		try{
@@ -35,6 +36,7 @@ $_ready(function(){
 			};
 
 			// Load notes and notebooks
+			self.reset();
 			loadContent();
 		}catch(e){
 			$_("[data-form='decrypt'] [data-content='status']").text("Incorrect decryption passphrase");

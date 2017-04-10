@@ -35,6 +35,7 @@
 		<script src="js/login.js"></script>
 		<script src="js/key.js"></script>
 		<script src="js/offline-key.js"></script>
+		<script src="js/encrypt-key.js"></script>
 		<script src="js/decrypt.js"></script>
 		<script src="js/notes.js"></script>
 		<script src="js/new-notebook.js"></script>
@@ -114,6 +115,24 @@
 					<input type="password" name="rpassphrase" required="true" placeholder="Passphrase">
 					<div class="buttons">
 						<button type="submit">Create Key Pair</button>
+						<button type="reset">Cancel</button>
+					</div>
+					<span data-content="status"></span>
+				</form>
+			</div>
+		</section>
+
+		<section data-view="encrypt-key">
+			<div class="middle padded-2">
+				<h1>Unlock your Key</h1>
+				<form method="post" data-form="encrypt-key" class="vertical align-center padded-2">
+					<p>You're importing a PGP key, please type your passphrase to unlock your key.</p>
+					<label>Encryption Passphrase:</label>
+					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
+					<label>Repeat encryption Passphrase:</label>
+					<input type="password" name="rpassphrase" required="true" placeholder="Passphrase">
+					<div class="buttons">
+						<button type="submit">Import</button>
 						<button type="reset">Cancel</button>
 					</div>
 					<span data-content="status"></span>
@@ -478,6 +497,16 @@
 		</section>
 
 		<section data-view="settings">
+			<div data-modal="import-key">
+				<form data-form="unsaved" class="vertical align-center padded-1">
+					<h2>Importing a new Private Key will encrypt your current notes using the new key. You will no longer be able to read your previous backups or exported notes. Enter your Passphrase to continue.</h2>
+					<input type="password" name="passphrase" required="true">
+					<div class="buttons">
+						<button type="submit">Import</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
 			<div class="middle padded-1">
 				<h1>Settings</h1>
 				<!--<div class="vertical align-center">
@@ -524,6 +553,7 @@
 						<h2>Manage Keys</h2>
 						<div>
 							<button data-action="export-public-key">Export Public Key</button>
+							<button data-action="import-key">Import Private Key</button>
 						</div>
 					</div>
 					<div class="buttons">

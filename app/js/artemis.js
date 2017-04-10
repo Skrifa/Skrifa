@@ -531,7 +531,15 @@ class Storage {
 
 	static clear(){
 		if(window.localStorage){
-			ocalStorage.clear();
+			localStorage.clear();
+		}else{
+			console.warn("Your browser does not support Local Storage");
+		}
+	}
+
+	static remove(key) {
+		if(window.localStorage){
+			localStorage.removeItem(key);
 		}else{
 			console.warn("Your browser does not support Local Storage");
 		}
