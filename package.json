@@ -1,7 +1,7 @@
 {
 	"name": "Skrifa",
 	"productName": "Skrifa",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "A simple word processor built with web technologies",
 	"devDependencies": {
 		"electron": "^1.6.2",
@@ -26,7 +26,7 @@
 		},
 		"linux": {
 			"category": "Office",
-			"target": ["snap", "AppImage", "deb", "rpm"],
+			"target": ["snap", "AppImage", "deb", "rpm", "pacman", "freebsd"],
 			"executableName": "Skrifa",
 			"synopsis": "A simple word processor built with web technologies"
 		},
