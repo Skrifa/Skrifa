@@ -61,6 +61,7 @@ $_ready(function(){
 	});
 
 	$_("[data-view='encrypt-key'] [type='reset']").click(function(){
+		Storage.remove ("TempKey");
 		show("login");
 	});
 });

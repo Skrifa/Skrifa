@@ -354,7 +354,6 @@
 		<section data-view="pgp-message">
 			<div class="middle padded-2 align-center">
 				<h1>Message</h1>
-				<pre data-content="message"></pre>
 				<form method="post" data-form="pgp-message">
 					<div class="buttons">
 						<button type="submit">Write to File</button>
@@ -362,6 +361,7 @@
 						<button type="reset">Back</button>
 					</div>
 				</form>
+				<pre data-content="message"></pre>
 			</div>
 		</section>
 
@@ -483,9 +483,7 @@
 						<li data-action="delete-notebook" class="vertical"><span class="fa fa-trash"></span><small>Delete Notebook</small></li>
 						<li data-action="settings" class="vertical"><span class="fa fa-cog"></span><small>Settings</small></li>
 						<li data-action="update" class="vertical"><span class="fa fa-cloud-download"></span><small>New Version Available</small></li>
-
-				        <!--<li class="fa fa-moon-o" data-action=""></li>
-				        <li class="fa fa-question-circle" data-show="help"></li>
+				        <!--<li class="fa fa-question-circle" data-show="help"></li>
 				        <li class="fa fa-sign-out" data-action="logout"></li>-->
 				    </ul>
 				</nav>
@@ -497,12 +495,13 @@
 		</section>
 
 		<section data-view="settings">
-			<div data-modal="import-key">
-				<form data-form="unsaved" class="vertical align-center padded-1">
-					<h2>Importing a new Private Key will encrypt your current notes using the new key. You will no longer be able to read your previous backups or exported notes. Enter your Passphrase to continue.</h2>
-					<input type="password" name="passphrase" required="true">
+			<div data-modal="migrate-backup">
+				<form data-form="migrate-backup" class="vertical align-center padded-1">
+					<h2>You will now have to choose the new key you'll be migrating to. Please enter your passphrase to continue.</h2>
+					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
+					<span class="status"></span>
 					<div class="buttons">
-						<button type="submit">Import</button>
+						<button type="submit">Migrate</button>
 						<button type="reset">Cancel</button>
 					</div>
 				</form>
@@ -543,19 +542,20 @@
 					<div class="vertical align-center">
 						<h2>Backup</h2>
 						<p>Restoring from a backup will delete all your notes and notebooks and replace them with the backup content.</p>
+						<p>Migration Backup will generate a backup file that will allow you to migrate all your notes in case you want to change your key pair.</p>
 						<div>
 							<button data-action="import-backup">Restore from Backup</button>
 							<button data-action="create-backup">Create Backup</button>
+							<button data-action="migrate-backup">Migration Backup</button>
 						</div>
 					</div>
-
 					<div class="vertical align-center">
 						<h2>Manage Keys</h2>
 						<div>
 							<button data-action="export-public-key">Export Public Key</button>
-							<button data-action="import-key">Import Private Key</button>
 						</div>
 					</div>
+
 					<div class="buttons">
 						<button type="submit">Ok</button>
 						<button type="reset">Cancel</button>

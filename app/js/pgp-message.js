@@ -8,7 +8,7 @@ $_ready(function () {
 		dialog.showSaveDialog({
 			title: "Choose Directory to Save the Note",
 			buttonLabel: "Save",
-			defaultPath:  'Message.asc'
+			defaultPath:  $_("#preview h1").first().text() + '.asc'
 		},
 		function(directory){
 			if(directory){
@@ -16,13 +16,11 @@ $_ready(function () {
 				fs.writeFile(directory, $_("[data-content='message']").text(), 'utf8', function (error) {
 					if(error){
 						dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
-						show("share");
+						show("pgp-message");
 					}else{
 						show("pgp-message");
 					}
 				});
-			} else {
-				dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
 			}
 		});
 

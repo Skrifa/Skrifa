@@ -280,8 +280,8 @@ $_ready(function(){
 						}
 					});
 				break;
-			case "import-key":
-				$_("[data-modal='import-key']").addClass('active');
+			case "migrate-backup":
+				$_("[data-modal='migrate-backup']").addClass('active');
 				break;
 
 		}
@@ -290,6 +290,9 @@ $_ready(function(){
 
 	$_("[data-form='settings']").submit(function(event){
 		event.preventDefault();
+	});
+
+	$_("[data-form='settings'] [type='submit']").click(function(){
 		settings.imageCompression = $_("[data-input='imageCompression'] :checked").value();
 		Storage.set("settings", JSON.stringify(settings));
 		show('notes');
@@ -313,14 +316,172 @@ $_ready(function(){
 		loadNotes();
 	});
 
-	$_("[data-form='import-key'] [type='reset']").click(function(){
-		$_("[data-modal='import-key']").removeClass('active');
+	$_("[data-form='migrate-backup'] [type='reset']").click(function(){
+		$_("[data-modal='migrate-backup']").removeClass('active');
 	});
 
-
-	$_("[data-form='import-key']").submit(function(event){
+	$_("[data-form='migrate-backup']").submit(function(event){
 		event.preventDefault();
-		$_("[data-modal='import-key']").removeClass('active');
+		try {
+		if (openpgp.key.readArmored(CryptoJS.AES.decrypt(Storage.get('PrivKey'), $_("[data-form='migrate-backup'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8)).keys.length > 0) {
+					dialog.showOpenDialog({
+						title: "Select Public Key",
+						buttonLabel: "Select",
+						filters: [
+						    {name: 'Custom File Type', extensions: ['asc']},
+						],
+						properties: ['openFile']
+					},
+					function(file){
+						if(file){
+							wait("Reading File");
+							fs.readFile(file[0], 'utf8', function (error, data) {
+								if(error){
+									dialog.showErrorBox("Error reading file", "There was an error reading the file.");
+								}else{
+									var extension = file[0].split(".").pop();
+
+									switch(extension){
+										case "asc":
+											try {
+												var publicKey = openpgp.key.readArmored(data).keys;
+												if (publicKey.length > 0) {
+													if(publicKey[0].isPublic()){
+														var options = {
+															publicKeys: publicKey,
+															privateKeys: encryptOptions.privateKeys
+														};
+														wait("Building Migration Backup, this operation can take several minutes.");
+														var json = {
+															version: 1,
+															notebooks: {
+
+															}
+														};
+
+														json.notebooks["Inbox"] = {
+															id: "Inbox",
+															Name: "Inbox",
+															Description: "A place for any note",
+															notes: []
+														}
+
+														var promises = [];
+
+														db.transaction('r', db.note, db.notebook, function() {
+
+															promises[0] = db.note.where('Notebook').equals("Inbox").each(function(item, cursor){
+																return decrypt(item.Content).then((content) => {
+																	return decrypt(item.Title).then((title) => {
+																	// Encrypt note content with the user's public key
+																		return encrypt(content.data, options).then((content) => {
+																			return encrypt(title.data, options).then((title) => {
+																				json.notebooks["Inbox"].notes.push({
+																					Title: title.data,
+																					Content: content.data,
+																					CreationDate: item.CreationDate,
+																					ModificationDate: item.ModificationDate,
+																					SyncDate: item.SyncDate,
+																					Color: item.Color,
+																					Notebook: item.Notebook,
+																				});
+																			});
+																		});
+																	});
+																});
+
+															});
+
+															promises[1] = db.notebook.each(function(item, cursor){
+
+																return decrypt(item.Name).then((name) => {
+																	return decrypt(item.Description).then((description) => {
+																		return encrypt(name.data, options).then((name) => {
+																			return encrypt(description.data, options).then((description) => {
+																				json.notebooks[item.id] = {
+																					id: item.id,
+																					Name: name.data,
+																					Description: description.data,
+																					notes: []
+																				};
+
+																				return db.note.where('Notebook').equals('' + item.id).each(function(item2, cursor2){
+																					return decrypt(item2.Content).then((content2) => {
+																						return decrypt(item2.Title).then((title2) => {
+																						// Encrypt note content with the user's public key
+																							return encrypt(content2.data, options).then((content2) => {
+																								return encrypt(title2.data, options).then((title2) => {
+																									json.notebooks[item.id].notes.push({
+																										Title: title2.data,
+																										Content: content2.data,
+																										CreationDate: item2.CreationDate,
+																										ModificationDate: item2.ModificationDate,
+																										SyncDate: item2.SyncDate,
+																										Color: item2.Color,
+																										Notebook: item2.Notebook,
+																									});
+																								});
+																							});
+																						});
+																					});
+																				});
+																			});
+																		});
+																	});
+																});
+															});
+
+															return Dexie.Promise.all(promises);
+
+														}).then(function(){
+															var date = new Date().toLocaleDateString().replace(/\//g, "-");
+															dialog.showSaveDialog({
+																title: "Choose Directory to Save Backup",
+																buttonLabel: "Choose",
+																defaultPath: `Skrifa Migration Backup ${date}.skb`
+															},
+															function(directory){
+																if(directory){
+																	wait("Writing Backup to File");
+																	fs.writeFile(directory, JSON.stringify(json), 'utf8', function (error) {
+																		if(error){
+																			dialog.showErrorBox("Error creating backup", "There was an error creating your backup, file was not created.");
+																		}else{
+																			show("notes");
+																		}
+																	});
+																}else{
+																	show("settings");
+																}
+															});
+														});
+													$_("[data-modal='migrate-backup']").removeClass('active');
+												} else {
+													dialog.showErrorBox("Error parsing Key", "No public key was found, make sure you are trying to share to a public key.");
+													show("settings");
+												}
+
+											} else {
+												dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP public key.");
+												show("settings");
+											}
+
+										} catch(e) {
+											$_("[data-modal='migrate-backup'] span").text("You must enter a valid key to share this note.");
+										}
+										break;
+									}
+								}
+							});
+						}
+					});
+				} else {
+					dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP public key.");
+					show("settings");
+				}
+		} catch(e) {
+			$_("[data-modal='migrate-backup'] span").text("Incorrect Passphrase.");
+		}
 	});
 
 });

@@ -117,35 +117,47 @@ $_ready(() => {
 
 						switch(extension){
 							case "asc":
-								try{
-								var options = {
-									publicKeys: openpgp.key.readArmored(data).keys,
-									privateKeys: encryptOptions.privateKeys
-								};
+								try {
+									var publicKey = openpgp.key.readArmored(data).keys;
+									if (publicKey.length > 0) {
+										if(publicKey[0].isPublic()){
+											var options = {
+												publicKeys: openpgp.key.readArmored(data).keys,
+												privateKeys: encryptOptions.privateKeys
+											};
 
-								var content;
-								// Ask where the note should be saved
+											var content;
+											// Ask where the note should be saved
 
-								db.note.where("id").equals(parseInt(id)).first(function(note){
-									decrypt(note.Content).then((plaintext) => {
-										note.Content = "";
-										$(plaintext.data).each(function(){
-											if (this.innerText.trim() != "") {
-												note.Content += this.innerText + "\n";
-											}
+											db.note.where("id").equals(parseInt(id)).first(function(note){
+												decrypt(note.Content).then((plaintext) => {
+													note.Content = "";
+													$(plaintext.data).each(function(){
+														if (this.innerText.trim() != "") {
+															note.Content += this.innerText + "\n";
+														}
 
-										});
-										console.log(note.Content);
-										// Encrypt note content with the user's public key
-										encrypt(note.Content, options).then((cipher) => {
-												$_("[data-view='pgp-message'] [data-content='message']").text(cipher.data);
-												show("pgp-message");
-										});
-									});
-								});
-							} catch(e) {
-								$_("[data-view='share'] span").text("You must enter a valid key to share this note.");
-							}
+													});
+													// Encrypt note content with the user's public key
+													encrypt(note.Content, options).then((cipher) => {
+															$_("[data-view='pgp-message'] [data-content='message']").text(cipher.data);
+															show("pgp-message");
+													});
+												});
+											});
+										} else {
+											dialog.showErrorBox("Error parsing Key", "No public key was found, make sure you are trying to share to a public key.");
+											show("share");
+										}
+
+									} else {
+										dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP public key.");
+										show("share");
+									}
+
+								} catch(e) {
+									$_("[data-view='share'] span").text("You must enter a valid key to share this note.");
+								}
 								break;
 						}
 					}
@@ -172,68 +184,82 @@ $_ready(() => {
 				fs.readFile(file[0], 'utf8', function (error, data) {
 					if(error){
 						dialog.showErrorBox("Error reading file", "There was an error reading the file.");
+						show("share");
 					}else{
 						var extension = file[0].split(".").pop();
 
 						switch(extension){
 							case "asc":
 								try{
-								var options = {
-									publicKeys: openpgp.key.readArmored(data).keys,
-									privateKeys: encryptOptions.privateKeys
-								};
+									var publicKey = openpgp.key.readArmored(data).keys;
+									if (publicKey.length > 0) {
+										if(publicKey[0].isPublic()){
+											var options = {
+												publicKeys: openpgp.key.readArmored(data).keys,
+												privateKeys: encryptOptions.privateKeys
+											};
 
-								var content;
+											var content;
 
-								dialog.showSaveDialog({
-									title: "Choose Directory to Save the Note",
-									buttonLabel: "Save",
-									defaultPath:  $_("#preview h1").first().text()+ '.skf'
-								},
-								function(directory){
-									if(directory){
-										wait("Exporting Note to File");
+											dialog.showSaveDialog({
+												title: "Choose Directory to Save the Note",
+												buttonLabel: "Save",
+												defaultPath:  $_("#preview h1").first().text()+ '.skf'
+											},
+											function(directory){
+												if(directory){
+													wait("Exporting Note to File");
 
-										db.note.where("id").equals(parseInt(id)).first(function(note){
-											delete note.Notebook;
-											delete note.SyncDate;
-											// Decrypt note content
+													db.note.where("id").equals(parseInt(id)).first(function(note){
+														delete note.Notebook;
+														delete note.SyncDate;
+														// Decrypt note content
 
 
-												decrypt(note.Content).then((plaintext) => {
-													note.Content = plaintext.data;
-													decrypt(note.Title).then((plaintext2) => {
-														note.Title = plaintext2.data;
+															decrypt(note.Content).then((plaintext) => {
+																note.Content = plaintext.data;
+																decrypt(note.Title).then((plaintext2) => {
+																	note.Title = plaintext2.data;
 
-														// Encrypt note content with the user's public key
-														encrypt(note.Content, options).then((cipher) => {
-															encrypt(note.Title, options).then((cipher2) => {
-																note.Content = cipher.data;
-																note.Title = cipher2.data;
-																// Write data to file
-																fs.writeFile(directory, JSON.stringify(note), 'utf8', function (error) {
-																	if(error){
-																		dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
-																		show("preview");
-																	}else{
-																		$_("[data-view='share'] span").text("");
-																		show("preview");
-																	}
+																	// Encrypt note content with the user's public key
+																	encrypt(note.Content, options).then((cipher) => {
+																		encrypt(note.Title, options).then((cipher2) => {
+																			note.Content = cipher.data;
+																			note.Title = cipher2.data;
+																			// Write data to file
+																			fs.writeFile(directory, JSON.stringify(note), 'utf8', function (error) {
+																				if(error){
+																					dialog.showErrorBox("Error exporting note", "There was an error exporting the note, file was not created.");
+																					show("preview");
+																				}else{
+																					$_("[data-view='share'] span").text("");
+																					show("preview");
+																				}
+																			});
+																		});
+																	});
 																});
 															});
-														});
 													});
-												});
-										});
 
 
-									}else{
-										show("preview");
+												}else{
+													show("preview");
+												}
+											});
+										} else {
+											dialog.showErrorBox("Error parsing Key", "No public key was found, make sure you are trying to share to a public key.");
+											show("share");
+										}
+
+									} else {
+										dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP public key.");
+										show("share");
 									}
-								});
-							} catch(e) {
-								$_("[data-view='share'] span").text("You must enter a valid key to share this note.");
-							}
+
+								} catch(e) {
+									$_("[data-view='share'] span").text("You must enter a valid key to share this note.");
+								}
 								break;
 						}
 					}
