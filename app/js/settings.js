@@ -368,93 +368,97 @@ $_ready(function(){
 
 														var promises = [];
 
-														db.transaction('r', db.note, db.notebook, function() {
 
-															promises[0] = db.note.where('Notebook').equals("Inbox").each(function(item, cursor){
-																return decrypt(item.Content).then((content) => {
-																	return decrypt(item.Title).then((title) => {
-																	// Encrypt note content with the user's public key
-																		return encrypt(content.data, options).then((content) => {
-																			return encrypt(title.data, options).then((title) => {
-																				json.notebooks["Inbox"].notes.push({
-																					Title: title.data,
-																					Content: content.data,
-																					CreationDate: item.CreationDate,
-																					ModificationDate: item.ModificationDate,
-																					SyncDate: item.SyncDate,
-																					Color: item.Color,
-																					Notebook: item.Notebook,
-																				});
-																			});
-																		});
-																	});
-																});
-
-															});
-
-															promises[1] = db.notebook.each(function(item, cursor){
-
-																return decrypt(item.Name).then((name) => {
-																	return decrypt(item.Description).then((description) => {
-																		return encrypt(name.data, options).then((name) => {
-																			return encrypt(description.data, options).then((description) => {
-																				json.notebooks[item.id] = {
-																					id: item.id,
-																					Name: name.data,
-																					Description: description.data,
-																					notes: []
-																				};
-
-																				return db.note.where('Notebook').equals('' + item.id).each(function(item2, cursor2){
-																					return decrypt(item2.Content).then((content2) => {
-																						return decrypt(item2.Title).then((title2) => {
-																						// Encrypt note content with the user's public key
-																							return encrypt(content2.data, options).then((content2) => {
-																								return encrypt(title2.data, options).then((title2) => {
-																									json.notebooks[item.id].notes.push({
-																										Title: title2.data,
-																										Content: content2.data,
-																										CreationDate: item2.CreationDate,
-																										ModificationDate: item2.ModificationDate,
-																										SyncDate: item2.SyncDate,
-																										Color: item2.Color,
-																										Notebook: item2.Notebook,
-																									});
-																								});
-																							});
-																						});
-																					});
-																				});
+														// FIXME: Takes too long and not all notes and notebooks are exported
+														// Export all notes that belong to the Inbox notebook
+														promises[0] = db.note.where('Notebook').equals("Inbox").each(function(item, cursor){
+															return decrypt(item.Content).then((content) => {
+																return decrypt(item.Title).then((title) => {
+																// Encrypt note content with the user's public key
+																	return encrypt(content.data, options).then((content) => {
+																		return encrypt(title.data, options).then((title) => {
+																			json.notebooks["Inbox"].notes.push({
+																				Title: title.data,
+																				Content: content.data,
+																				CreationDate: item.CreationDate,
+																				ModificationDate: item.ModificationDate,
+																				SyncDate: item.SyncDate,
+																				Color: item.Color,
+																				Notebook: item.Notebook,
 																			});
 																		});
 																	});
 																});
 															});
 
-															return Dexie.Promise.all(promises);
+														});
 
-														}).then(function(){
-															var date = new Date().toLocaleDateString().replace(/\//g, "-");
-															dialog.showSaveDialog({
-																title: "Choose Directory to Save Backup",
-																buttonLabel: "Choose",
-																defaultPath: `Skrifa Migration Backup ${date}.skb`
-															},
-															function(directory){
-																if(directory){
-																	wait("Writing Backup to File");
-																	fs.writeFile(directory, JSON.stringify(json), 'utf8', function (error) {
-																		if(error){
-																			dialog.showErrorBox("Error creating backup", "There was an error creating your backup, file was not created.");
-																		}else{
-																			show("notes");
-																		}
+														promises[1] = db.notebook.each(function(item, cursor){
+															json.notebooks[item.id] = {};
+															json.notebooks[item.id].notes = [];
+															return decrypt(item.Name).then((name) => {
+																return decrypt(item.Description).then((description) => {
+																	return encrypt(name.data, options).then((name) => {
+																		return encrypt(description.data, options).then((description) => {
+																			json.notebooks[item.id].id = item.id;
+																			json.notebooks[item.id].Name = name.data;
+																			json.notebooks[item.id].Description = description.data;
+																		});
 																	});
-																}else{
-																	show("settings");
-																}
+																});
 															});
 														});
+
+														Dexie.Promise.all(promises).then(function(){
+															promises[3] = db.note.where('Notebook').notEqual('Inbox').each(function(item2, cursor2){
+																return decrypt(item2.Content).then((content2) => {
+																	return decrypt(item2.Title).then((title2) => {
+																	// Encrypt note content with the user's public key
+																		return encrypt(content2.data, options).then((content2) => {
+																			return encrypt(title2.data, options).then((title2) => {
+																				json.notebooks[item2.Notebook].notes.push({
+																					Title: title2.data,
+																					Content: content2.data,
+																					CreationDate: item2.CreationDate,
+																					ModificationDate: item2.ModificationDate,
+																					SyncDate: item2.SyncDate,
+																					Color: item2.Color,
+																					Notebook: item2.Notebook,
+																				});
+																			});
+																		});
+																	});
+																});
+															});
+
+															Dexie.Promise.all([promises[3]]).then(function(){
+																var date = new Date().toLocaleDateString().replace(/\//g, "-");
+																dialog.showSaveDialog({
+																	title: "Choose Directory to Save Backup",
+																	buttonLabel: "Choose",
+																	defaultPath: `Skrifa Migration Backup ${date}.skb`
+																},
+																function(directory){
+																	if(directory){
+																		wait("Writing Backup to File");
+																		fs.writeFile(directory, JSON.stringify(json), 'utf8', function (error) {
+																			if(error){
+																				dialog.showErrorBox("Error creating backup", "There was an error creating your backup, file was not created.");
+																			}else{
+																				show("notes");
+																			}
+																		});
+																	}else{
+																		show("settings");
+																	}
+																});
+															});
+
+														});
+
+
+
+
 													$_("[data-modal='migrate-backup']").removeClass('active');
 												} else {
 													dialog.showErrorBox("Error parsing Key", "No public key was found, make sure you are trying to share to a public key.");
