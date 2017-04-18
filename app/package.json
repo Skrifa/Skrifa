@@ -12,7 +12,7 @@
     "notebook"
   ],
   "author": "Diego Islas Ocampo <hyuchia@gmail.com>",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "dexie": "^1.5.1",

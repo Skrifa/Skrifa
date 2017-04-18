@@ -14,10 +14,11 @@
 		"start": "electron ./app --enable-logging",
 		"dev": "NODE_ENV='development' npm run start",
 		"dist": "build -mwl",
-		"mac": "build --m"
+		"mac": "build --m",
+		"linux": "build --l"
 	},
 	"author": "Diego Islas Ocampo <hyuchia@gmail.com>",
-	"license": "GPLv3",
+	"license": "GPL-3.0",
 	"build": {
 		"appId": "com.hyuchia.skrifa",
 		"mac": {
