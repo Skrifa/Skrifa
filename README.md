@@ -8,6 +8,15 @@ With a minimal, distraction free, simple and yet powerful interface, it's focuse
 
 From text styling to videos and images, and there are also features for more specific things like **writing code, math and data tables**
 
+### How Skrifa Protects Your Privacy
+When registering for a Skrifa account you'll be asked for an email address and password. Once you've downloaded the app you'll create a new PGP key which will be used to encrypt all your notes, this key will be created using a new passphrase you'll set up, using that passphrase your key will be encrypted and saved locally, an encrypted version of your key is also uploaded to the server so that you won't have to manage it manually. This behaviour is fairly similar to the one used by [Proton Mail](https://protonmail.com/). If you don't want to use an Skrifa acccount and rely your key to a server, you can also use a PGP key you already own or create a new one, while this may be more secure, it also comes with great responsibility since you'll have to backup your key, remember that key is the only way to access your notes!
+
+Finally, every time you start skrifa you'll be asked to enter your key's passphrase in order to decrypt it and decrypt your notes, every note and notebook you create is encrypted using that key and only you will be able to read it.
+
+### Sharing Notes
+Sharing notes is incredibly easy, if you are sharing the note with a registered Skrifa user, all you'll need is his/her username and a Skfira Note will be created for you to share it.
+If you are sharing the note with a Skrifa user who uses an offline key, then you'll need his public key, a dialog will appear asking you to select the public key you want to share the note with.
+
 ## Contributing
 There are several ways you can contribute to the development of Skrifa
 
