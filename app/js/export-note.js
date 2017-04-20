@@ -98,7 +98,7 @@ $_ready(function(){
 		},
 		function(directory){
 			if(directory){
-				htmlBoilerplatePDF({cssPath: `${app.getAppPath()}/style/pdf.css`}).from.string($_("#preview").html()).to(directory, function () {
+				htmlBoilerplatePDF({cssPath: `${app.getAppPath()}/style/pdf.css`, paperFormat: 'Letter', paperBorder: '24.892mm'}).from.string($_("#preview").html()).to(directory, function () {
 					show("preview");
 				});
 			}

@@ -461,9 +461,7 @@ body {
     outline: none;
     overflow: visible;
     font-family: 'Arial', sans-serif;
-    font-size: 0.75em;
-    size: letter;
-    margin: 24.892mm;
+    font-size: 9pt;
 }
 
 section {
@@ -534,39 +532,23 @@ b {
  * ==========================================================================
  */
 
-ul,
-ol {
-    padding-left: 1.3em;
-}
 
 h1 {
 	margin: 1rem 0;
-    font-size: 2rem;
+    font-size: 12pt;
+    font-weight: bold;
 }
 
 h2 {
 	margin: 1rem 0;
-    font-size: 1.8rem;
+    font-size: 10.5pt;
+    font-weight: bold;
 }
 
-h3 {
+h3, h4, h5, h6 {
 	margin: 1rem 0;
-    font-size: 1.6rem;
-}
-
-h4 {
-	margin: 1em 0;
-    font-size: 1.4rem;
-}
-
-h5 {
-	margin: 1rem 0;
-    font-size: 1.2rem;
-}
-
-h6 {
-	margin: 1rem 0;
-    margin-bottom: 0.5rem;
+    font-size: 9pt;
+    font-weight: bold;
 }
 
 /*
@@ -582,9 +564,9 @@ pre[class*="language-"] {
 	text-align: left;
 	white-space: pre;
 	word-spacing: normal;
-	word-break: normal;
 	line-height: 1.5;
-	font-size: 0.85em;
+	word-break: normal;
+	font-size: 8pt;
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
 	tab-size: 4;
@@ -603,13 +585,10 @@ pre[class*="language-"] {
 	background-size: 3em 3em;
 	background-origin: content-box;
 	overflow: visible;
-	overflow-x: scroll;
 }
 
 code[class*="language"] {
-	max-height: inherit;
-	height: 100%;
-	padding: 0 1em;
+	padding: 0.1em 1em;
 	display: block;
 	overflow: auto;
 }
