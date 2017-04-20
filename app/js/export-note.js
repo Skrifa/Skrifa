@@ -91,9 +91,19 @@ $_ready(function(){
 
 	$_("[data-form='export-note'] [data-action='export-pdf']").click(function(event){
 		wait("Exporting Note to File");
-		htmlBoilerplatePDF({cssPath: "../../style/pdf.css"}).from.string($_("#preview").html()).to(directory, function () {
-			show("preview");
+		dialog.showSaveDialog({
+			title: "Choose Directory to Export Note",
+			buttonLabel: "Export",
+			defaultPath: $_("#preview h1").first().text() + '.pdf'
+		},
+		function(directory){
+			if(directory){
+				htmlBoilerplatePDF({cssPath: `${app.getAppPath()}/style/pdf.css`}).from.string($_("#preview").html()).to(directory, function () {
+					show("preview");
+				});
+			}
 		});
+
 	});
 
 	// Listener for the cancel button
