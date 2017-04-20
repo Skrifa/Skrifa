@@ -431,18 +431,13 @@
 		<section data-view="export-note">
 			<div class="middle padded-2">
 				<h1>Export Note As:</h1>
-				<form method="post" data-form="export-note" class="vertical align-center padded-2">
-					<p>Remember that only the Skrifa Note format will remain encrypted, by exporting your note to any other format your content can be viewed by anyone.</p>
-					<p><input type="radio" name="format" value='skf' required="true"> <label>Skrifa Note</label></p>
-					<p><input type="radio" name="format" value='skrifa' required="true"> <label>Chrome Skrifa Note (Unencrypted)</label></p>
-					<p><input type="radio" name="format" value='md' required="true"> <label>Markdown Note</label></p>
-					<!--
-					<p><input type="radio" name="format" value='pdf' required="true"> <label>PDF Document</label></p>
-					<input type="radio" name="format" value='html' required="true"> <label>HTML Document</label>
-					-->
-
+				<form method="post" data-form="export-note" class="align-center padded-2">
+					<p>Remember that only the Skrifa Note format will remain encrypted, by exporting your note to any other format your content can be viewed by anyone. Select the format you want to export your note in.</p>
+					<button data-action="export-skf">Skrifa Note</button>
+					<button data-action="export-skrifa">Chrome Skrifa Note</button>
+					<button data-action="export-md">Markdown</button>
+					<button data-action="export-html">HTML</button>
 					<div class="buttons">
-						<button type="submit">Export</button>
 						<button type="reset">Cancel</button>
 					</div>
 				</form>
