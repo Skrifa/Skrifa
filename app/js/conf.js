@@ -25,6 +25,7 @@ const upndown = require('upndown');
 const mammoth = require("mammoth");
 const pkg = require('./package.json');
 const {clipboard} = require('electron');
+const app = require('electron').remote.app
 
 openpgp.initWorker({ path:'node_modules/openpgp/dist/openpgp.worker.min.js' }); // set the relative web worker path
 

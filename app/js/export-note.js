@@ -73,6 +73,20 @@ $_ready(function(){
 
 	$_("[data-form='export-note'] [data-action='export-html']").click(function(event){
 		wait("Exporting Note to File");
+		fs.readFile(`${app.getAppPath()}/note-template.html`, 'utf8', function (error, data) {
+			if(error){
+				dialog.showErrorBox("Error Exporting Note", "The note template could not be found, the note was not exported.");
+				show("notes");
+			}else{
+				db.note.where("id").equals(parseInt(id)).first(function(note){
+					decrypt(note.Content).then((plaintext) => {
+						data = data.replace("{{title}}", $_("#preview h1").first().text().trim() != "" ? $_("#preview h1").first().text() : "Untitled");
+						data = data.replace("{{content}}", plaintext.data);
+						exportNote(data, 'html');
+					});
+				});
+			}
+		});
 	});
 
 	$_("[data-form='export-note'] [data-action='export-pdf']").click(function(event){
