@@ -11,7 +11,7 @@ From text styling to videos and images, and there are also features for more spe
 ### Writing Math
 Having a suitable notebook for any ocation is something we all need, Skrifa has Mathjax capabilities so that you can write math formulas and some LaTEX code, ideal for students and people who work with math!
 
-### Writhing Code
+### Writing Code
 Thanks to Prism.js Skrifa also has code highlightning for you!
 
 ### How Skrifa Protects Your Privacy
