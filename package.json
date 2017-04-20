@@ -27,7 +27,7 @@
 		},
 		"linux": {
 			"category": "Office",
-			"target": ["snap", "AppImage", "deb", "rpm", "pacman", "freebsd"],
+			"target": ["snap", "AppImage", "deb", "rpm", "freebsd", "pacman"],
 			"executableName": "Skrifa",
 			"synopsis": "A simple word processor built with web technologies"
 		},
