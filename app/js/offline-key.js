@@ -32,12 +32,12 @@ $_ready(function(){
 					{
 						title: "Choose Directory to Save your Key",
 						buttonLabel: "Save",
-						defaultPath: $_("[data-form='offline-key'] input[name='user']").value().trim().split("@")[0] + '.skk'
+						defaultPath: $_("[data-form='offline-key'] input[name='user']").value().trim().split("@")[0] + '.asc'
 					},
 					function(directory){
 						if(directory){
 
-							fs.writeFile(directory, privateKey, 'utf8', function (error) {
+							fs.writeFile(directory, privkey, 'utf8', function (error) {
 								if(error){
 									dialog.showErrorBox("Error saving your key", "There was an error saving your key, file was not created.");
 									show("login");
