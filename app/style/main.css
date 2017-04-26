@@ -425,7 +425,7 @@ b {
 #preview h6,
 #editor h6 {
 	margin: 1rem 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .video-wrapper iframe,

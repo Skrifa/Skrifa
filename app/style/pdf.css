@@ -499,7 +499,9 @@ code {
 }
 
 tr,
-td {
+td,
+th {
+	border: 1px solid #424242;
 	padding: 0.5em;
 }
 
@@ -559,7 +561,7 @@ h3, h4, h5, h6 {
 
 code[class*="language-"],
 pre[class*="language-"] {
-	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-family: monospace;
 	direction: ltr;
 	text-align: left;
 	white-space: pre;
@@ -590,7 +592,7 @@ pre[class*="language-"] {
 code[class*="language"] {
 	padding: 0.1em 1em;
 	display: block;
-	overflow: auto;
+	overflow: visible;
 }
 
 /* Inline code */
