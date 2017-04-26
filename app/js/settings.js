@@ -283,6 +283,9 @@ $_ready(function(){
 			case "migrate-backup":
 				$_("[data-modal='migrate-backup']").addClass('active');
 				break;
+			case "clear-data":
+				$_("[data-modal='clear-data']").addClass('active');
+				break;
 
 		}
 
@@ -318,6 +321,10 @@ $_ready(function(){
 
 	$_("[data-form='migrate-backup'] [type='reset']").click(function(){
 		$_("[data-modal='migrate-backup']").removeClass('active');
+	});
+
+	$_("[data-form='clear-data'] [type='reset']").click(function(){
+		$_("[data-modal='clear-data']").removeClass('active');
 	});
 
 	$_("[data-form='migrate-backup']").submit(function(event){
@@ -485,6 +492,24 @@ $_ready(function(){
 				}
 		} catch(e) {
 			$_("[data-modal='migrate-backup'] span").text("Incorrect Passphrase.");
+		}
+	});
+
+	$_("[data-form='clear-data']").submit(function(event){
+		event.preventDefault();
+		try {
+			if (openpgp.key.readArmored(CryptoJS.AES.decrypt(Storage.get('PrivKey'), $_("[data-form='clear-data'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8)).keys.length > 0) {
+				wait("Clearing Storage");
+				db.transaction('rw', db.note, db.notebook, function() {
+					db.notebook.clear();
+					db.note.clear();
+					Storage.clear();
+				}).then(function(){
+					show("login");
+				});
+			}
+		} catch(e) {
+			$_("[data-modal='clear-data'] span").text("Incorrect Passphrase.");
 		}
 	});
 
