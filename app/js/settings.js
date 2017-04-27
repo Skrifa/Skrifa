@@ -376,7 +376,7 @@ $_ready(function(){
 														var promises = [];
 
 
-														// FIXME: Takes too long and not all notes and notebooks are exported
+														// FIXME: Takes too long
 														// Export all notes that belong to the Inbox notebook
 														promises[0] = db.note.where('Notebook').equals("Inbox").each(function(item, cursor){
 															return decrypt(item.Content).then((content) => {

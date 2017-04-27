@@ -131,13 +131,14 @@ $_ready(() => {
 
 											db.note.where("id").equals(parseInt(id)).first(function(note){
 												decrypt(note.Content).then((plaintext) => {
-													note.Content = "";
-													$(plaintext.data).each(function(){
-														if (this.innerText.trim() != "") {
-															note.Content += this.innerText + "\n";
-														}
 
+													note.Content = htmlToText.fromString(plaintext.data, {
+														wordwrap: 80,
+														ignoreImage: true,
+														uppercaseHeadings: false,
+														preserveNewlines: true
 													});
+
 													// Encrypt note content with the user's public key
 													encrypt(note.Content, options).then((cipher) => {
 															$_("[data-view='pgp-message'] [data-content='message']").text(cipher.data);
