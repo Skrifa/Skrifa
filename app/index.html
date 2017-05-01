@@ -473,13 +473,10 @@
 						<li data-action="new-note" class="vertical"><span class="fa fa-plus"></span><small>New Note</small></li>
 						<li data-action="import-note" class="vertical"><span class="fa fa-upload"></span><small>Import Note</small></li>
 						<li data-action="new-notebook" class="vertical"><span class="fa fa-book"></span><small>New Notebook</small></li>
-						<!--<li class="fa fa-th" data-action="change-view"></li>-->
 						<li data-action="edit-notebook" class="vertical"><span class="fa fa-pencil"></span><small>Edit Notebook</small></li>
 						<li data-action="delete-notebook" class="vertical"><span class="fa fa-trash"></span><small>Delete Notebook</small></li>
 						<li data-action="settings" class="vertical"><span class="fa fa-cog"></span><small>Settings</small></li>
 						<li data-action="update" class="vertical"><span class="fa fa-cloud-download"></span><small>New Version Available</small></li>
-				        <!--<li class="fa fa-question-circle" data-show="help"></li>
-				        <li class="fa fa-sign-out" data-action="logout"></li>-->
 				    </ul>
 				</nav>
 
@@ -492,12 +489,25 @@
 		<section data-view="settings">
 			<div data-modal="migrate-backup">
 				<form data-form="migrate-backup" class="vertical align-center padded-1">
-					<h2>Migration Background</h2>
+					<h2>Migration Backup</h2>
 					<p>Please enter your passphrase to continue. You will now have to choose the new key you'll be migrating to and then the location you want to save your backup to.</p>
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<span class="status"></span>
 					<div class="buttons">
 						<button type="submit">Migrate</button>
+						<button type="reset">Cancel</button>
+					</div>
+				</form>
+			</div>
+
+			<div data-modal="skrup-backup">
+				<form data-form="skrup-backup" class="vertical align-center padded-1">
+					<h2>Create an Unencrypted Backup</h2>
+					<p>This allows the creation of a backup that you can then import to any Skrifa app, however this backup will not be encrypted and thus the notes in it can be read by anyone. Pleas eneter your password to continue:</p>
+					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
+					<span class="status"></span>
+					<div class="buttons">
+						<button type="submit">Create</button>
 						<button type="reset">Cancel</button>
 					</div>
 				</form>
@@ -517,12 +527,6 @@
 			</div>
 			<div class="middle padded-1">
 				<h1>Settings</h1>
-				<!--<div class="vertical align-center">
-					<h2>Sync</h2>
-					<button data-action="sync-local">Restore from Sync</button>
-					<button data-action="sync-server">Sync to Server</button>
-				</div>-->
-
 				<form method="post" data-form="settings" class="vertical align-center padded-2">
 					<div class="vertical align-center">
 						<h2>Notes Sorting Order</h2>
@@ -554,7 +558,7 @@
 						<div>
 							<button data-action="import-backup">Restore from Backup</button>
 							<button data-action="create-backup">Create Backup</button>
-
+							<button data-action="skrup-backup">Create Unencrypted Backup</button>
 						</div>
 					</div>
 					<div class="vertical align-center">

@@ -283,6 +283,10 @@ $_ready(function(){
 			case "migrate-backup":
 				$_("[data-modal='migrate-backup']").addClass('active');
 				break;
+
+			case "skrup-backup":
+				$_("[data-modal='skrup-backup']").addClass('active');
+				break;
 			case "clear-data":
 				$_("[data-modal='clear-data']").addClass('active');
 				break;
@@ -320,7 +324,13 @@ $_ready(function(){
 	});
 
 	$_("[data-form='migrate-backup'] [type='reset']").click(function(){
+		$_("[data-form='migrate-backup'] input[name='passphrase']").value("");
 		$_("[data-modal='migrate-backup']").removeClass('active');
+	});
+
+	$_("[data-form='skrup-backup'] [type='reset']").click(function(){
+		$_("[data-form='skrup-backup'] input[name='passphrase']").value("");
+		$_("[data-modal='skrup-backup']").removeClass('active');
 	});
 
 	$_("[data-form='clear-data'] [type='reset']").click(function(){
@@ -490,6 +500,108 @@ $_ready(function(){
 					dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP public key.");
 					show("settings");
 				}
+		} catch(e) {
+			$_("[data-modal='migrate-backup'] span").text("Incorrect Passphrase.");
+		}
+	});
+
+	$_("[data-form='skrup-backup']").submit(function(event){
+		event.preventDefault();
+		try {
+			if (openpgp.key.readArmored(CryptoJS.AES.decrypt(Storage.get('PrivKey'), $_("[data-form='skrup-backup'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8)).keys.length > 0) {
+				wait("Building Migration Backup, this operation can take several minutes.");
+				var json = {
+					version: 3,
+					notebooks: {
+
+					}
+				};
+
+				json.notebooks["Inbox"] = {
+					id: "Inbox",
+					Name: "Inbox",
+					Description: "A place for any note",
+					notes: []
+				}
+
+				var promises = [];
+
+
+				// FIXME: Takes too long
+				// Export all notes that belong to the Inbox notebook
+				promises[0] = db.note.where('Notebook').equals("Inbox").each(function(item, cursor){
+					return decrypt(item.Content).then((content) => {
+						return decrypt(item.Title).then((title) => {
+							json.notebooks["Inbox"].notes.push({
+								Title: title.data,
+								Content: content.data,
+								CreationDate: item.CreationDate,
+								ModificationDate: item.ModificationDate,
+								SyncDate: item.SyncDate,
+								Color: item.Color,
+								Notebook: item.Notebook,
+							});
+						});
+					});
+
+				});
+
+				promises[1] = db.notebook.each(function(item, cursor){
+					json.notebooks[item.id] = {};
+					json.notebooks[item.id].notes = [];
+					return decrypt(item.Name).then((name) => {
+						return decrypt(item.Description).then((description) => {
+							json.notebooks[item.id].id = item.id;
+							json.notebooks[item.id].Name = name.data;
+							json.notebooks[item.id].Description = description.data;
+						});
+					});
+				});
+
+				Dexie.Promise.all(promises).then(function(){
+					promises[3] = db.note.where('Notebook').notEqual('Inbox').each(function(item2, cursor2){
+						return decrypt(item2.Content).then((content2) => {
+							return decrypt(item2.Title).then((title2) => {
+								json.notebooks[item2.Notebook].notes.push({
+									Title: title2.data,
+									Content: content2.data,
+									CreationDate: item2.CreationDate,
+									ModificationDate: item2.ModificationDate,
+									SyncDate: item2.SyncDate,
+									Color: item2.Color,
+									Notebook: item2.Notebook,
+								});
+							});
+						});
+					});
+
+					Dexie.Promise.all([promises[3]]).then(function(){
+						var date = new Date().toLocaleDateString().replace(/\//g, "-");
+						dialog.showSaveDialog({
+							title: "Choose Directory to Save your Backup",
+							buttonLabel: "Choose",
+							defaultPath: `Skrifa Lite Backup ${date}.skrup`
+						},
+						function(directory){
+							if(directory){
+								wait("Writing Backup to File");
+								fs.writeFile(directory, JSON.stringify(json), 'utf8', function (error) {
+									if(error){
+										dialog.showErrorBox("Error creating backup", "There was an error creating your backup, file was not created.");
+									}else{
+										show("notes");
+									}
+								});
+							}else{
+								show("settings");
+							}
+						});
+					});
+
+					$_("[data-modal='migrate-backup']").removeClass('active');
+				});
+			}
+
 		} catch(e) {
 			$_("[data-modal='migrate-backup'] span").text("Incorrect Passphrase.");
 		}
