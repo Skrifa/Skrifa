@@ -5,7 +5,7 @@
   "description": "A simple word processor built with web technologies",
   "devDependencies": {
     "electron": "^1.6.2",
-    "electron-builder": "^16.7.1"
+    "electron-builder": "^17.8.0"
   },
   "scripts": {
     "pack": "build --dir",
