@@ -18,6 +18,8 @@ $_ready(function(){
 						show("preview");
 					}
 				});
+			} else {
+				show("export-note");
 			}
 		});
 	}
@@ -101,6 +103,8 @@ $_ready(function(){
 				htmlBoilerplatePDF({cssPath: `${app.getAppPath()}/style/pdf.css`, paperFormat: 'Letter', paperBorder: '24.892mm'}).from.string($_("#preview").html()).to(directory, function () {
 					show("preview");
 				});
+			} else {
+				show("export-note");
 			}
 		});
 
