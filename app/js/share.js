@@ -87,7 +87,7 @@ $_ready(() => {
 					});
 
 
-				}else{
+				} else {
 					self.reset();
 					show("preview");
 				}
@@ -165,6 +165,8 @@ $_ready(() => {
 
 				});
 
+			} else {
+				show("share");
 			}
 		});
 	});
@@ -267,6 +269,8 @@ $_ready(() => {
 
 				});
 
+			} else {
+				show("share");
 			}
 		});
 

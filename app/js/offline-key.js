@@ -40,6 +40,7 @@ $_ready(function(){
 							fs.writeFile(directory, privkey, 'utf8', function (error) {
 								if(error){
 									dialog.showErrorBox("Error saving your key", "There was an error saving your key, file was not created.");
+									self.reset();
 									show("login");
 								}else{
 									Storage.set("PubKey", pubkey);
@@ -71,6 +72,9 @@ $_ready(function(){
 								}
 							});
 
+						} else {
+							self.reset();
+							show("login");
 						}
 					});
 				});

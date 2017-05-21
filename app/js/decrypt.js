@@ -1,4 +1,4 @@
-$_ready(function(){
+$_ready(() => {
 
 	// Listener for the submit button
 	$_("[data-form='decrypt']").submit(function(event){

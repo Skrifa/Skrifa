@@ -9,7 +9,7 @@ $_ready(() => {
 		var description = $_("[data-form='new-notebook'] input[data-input='description']").value().trim();
 
 		// Check if name was not empty
-		if(name != ""){
+		if(name != "") {
 			wait("Wait while your new notebook is created");
 
 			// Encrypt name and description
@@ -23,7 +23,7 @@ $_ready(() => {
 					}).then(function(){
 						self.reset();
 						// Load notebooks list again
-						loadNotebooks().then(function(){
+						loadNotebooks().then(function() {
 							show("notes");
 						});
 					});

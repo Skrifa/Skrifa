@@ -1,7 +1,7 @@
-$_ready(function(){
+$_ready(() => {
 
 	// Action listeners for the preview toolbar
-	$("body").on("click", "[data-action]",function(){
+	$_("[data-view='preview'] [data-action]").click(function() {
 		switch ($_(this).data("action")) {
 			case "print":
 				window.print();
@@ -16,7 +16,6 @@ $_ready(function(){
 				break;
 		}
 	});
-
 });
 
 

@@ -7,55 +7,55 @@
 
 
 // Show the loading screen with a custom message
-function wait(message){
+function wait(message) {
 	$_('[data-view]').removeClass("active");
 	$_('[data-view="loading"] h2').text(message);
 	$_('[data-view="loading"]').addClass("active");
 }
 
 // Show a given view, it will hide all views and then show the given one.
-function show(view){
+function show(view) {
 	$_('[data-view]').removeClass("active");
-	$_('[data-view="' + view + '"]').addClass("active");
+	$_(`[data-view="${view}"]`).addClass("active");
 }
 
 // Encrypt data using OpenPGP.js
-function encrypt(data, options){
-	if(typeof options == 'undefined'){
+function encrypt(data, options) {
+	if(typeof options == 'undefined') {
 		encryptOptions.data = data;
 		return openpgp.encrypt(encryptOptions);
-	}else{
+	} else {
 		options.data = data;
 		return openpgp.encrypt(options);
 	}
 }
 
 // Decrypt data
-function decrypt(data){
+function decrypt(data) {
 	decryptOptions.message = openpgp.message.readArmored(data);
 	return openpgp.decrypt(decryptOptions);
 }
 
 // Get the title of a note
-function getTitle(html, suggested){
+function getTitle(html, suggested) {
 	var found = $(html).filter("h1").first().text().trim();
-	if(found){
+	if(found) {
 		return found;
-	}else{
+	} else {
 		return suggested;
 	}
 }
 
 // Function to add a note to the notes container
-function addNote(noteID, noteTitle, noteColor){
+function addNote(noteID, noteTitle, noteColor) {
 	$_("[data-content='welcome']").hide();
 	$_("[data-content='note-container']").append(`<article data-color='${noteColor}' draggable='true' data-nid='${noteID}'><div class='content' ><h2>${noteTitle}</h2></div><div class='note-actions'><span class='fa fa-eye' data-id='${noteID}' data-action='preview'></span><span class='fa-pencil fa' data-id='${noteID}' data-action='edit'></span><span class='fa-trash fa' data-id='${noteID}' data-action='delete'></span></div></article>`);
 	styleNote(noteID);
 }
 
 // Function to set the background color of the notes, accepts the note id
-function styleNote(id){
-	if(typeof id == 'undefined'){
+function styleNote(id) {
+	if(typeof id == 'undefined') {
 		if ($_("body").hasClass("light") || $_("body").hasClass("dark")) {
 			$_(".grid article").each(function(element){
 				$_(element).style("background", $_(element).data("color"));
@@ -69,7 +69,7 @@ function styleNote(id){
 			});
 		}
 
-	}else{
+	} else {
 		if ($_("body").hasClass("light") || $_("body").hasClass("dark")) {
 			$_(`.grid [data-nid='${id}']`).style("background", $_(`.grid [data-nid='${id}']`).data("color"));
 		}
@@ -82,7 +82,7 @@ function styleNote(id){
 }
 
 // Load notes of the current notebook
-function loadNotes(){
+function loadNotes() {
 	// Check if the key is actually set
 	if(key != null){
 		// Remove previous content
@@ -102,7 +102,7 @@ function loadNotes(){
 			});
 			// Get all notes from the notebook
 
-			if(settings.sort == "newer"){
+			if(settings.sort == "newer") {
 				db.note.where("Notebook").equals(notebook).reverse().each(function(item, cursor){
 					var item = item;
 
@@ -111,7 +111,7 @@ function loadNotes(){
 						addNote(item.id, plaintext.data, item.Color);
 					});
 				});
-			}else{
+			} else {
 				db.note.where("Notebook").equals(notebook).each(function(item, cursor){
 					var item = item;
 
@@ -130,7 +130,7 @@ function loadNotes(){
 }
 
 // Load notebook list
-function loadNotebooks(){
+function loadNotebooks() {
 	return new Promise((resolve, reject) => {
 		wait("Wait while your notebooks are decrypted");
 		if(key != null){
@@ -171,7 +171,7 @@ function loadNotebooks(){
 					return 0;
 				});
 				// Build the buttons
-				for(var i in notebooksTemp){
+				for(var i in notebooksTemp) {
 					$_("[data-content='notebook-list']").append('<li data-notebook="' + notebooksTemp[i].id + '">' + notebooksTemp[i].Name + '</li>');
 				}
 				resolve();
