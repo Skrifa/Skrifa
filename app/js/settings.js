@@ -24,8 +24,82 @@ $_ready(function(){
 
 								switch(extension){
 									case "skrup":
+										if (typeof backup.Version == 'undefined' && typeof backup.version != 'undefined') {
+											backup.Version = 3;
+										}
 
 										switch(backup.Version){
+											case 3:
+												wait("Clearing Storage");
+												db.transaction('rw', db.note, db.notebook, function() {
+													db.notebook.clear().then(function(deleteCount){
+														db.note.clear().then(function(deleteCount){
+														wait("Importing Notebooks and Notes From Unencrypted Backup, this operation can take several minutes.");
+															var backupNotebooks = [];
+															var backupNotes = [];
+															for(var i in backup.notebooks){
+																if(backup.notebooks[i].id != "Inbox"){
+																	backupNotebooks.push(backup.notebooks[i]);
+																}
+																for(var j in backup.notebooks[i].notes){
+																	backupNotes.push(backup.notebooks[i].notes[j]);
+																}
+															}
+
+															var notebooksTemp = [];
+															var notesTemp = [];
+
+															var notebooks = Object.keys(backupNotebooks).map(function(k) { return backupNotebooks[k] });
+															var promises = notebooks.map(function(notebook) {
+																return encrypt(notebook.Name).then(function(ciphertext){
+																	return encrypt( notebook.Description).then(function(ciphertext2){
+																		notebook.Name = ciphertext.data;
+																		notebook.Description = ciphertext2.data;
+																		notebook.id = parseInt(notebook.id);
+																		notebooksTemp.push(notebook);
+																	});
+																});
+															});
+
+															return Promise.all(promises).then(function() {
+																var notes = Object.keys(backupNotes).map(function(k) { return backupNotes[k] });
+																var promises2 = notes.map(function(note) {
+																	return encrypt(note.Title).then(function(ciphertext){
+																		return encrypt(note.Content).then(function(ciphertext2){
+																			note.Title = ciphertext.data;
+																			note.Content = ciphertext2.data;
+																			notesTemp.push(note);
+																		});
+																	});
+																});
+
+																return Promise.all(promises2).then(function() {
+
+																	db.transaction('rw', db.note, db.notebook, function() {
+																		for(var i in notebooksTemp){
+																			db.notebook.add(notebooksTemp[i]);
+																		}
+																		for(var j in notesTemp){
+																			db.note.add(notesTemp[j]);
+																		}
+																	}).then(function(){
+																		loadContent();
+																	}).catch(function(error) {
+
+																		dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
+																		show('settings');
+
+																	});
+
+																});
+															});
+														});
+													});
+												}).catch(function(error){
+													dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
+													show('settings');
+												});
+												break;
 											case 2:
 												wait("Clearing Storage");
 												db.transaction('rw', db.note, db.notebook, function() {
@@ -339,6 +413,7 @@ $_ready(function(){
 
 	$_("[data-form='migrate-backup']").submit(function(event){
 		event.preventDefault();
+		var self = this;
 		try {
 		if (openpgp.key.readArmored(CryptoJS.AES.decrypt(Storage.get('PrivKey'), $_("[data-form='migrate-backup'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8)).keys.length > 0) {
 					dialog.showOpenDialog({
@@ -496,6 +571,7 @@ $_ready(function(){
 							});
 						}
 					});
+					self.reset();
 				} else {
 					dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP public key.");
 					show("settings");
@@ -507,9 +583,10 @@ $_ready(function(){
 
 	$_("[data-form='skrup-backup']").submit(function(event){
 		event.preventDefault();
+		var self = this;
 		try {
 			if (openpgp.key.readArmored(CryptoJS.AES.decrypt(Storage.get('PrivKey'), $_("[data-form='skrup-backup'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8)).keys.length > 0) {
-				wait("Building Migration Backup, this operation can take several minutes.");
+				wait("Building Unencrypted Backup, this operation can take several minutes.");
 				var json = {
 					version: 3,
 					notebooks: {
@@ -598,12 +675,13 @@ $_ready(function(){
 						});
 					});
 
-					$_("[data-modal='migrate-backup']").removeClass('active');
+					$_("[data-modal='skrup-backup']").removeClass('active');
+					self.reset();
 				});
 			}
 
 		} catch(e) {
-			$_("[data-modal='migrate-backup'] span").text("Incorrect Passphrase.");
+			$_("[data-modal='skrup-backup'] span").text("Incorrect Passphrase.");
 		}
 	});
 
