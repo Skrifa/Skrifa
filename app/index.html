@@ -19,7 +19,7 @@
 		<link type="text/css" rel="stylesheet" href="style/prism.css"/>
 
 		<!-- Import Themes Stylesheets -->
-		<link type="text/css" rel="stylesheet" href="style/themes/light.css"/>
+		<link type="text/css" rel="stylesheet" href="style/themes/playful.css"/>
 		<link type="text/css" rel="stylesheet" href="style/themes/dark.css"/>
 		<link type="text/css" rel="stylesheet" href="style/themes/ghost.css"/>
 
@@ -50,7 +50,7 @@
 		<script src="js/share.js"></script>
 		<script src="js/pgp-message.js"></script>
 	</head>
-	<body class="light">
+	<body class="playful">
 
 		<section data-view="loading">
 			<div class="middle align-center">
@@ -252,59 +252,63 @@
 
 			<div class="side-nav unselectable">
 	            <div class="editor-tools">
-	                <div>
+	                <div class="tools-section">
 	                    <h3>Headers</h3>
-	                    <button data-tool="h1" title="Header 1">H1</button>
-	                    <button data-tool="h2" title="Header 2">H2</button>
-	                    <button data-tool="h3" title="Header 3">H3</button>
-	                    <button data-tool="h4" title="Header 4">H4</button>
-	                    <button data-tool="h5" title="Header 5">H5</button>
-	                    <button data-tool="h6" title="Header 6">H6</button>
+											<div class="tools-buttons">
+		                    <button data-tool="h1" title="Header 1">H1</button>
+		                    <button data-tool="h2" title="Header 2">H2</button>
+		                    <button data-tool="h3" title="Header 3">H3</button>
+		                    <button data-tool="h4" title="Header 4">H4</button>
+		                    <button data-tool="h5" title="Header 5">H5</button>
+		                    <button data-tool="h6" title="Header 6">H6</button>
+											</div>
 	                </div>
 
-	                <div>
+	                <div class="tools-section">
 	                    <h3>Style</h3>
-	                    <button class="fa fa-bold" data-tool="bold"  title="Bold"></button>
-	                    <button class="fa fa-italic" data-tool="italic"  title="Italic"></button>
-	                    <button class="fa fa-underline" data-tool="underline"  title="Underline"></button>
-	                    <button class="fa fa-strikethrough" data-tool="strikeThrough"  title="Strike Through"></button>
-						<!--<button class="fa fa-pencil" data-tool="mark"  title="Highlight"></button>-->
-	                    <div>
-	                        <button class="fa fa-align-left" data-tool="Left" title="Align Left"></button>
-	                        <button class="fa fa-align-center" data-tool="Center" title="Align Center"></button>
-	                        <button class="fa fa-align-right" data-tool="Right" title="Align Right"></button>
-	                        <button class="fa fa-align-justify" data-tool="Full" title="Justify"></button>
-	                    </div>
-
-	                    <div>
-							<button class="fa fa-list-ul" data-tool="ul" title="Unordered List"></button>
-		                    <button class="fa fa-list-ol" data-tool="ol" title="Ordered List"></button>
-		                    <button class="fa fa-quote-right" data-tool="blockquote" title="Quote"></button>
-						</div>
+											<div class="tools-buttons">
+												<button class="fa fa-bold" data-tool="bold"  title="Bold"></button>
+		                    <button class="fa fa-italic" data-tool="italic"  title="Italic"></button>
+		                    <button class="fa fa-underline" data-tool="underline"  title="Underline"></button>
+		                    <button class="fa fa-strikethrough" data-tool="strikeThrough"  title="Strike Through"></button>
+												<!--<button class="fa fa-pencil" data-tool="mark"  title="Highplayful"></button>-->
+												<div>
+		                        <button class="fa fa-align-left" data-tool="Left" title="Align Left"></button>
+		                        <button class="fa fa-align-center" data-tool="Center" title="Align Center"></button>
+		                        <button class="fa fa-align-right" data-tool="Right" title="Align Right"></button>
+		                        <button class="fa fa-align-justify" data-tool="Full" title="Justify"></button>
+		                    </div>
+												<div>
+													<button class="fa fa-list-ul" data-tool="ul" title="Unordered List"></button>
+			                    <button class="fa fa-list-ol" data-tool="ol" title="Ordered List"></button>
+			                    <button class="fa fa-quote-right" data-tool="blockquote" title="Quote"></button>
+												</div>
+											</div>
 	                </div>
 
-	                <div>
+	                <div class="tools-section">
 	                    <h3>Insert</h3>
-	                    <div>
+	                    <div class="tools-buttons">
 		                    <button class="fa fa-table" data-tool="table" title="Insert Table"></button>
 		                    <button class="fa fa-picture-o" data-tool="image" title="Insert Image"></button>
 		                    <button class="fa fa-video-camera" data-tool="video" title="Insert Video"></button>
-							<button class="fa fa-link" data-tool="link" title="Insert Link"></button>
-	                    </div>
-	                    <div>
-		                   <button class="fa fa-code" data-tool="insert-html" title="Insert Custom HTML"></button>
-						   <button class="fa fa-file-code-o" data-tool="snippet" title="Insert Snippet"></button>
+												<button class="fa fa-link" data-tool="link" title="Insert Link"></button>
 
-	                    </div>
-
+												<div>
+													<button class="fa fa-code" data-tool="insert-html" title="Insert Custom HTML"></button>
+							   		 			<button class="fa fa-file-code-o" data-tool="snippet" title="Insert Snippet"></button>
+		                    </div>
+											</div>
 	                </div>
 
-	                <div>
+	                <div class="tools-section">
 	                    <h3>Actions</h3>
-	                    <button class="fa fa-unlink" data-tool="unlink" title="Unlink"></button>
-	                    <button class="fa fa-undo" data-tool="undo" title="Undo"></button>
-	                    <button class="fa fa-repeat" data-tool="redo" title="Redo"></button>
-	                    <button class="fa fa-gears" data-tool="edit-html" title="Edit HTML"></button>
+											<div class="tools-buttons">
+												<button class="fa fa-unlink" data-tool="unlink" title="Unlink"></button>
+											 <button class="fa fa-undo" data-tool="undo" title="Undo"></button>
+											 <button class="fa fa-repeat" data-tool="redo" title="Redo"></button>
+											 <button class="fa fa-gears" data-tool="edit-html" title="Edit HTML"></button>
+											</div>
 	                </div>
 	            </div>
 	        </div>
@@ -413,8 +417,8 @@
 				<h1>Delete Notebook</h1>
 				<form method="post" data-form="delete-notebook" class="vertical align-center padded-2">
 					<p>What should happen to the notes currently inside this notebook?</p>
-					<p><input type='radio' name='strategy' value="move" required="true"> Move Notes to Inbox</p>
-					<p><input type='radio' name='strategy' value="delete" required="true"> Delete Everything</p>
+					<label><input type='radio' name='strategy' value="move" required="true"> Move Notes to Inbox</label>
+					<label><input type='radio' name='strategy' value="delete" required="true"> Delete Everything</label>
 					<div class="buttons">
 						<button type="submit">Delete</button>
 						<button type="reset">Cancel</button>
@@ -546,7 +550,7 @@
 					<div class="vertical align-center">
 						<h2>Theme</h2>
 						<select data-action='change-theme'>
-							<option value="light">Light</option>
+							<option value="playful">playful</option>
 							<option value="dark">Dark</option>
 							<option value="ghost">Ghost</option>
 						</select>
