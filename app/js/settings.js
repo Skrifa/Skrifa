@@ -687,6 +687,7 @@ $_ready(function(){
 
 	$_("[data-form='clear-data']").submit(function(event){
 		event.preventDefault();
+		var self = this;
 		try {
 			if (openpgp.key.readArmored(CryptoJS.AES.decrypt(Storage.get('PrivKey'), $_("[data-form='clear-data'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8)).keys.length > 0) {
 				wait("Clearing Storage");
@@ -694,7 +695,10 @@ $_ready(function(){
 					db.notebook.clear();
 					db.note.clear();
 					Storage.clear();
+					self.reset();
 				}).then(function(){
+					$_("[data-content='note-container']").html("");
+					$_("[data-content='notebook-list']").html("");
 					show("login");
 				});
 			}

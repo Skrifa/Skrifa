@@ -260,7 +260,7 @@ $_ready(function(){
 	}
 
 	// Go to decrypt screen if a private key is already stored
-	if(Storage.get("PrivKey") != null){
+	if(Storage.get("PrivKey") != null && Storage.get("PrivKey") != "null"){
 		show("decrypt");
 	}
 

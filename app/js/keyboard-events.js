@@ -1,4 +1,4 @@
-$_ready(function(){
+$_ready(() => {
 
 	keyboardJS.bind('ctrl + s', function () {
 		if ($_("#editor").isVisible()) {
@@ -84,6 +84,7 @@ $_ready(function(){
 				});
 		}
 	});
+
 	keyboardJS.watch();
 
 });

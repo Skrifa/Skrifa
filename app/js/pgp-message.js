@@ -1,4 +1,4 @@
-$_ready(function () {
+$_ready(() => {
 
 	$_("[data-form='pgp-message']").submit(function(event){
 		event.preventDefault();

@@ -1,4 +1,4 @@
-$_ready(function(){
+$_ready(() => {
 
 	// Listener for the submit button
 	$_("[data-form='offline-key']").submit(function(event){
@@ -19,8 +19,6 @@ $_ready(function(){
 
 			wait("Generating new Key Pair");
 
-
-
 			// Generate key
 			openpgp.generateKey(options).then(function(key) {
 				var privkey = key.privateKeyArmored; // '-----BEGIN PGP PRIVATE KEY BLOCK ... '
@@ -32,7 +30,7 @@ $_ready(function(){
 					{
 						title: "Choose Directory to Save your Key",
 						buttonLabel: "Save",
-						defaultPath: $_("[data-form='offline-key'] input[name='user']").value().trim().split("@")[0] + '.asc'
+						defaultPath: $_("[data-form='offline-key'] input[name='user']").value().trim() + '.asc'
 					},
 					function(directory){
 						if(directory){
@@ -45,6 +43,7 @@ $_ready(function(){
 								}else{
 									Storage.set("PubKey", pubkey);
 									Storage.set("PrivKey", privateKey);
+									Storage.set("User", $_("[data-form='offline-key'] input[name='user']").value().trim());
 
 									// Decrypt the key from CryptoJS
 									key = CryptoJS.AES.decrypt(privateKey, $_("[data-form='offline-key'] input[name='passphrase']").value()).toString(CryptoJS.enc.Utf8);
@@ -81,5 +80,9 @@ $_ready(function(){
 		}else{
 			$_("[data-form='offline-key'] [data-content='status']").text("Passphrases does not match");
 		}
+	});
+
+	$_("[data-view='offline-key'] [type='reset']").click(function(){
+		show("login");
 	});
 });

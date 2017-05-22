@@ -4,9 +4,9 @@ npm-debug.log
 .DS_Store
 .thumbs
 .Thumbs
-.zip
-.rar
+*.zip
+*.rar
 ._*
-.skf
-.skb
+*.skf
+*.skb
 *~

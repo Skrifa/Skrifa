@@ -1,4 +1,4 @@
-$_ready(function(){
+$_ready(() => {
 
 	$("body").on("click", "[data-action]",function(){
 		switch ($_(this).data("action")) {

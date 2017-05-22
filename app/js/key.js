@@ -73,13 +73,15 @@ $_ready(function(){
 
 								show("notes");
 
-							}else{
-
+							} else {
+								$_("[data-form='key'] [data-content='status']").text("An error has ocurred, please try again.");
+								show("key");
 							}
 						},
 
 						error: function(data){
-
+							$_("[data-form='key'] [data-content='status']").text("An error has ocurred, please try again.");
+							show("key");
 						}
 
 					}, "json");

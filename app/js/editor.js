@@ -38,7 +38,7 @@ function saveNote(){
 }
 
 
-$_ready(function(){
+$_ready(() => {
 
 	// Handle indent events
 	var map = {9: false, 16: false};
