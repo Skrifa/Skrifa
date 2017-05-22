@@ -363,7 +363,7 @@ b {
 }
 
 [data-content='welcome']{
-	position: relative;
+	margin-top: 10vmax;
 }
 
 /*
