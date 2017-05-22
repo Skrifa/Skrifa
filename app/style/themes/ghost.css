@@ -66,6 +66,10 @@ body.ghost {
 	font-weight: bold;
 }
 
+.ghost .drag-hover {
+	font-weight: bold;
+}
+
 .ghost .top-nav button:hover,
 .ghost .top-nav li:hover {
 	font-weight: bold;

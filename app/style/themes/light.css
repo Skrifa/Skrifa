@@ -48,6 +48,10 @@
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
+.light .drag-hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
 .light .top-nav button:hover,
 .light .top-nav li:hover {
 	color: #1ad6fd;

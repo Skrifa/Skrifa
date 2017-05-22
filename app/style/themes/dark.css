@@ -53,6 +53,10 @@ body.dark {
 	background-color: rgba(0, 0, 0, 0.1);
 }
 
+.dark .drag-hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
 .dark .top-nav button:hover,
 .dark .top-nav li:hover {
 	color: #1ad6fd;

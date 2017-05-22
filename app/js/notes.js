@@ -423,12 +423,15 @@ $_ready(() => {
 		dragTarget = event.target.dataset.notebook;
 		$_(this).removeClass("drag-hover");
 
-		db.transaction('rw', db.note, function() {
-			db.note.where("id").equals(parseInt(dragging)).modify({Notebook: dragTarget});
-			$_("[data-nid='" + dragging + "']").remove();
-			dragging = null;
-			dragTarget = null;
-		});
+		if (dragTarget != notebook) {
+			db.transaction('rw', db.note, function() {
+				db.note.where("id").equals(parseInt(dragging)).modify({Notebook: dragTarget});
+				$_("[data-nid='" + dragging + "']").remove();
+				dragging = null;
+				dragTarget = null;
+			});
+		}
+
 
 	});
 
