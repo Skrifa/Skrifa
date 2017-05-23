@@ -494,8 +494,14 @@ img,
 
 table,
 code {
-	overflow-x: scroll;
+	table-layout: fixed;
+	overflow: scroll;
+	width: 100%;
 	max-width: 100%;
+}
+
+td {
+	word-wrap: break-word;
 }
 
 tr,
@@ -676,8 +682,6 @@ pre[class*="language-"]:after {
 .token.inserted {
 	color: #2f9c0a;
 }
-
-
 
 .token.operator {
 	color: #006ff8;
