@@ -31,7 +31,7 @@ function saveNote(){
 		// Show the editor again
 		show("editor");
 	}).catch(function(){
-		dialog.showErrorBox("Error saving", "There was an error saving yoru note, please try again.");
+		dialog.showErrorBox("Error saving", "There was an error saving your note, please try again.");
 		unsaved = true;
 		show("editor");
 	});
@@ -39,6 +39,17 @@ function saveNote(){
 
 
 $_ready(() => {
+
+	window.addEventListener('beforeunload', function (event) {
+		if (unsaved) {
+			$_("[data-form='unsaved'] input").value('quit');
+			$_("[data-modal='unsaved']").addClass('active');
+			event.returnValue = false;
+
+		} else {
+			remote.getCurrentWindow().close();
+		}
+    });
 
 	// Handle indent events
 	var map = {9: false, 16: false};
@@ -226,6 +237,10 @@ $_ready(() => {
 					});
 				});
 				currentContent = null;
+				break;
+
+			case 'quit':
+				remote.getCurrentWindow().close();
 				break;
 		}
 		unsaved = false;

@@ -27,6 +27,7 @@ const pkg = require('./package.json');
 const {clipboard} = require('electron');
 const app = require('electron').remote.app
 const htmlToText = require('html-to-text');
+const remote = require('electron').remote;
 
 openpgp.initWorker({ path:'node_modules/openpgp/dist/openpgp.worker.min.js' }); // set the relative web worker path
 
