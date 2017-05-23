@@ -401,14 +401,17 @@ $_ready(() => {
 							var image = nativeImage.createFromPath(file[0]);
 							image = image.resize({quality: settings.imageCompression});
 							$("span.insertImage-div").replaceWith("<img class='lazy' src='" + image.toDataURL() + "' alt='" + imageName + "' data-url='" + imageName + "'>");
+							$_("span.insertImage-div").remove();
+							$_("[data-modal='insert-image']").removeClass("active");
 						}else{
 							toDataUrl(file[0], function(url){
 								$("span.insertImage-div").replaceWith("<img class='lazy' src='" + url + "' alt='" + imageName + "' data-url='" + imageName + "'>");
+								$_("span.insertImage-div").remove();
+								$_("[data-modal='insert-image']").removeClass("active");
 							});
 						}
 
-							$_("span.insertImage-div").remove();
-							$_("[data-modal='insert-image']").removeClass("active");
+
 
 					}
 				});
