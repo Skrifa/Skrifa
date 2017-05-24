@@ -8,7 +8,11 @@ let win;
 
 function createWindow () {
 	// Create the browser window.
-	win = new BrowserWindow({width: 800, height: 600});
+	win = new BrowserWindow({
+		width: 800,
+		height: 600,
+		icon: __dirname + '/img/icon.png'
+	});
 
 	// macOS won't allow edition shortcuts like copy and paste unless there is
 	// an explicit entry in the apps menu for them.
