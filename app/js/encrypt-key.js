@@ -1,30 +1,35 @@
-$_ready(function(){
+$_ready(() => {
 
 	// Listener for the submit button
 	$_("[data-form='encrypt-key']").submit(function(event){
 		event.preventDefault();
 		var self = this;
 		// Check if the passphrases match
-		if($_("[data-form='encrypt-key'] input[name='passphrase']").value() == $_("[data-form='encrypt-key'] input[name='rpassphrase']").value() && $_("[data-form='encrypt-key'] input[name='passphrase']").value().trim() != ""){
+		if($_("[data-form='encrypt-key'] input[name='passphrase']").value() == $_("[data-form='encrypt-key'] input[name='rpassphrase']").value() && $_("[data-form='encrypt-key'] input[name='passphrase']").value().trim() != "") {
 
 			// Set options for key generation
 			wait("Saving your key securely");
 
 			key = openpgp.key.readArmored(Storage.get("TempKey")).keys[0];
 
+
+			// Decrypt the key using the given passphrase
 			if(key.decrypt($_("[data-form='encrypt-key'] input[name='passphrase']").value())) {
 
+				// Encrypt the key and save it
 				Storage.set("PrivKey", CryptoJS.AES.encrypt(key.armor(), $_("[data-form='encrypt-key'] input[name='passphrase']").value()).toString());
 
-
+				// Remove the temporal key
 				Storage.remove ("TempKey");
 
+				// Save public key
 				if (Storage.get("PubKey") == null) {
 					Storage.set("PubKey", key.toPublic().armor());
 				}
 
+				// Save email from the key
 				if (Storage.get("User") == null) {
-					Storage.set("User", key.getUserIds()[0].split("<")[0].trim());
+					Storage.set("User", key.getUserIds()[0].split("<")[1].replace(">", "").trim());
 				}
 
 				// Decrypt the key from CryptoJS
@@ -55,7 +60,7 @@ $_ready(function(){
 			}
 
 
-		}else{
+		} else {
 			$_("[data-form='offline-key'] [data-content='status']").text("Passphrases does not match");
 		}
 	});

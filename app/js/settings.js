@@ -1,6 +1,6 @@
-$_ready(function(){
+$_ready(() => {
 
-	$("body").on("click", "[data-action]",function(){
+	$("[data-view='settings']").on("click", "[data-action]",function(){
 		switch ($_(this).data("action")) {
 
 			case "import-backup":
@@ -16,9 +16,9 @@ $_ready(function(){
 					if(file){
 						wait("Reading File");
 						fs.readFile(file[0], 'utf8', function (error, data) {
-							if(error){
+							if (error) {
 
-							}else{
+							} else {
 								var backup = JSON.parse(data);
 								var extension = file[0].split(".").pop();
 
@@ -354,6 +354,7 @@ $_ready(function(){
 						}
 					});
 				break;
+
 			case "migrate-backup":
 				$_("[data-modal='migrate-backup']").addClass('active');
 				break;
@@ -364,7 +365,6 @@ $_ready(function(){
 			case "clear-data":
 				$_("[data-modal='clear-data']").addClass('active');
 				break;
-
 		}
 
 	});
@@ -548,9 +548,6 @@ $_ready(function(){
 
 														});
 
-
-
-
 													$_("[data-modal='migrate-backup']").removeClass('active');
 												} else {
 													dialog.showErrorBox("Error parsing Key", "No public key was found, make sure you are trying to share to a public key.");
@@ -602,7 +599,6 @@ $_ready(function(){
 				}
 
 				var promises = [];
-
 
 				// FIXME: Takes too long
 				// Export all notes that belong to the Inbox notebook

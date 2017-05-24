@@ -1,23 +1,23 @@
 $_ready(() => {
 
 	// Listener for the submit button
-	$_("[data-form='delete-notebook']").submit(function(event){
+	$_("[data-form='delete-notebook']").submit(function(event) {
 		event.preventDefault();
 		var self = this;
 		wait("Deleting Your Notebook");
-		db.transaction('rw', db.notebook, db.note, function(){
+		db.transaction('rw', db.notebook, db.note, function() {
 			// Delete Notebook
 			db.notebook.where("id").equals(parseInt(notebook)).delete();
 
 			// Check what strategy was chosen
-			switch($_("[data-form='delete-notebook'] [name='strategy']:checked").value()){
+			switch ($_("[data-form='delete-notebook'] [name='strategy']:checked").value()) {
+				// Move all notes that pointed to the deleted notebook to Inbox
 				case "move":
-					// Move all notes that pointed to the deleted notebook to Inbox
 					db.note.where("Notebook").equals(notebook).modify({Notebook: "Inbox"});
 					break;
 
+				// Delete all notes that pointed to the deleted notebook
 				case "delete":
-					// Delete all notes that pointed to the deleted notebook
 					db.note.where("Notebook").equals(notebook).delete();
 					break;
 			}

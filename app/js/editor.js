@@ -40,6 +40,7 @@ function saveNote(){
 
 $_ready(() => {
 
+	// Prevent the app from closing when there is unsaved data
 	window.addEventListener('beforeunload', function (event) {
 		if (unsaved) {
 			$_("[data-form='unsaved'] input").value('quit');
@@ -410,9 +411,6 @@ $_ready(() => {
 								$_("[data-modal='insert-image']").removeClass("active");
 							});
 						}
-
-
-
 					}
 				});
 			}

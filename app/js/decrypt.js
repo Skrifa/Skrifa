@@ -16,7 +16,7 @@ $_ready(() => {
 			}
 
 			if (Storage.get("User") == null) {
-				Storage.set("User", key.getUserIds()[0].split("<")[0].trim());
+				Storage.set("User", key.getUserIds()[0].split("<")[1].replace(">", "").trim());
 			}
 
 			// Decrypt the Key from OpenPGP.js

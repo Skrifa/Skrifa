@@ -1,6 +1,6 @@
 $_ready(() => {
 
-	$("body").on("click", "[data-action]",function(){
+	$("[data-view='notes']").on("click", "[data-action]",function(){
 		switch ($_(this).data("action")) {
 
 			case "settings":
@@ -332,8 +332,10 @@ $_ready(() => {
 										decrypt(data).then((plaintext) => {
 											var regex = /.*\n/g;
 											var html = "";
+											console.log(plaintext);
+											console.log(regex.exec(plaintext));
 
-											while ((m = regex.exec(plaintext)) !== null) {
+											while ((m = regex.exec(plaintext.data)) !== null) {
 											    // This is necessary to avoid infinite loops with zero-width matches
 											    if (m.index === regex.lastIndex) {
 											        regex.lastIndex++;
@@ -345,19 +347,21 @@ $_ready(() => {
 											    });
 											}
 
-											encrypt(html).then(function(ciphertext2) {
-												var color = colors[Math.floor(Math.random()*colors.length)];
-												db.note.add({
-													Title: ciphertext.data,
-													Content: ciphertext2.data,
-													CreationDate: date,
-													ModificationDate: date,
-													SyncDate: '',
-													Color: color,
-													Notebook: notebook
-												}).then(function(lastID){
-													addNote(lastID, "Imported Note", color);
-													show('notes');
+											encrypt("Imported Note").then(function(ciphertext) {
+												encrypt(html).then(function(ciphertext2) {
+													var color = colors[Math.floor(Math.random()*colors.length)];
+													db.note.add({
+														Title: ciphertext.data,
+														Content: ciphertext2.data,
+														CreationDate: date,
+														ModificationDate: date,
+														SyncDate: '',
+														Color: color,
+														Notebook: notebook
+													}).then(function(lastID){
+														addNote(lastID, "Imported Note", color);
+														show('notes');
+													});
 												});
 											});
 										}).catch((error) => {
@@ -375,14 +379,14 @@ $_ready(() => {
 		}
 	});
 
-	// Inserts the code element with the given language.
+	// Click handler for the sidenav notebook buttons
 	$_("[data-content='notebook-list']").on("click", "[data-notebook]", function(){
 		if(notebook != $_(this).data("notebook") + ""){
 			notebook = $_(this).data("notebook") + "";
 
 			$_(".logo h1").text($_(this).text());
 
-			if(notebook != "Inbox"){
+			if (notebook != "Inbox") {
 				db.notebook.where("id").equals(parseInt(notebook)).first(function(item, cursor){
 					decrypt(item.Description).then(function(plaintext) {
 						$_(".logo small").text(plaintext.data);
@@ -390,7 +394,7 @@ $_ready(() => {
 						$_("[data-action='delete-notebook']").style({display: "inline-block"});
 					});
 				});
-			}else{
+			} else {
 				$_(".logo small").text("A place for any note");
 				$_("[data-action='edit-notebook']").hide();
 				$_("[data-action='delete-notebook']").hide();
@@ -423,6 +427,7 @@ $_ready(() => {
 		dragTarget = event.target.dataset.notebook;
 		$_(this).removeClass("drag-hover");
 
+		// Check if the note is not being moved to the same notebook
 		if (dragTarget != notebook) {
 			db.transaction('rw', db.note, function() {
 				db.note.where("id").equals(parseInt(dragging)).modify({Notebook: dragTarget});
@@ -431,14 +436,11 @@ $_ready(() => {
 				dragTarget = null;
 			});
 		}
-
-
 	});
 
 	$_("[data-form='delete-note']").submit(function(event){
 		event.preventDefault();
 		db.note.where("id").equals(parseInt(deltempid)).delete().then(function(){
-
 			$_("[data-nid='" + deltempid + "']").remove();
 			$_("[data-modal='delete-note']").removeClass("active");
 			deltempid = null;

@@ -37,7 +37,6 @@ $_ready(() => {
 								Storage.set("User", data.response.User);
 								Storage.set("PubKey", data.response.Public);
 								Storage.set("PrivKey", data.response.Secret);
-								logged = true;
 
 								// Check if a key was received
 								if (data.response.Public != null && data.response.Public != "") {

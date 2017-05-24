@@ -42,8 +42,6 @@ var id, view, deltempid, notebook = "Inbox", dragging = null, dragTarget = null;
 
 var key = null;
 
-var logged = false;
-
 var encryptOptions = null;
 
 var decryptOptions = null;

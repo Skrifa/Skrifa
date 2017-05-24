@@ -97,6 +97,7 @@ $_ready(() => {
 		});
 	});
 
+	// Export in plain PGP armored message, saved for the future or to be removed
 	$_("[data-view='share'] [data-action='pgp-plain']").click(function(){
 		dialog.showOpenDialog({
 			title: "Select Public Key",
@@ -171,6 +172,7 @@ $_ready(() => {
 		});
 	});
 
+	// Share in an encrypted Skrifa Format (.skf)
 	$_("[data-view='share'] [data-action='pgp-skrifa']").click(function(){
 
 		dialog.showOpenDialog({

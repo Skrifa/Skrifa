@@ -1,7 +1,7 @@
 $_ready(() => {
 
 	// Listener for the submit button
-	$_("[data-form='edit-notebook']").submit(function(event){
+	$_("[data-form='edit-notebook']").submit(function(event) {
 		event.preventDefault();
 		var self = this;
 		wait("Saving Your Notebook");
@@ -20,7 +20,7 @@ $_ready(() => {
 				db.notebook.where("id").equals(notebook).modify({
 					Name: ciphertext.data,
 					Description: ciphertext2.data
-				}).then(function(){
+				}).then(function() {
 
 					// Change the text of the header according to the new values
 					$_(".logo h1").text($_("[data-form='edit-notebook'] [data-input='name']").value());
