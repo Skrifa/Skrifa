@@ -198,6 +198,42 @@ $_ready(() => {
 		}
 	});
 
+	$("[data-view='editor'] [data-action='preview']").click(function(){
+		if(unsaved){
+			$_("[data-form='unsaved'] input").value('preview');
+			$_("[data-modal='unsaved']").addClass('active');
+		}else{
+			wait("Wait while your note content is decripted");
+
+			if(id == null){
+				id = $_(this).data("id");
+				currentContent = null;
+			}
+
+			db.note.where(":id").equals(parseInt(id)).first().then(function (note) {
+
+				decrypt(note.Content).then(function(plaintext) {
+					$_("#preview").html(plaintext.data);
+					Prism.highlightAll(true, null);
+					(function(){
+						if (!self.Prism) {
+							return;
+						}
+						Prism.hooks.add('wrap', function(env) {
+							if (env.type !== "keyword") {
+								return;
+							}
+							env.classes.push('keyword-' + env.content);
+						});
+					})();
+
+					MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+					show("preview")
+				});
+			});
+		}
+	});
+
 	$_("[data-form='unsaved']").submit(function(event){
 		event.preventDefault();
 		switch($_("[data-form='unsaved'] input").value()){
@@ -262,7 +298,7 @@ $_ready(() => {
 		event.preventDefault();
 		var columns = $_("[data-form='insert-table'] input[data-input='columns']").value();
 		var rows = $_("[data-form='insert-table'] input[data-input='rows']").value();
-		if(columns != "" && rows != ""){
+		if(columns != "" && rows != "" && parseInt(columns) > 0 && parseInt(rows) > 0 ){
 			var table = "<br><div class='table-wrapper'><table>";
 			for(var i = 0; i < rows; i++) {
 				table += '<tr>';
@@ -273,10 +309,10 @@ $_ready(() => {
 			}
 			table += '</table></div><br>';
 			$("span.insertTable-div").replaceWith(table);
+			$_("[data-modal='insert-table']").removeClass("active");
+			this.reset();
+			$_("span.insertTable-div").remove();
 		}
-		$_("[data-modal='insert-table']").removeClass("active");
-		this.reset();
-		$_("span.insertTable-div").remove();
 	});
 
 	$_("[data-form='insert-table'] [type='reset']").click(function(){
@@ -384,7 +420,7 @@ $_ready(() => {
 			title: "Load Image",
 			buttonLabel: "Load",
 			filters: [
-				{name: 'Custom File Type', extensions: ['png', 'jpg', 'jpeg', 'svg', 'gif']},
+				{name: 'Custom File Type', extensions: ['png', 'jpg', 'jpeg', 'svg', 'gif', 'webp']},
 			],
 			properties: ['openFile']
 		},
@@ -398,13 +434,17 @@ $_ready(() => {
 						var imageName = file[0].split('/').pop();
 						var extension = file[0].split('.').pop();
 
-						if(extension == "png"){
+						if (extension == "png") {
 							var image = nativeImage.createFromPath(file[0]);
 							image = image.resize({quality: settings.imageCompression});
 							$("span.insertImage-div").replaceWith("<img class='lazy' src='" + image.toDataURL() + "' alt='" + imageName + "' data-url='" + imageName + "'>");
 							$_("span.insertImage-div").remove();
 							$_("[data-modal='insert-image']").removeClass("active");
-						}else{
+						/*} else if (extension == "svg") {
+							$("span.insertImage-div").replaceWith(data);
+							$_("span.insertImage-div").remove();
+							$_("[data-modal='insert-image']").removeClass("active");*/
+						} else {
 							toDataUrl(file[0], function(url){
 								$("span.insertImage-div").replaceWith("<img class='lazy' src='" + url + "' alt='" + imageName + "' data-url='" + imageName + "'>");
 								$_("span.insertImage-div").remove();

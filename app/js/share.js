@@ -10,11 +10,11 @@ $_ready(() => {
 		var promise = new Promise((resolve, reject) => {
 
 			// Check if the key of the requested user is already locally stored
-			if(Storage.get("pubKey_" + user) != null){
+			if (Storage.get("pubKey_" + user) != null) {
 				resolve(Storage.get("pubKey_" + user));
-			}else{
+			} else {
 				// Check if the user is online
-				if(navigator.onLine){
+				if (navigator.onLine) {
 					// Make request to obtain the key of the requested user
 					Request.json(base + "/key/" + user, {
 						onload: function(data){
@@ -28,10 +28,11 @@ $_ready(() => {
 							}
 						},
 						onerror: function(error){
+							console.log(error);
 							reject(error);
 						}
 					});
-				}else{
+				} else {
 					reject("Unable to retrieve public key, you must be online.");
 				}
 			}

@@ -19,6 +19,10 @@ $_ready(() => {
 				Storage.set("User", key.getUserIds()[0].split("<")[1].replace(">", "").trim());
 			}
 
+			// Clear the login form
+			$_("[data-form='login'] input[name='password']").value("");
+			$_("[data-form='login'] input[name='user']").value("");
+
 			// Decrypt the Key from OpenPGP.js
 			key.decrypt($_("[data-form='decrypt'] input[name='passphrase']").value());
 			key = key.armor();

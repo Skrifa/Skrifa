@@ -26,6 +26,21 @@ $_ready(() => {
 			case "share":
 				show("share");
 				break;
+
+			// Enter the editor for the current note
+			case "edit":
+				wait("Wait while your note content is decripted");
+				if(id == null){
+					id = $_(this).data("id");
+				}
+				db.note.where(":id").equals(parseInt(id)).first().then(function (note) {
+					decrypt(note.Content).then(function(plaintext) {
+						$_("#editor").html(plaintext.data);
+						currentContent = plaintext.data;
+						show("editor")
+					});
+				});
+				break;
 		}
 	});
 });

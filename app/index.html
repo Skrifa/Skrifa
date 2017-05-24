@@ -78,8 +78,8 @@
 					</div>
 					<div class="col s12 m6">
 						<form method="post" data-form="local-key" class="align-center padded-2">
-							<h2>Use Local Key</h2>
-							<p>If you don't trust your key to anyone even if it's encrypted, you can keep it offline but you'll be resposible for keeping your key safe. Please create a new key if you don't have one or import it if you've previously created one.</p>
+							<h2>Use Local PGP Key</h2>
+							<p>If you don't trust your key to anyone even if it's encrypted, you can keep it offline, just remember you'll be resposible for keeping it safe. Please create a new key if you don't have one or import it if you've previously created one.</p>
 							<button data-action="new-offline-key">Create new Key</button>
 							<button data-action="import-offline-key">Import Key</button>
 						</form>
@@ -92,7 +92,7 @@
 			<div class="middle padded-2">
 				<h1>Create your new Key Pair</h1>
 				<form method="post" data-form="key" class="vertical align-center padded-2">
-					<p>A new Key pair will be created with the passphrase you provide.</p>
+					<p>A new Key pair will be created with the passphrase you provide which should be at least 8 characters long.</p>
 					<label>Encryption Passphrase:</label>
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<label>Repeat encryption Passphrase:</label>
@@ -108,7 +108,7 @@
 			<div class="middle padded-2">
 				<h1>Create your new Key Pair</h1>
 				<form method="post" data-form="offline-key" class="vertical align-center padded-2">
-					<p>A new key pair will be created with the passphrase you provide. You must backup and keep this key save.</p>
+					<p>A new key pair will be created with the passphrase you provide which should be at least 8 characters long. You must backup and keep this key save.</p>
 					<label>Your Email:</label>
 					<input type="email" name="user" required="true" placeholder="example@example.com">
 					<label>Encryption Passphrase:</label>
@@ -331,9 +331,7 @@
 							</div>
 						<div class="col s12 m6 vertical">
 							<h2>Using a Public Key File</h2>
-							<label>If you want to share this note using a public PGP key or Skrifa public key just select the format in which you want to share the note:</label>
-
-							<p>Share as:</p>
+							<label>If you want to share this note using a public PGP key or Skrifa public key just select the format in which you want to share the note, plain text will remove all the rich content.</label>
 							<div class="horizontal">
 								<button data-action="pgp-skrifa">Skrifa Note</button>
 								<button data-action="pgp-plain">PGP Plain Text Message</button>

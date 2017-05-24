@@ -34,7 +34,7 @@ $_ready(() => {
 							if (typeof data.response.error == 'undefined') {
 
 								// Save user data to localstorage
-								Storage.set("User", data.response.User);
+								Storage.set("User", data.response.User + '@skrifa.xyz');
 								Storage.set("PubKey", data.response.Public);
 								Storage.set("PrivKey", data.response.Secret);
 
@@ -58,7 +58,7 @@ $_ready(() => {
 							show("login");
 						}
 					},
-					error: function(error) {
+					onerror: function(error) {
 						console.log(error);
 						show("login");
 					}
@@ -106,6 +106,7 @@ $_ready(() => {
 
 								// skk files contain keys in an encrypted manner so
 								// once saved, it just needs to be decrypted to use.
+								// This is saved for the future
 								case "skk":
 									Storage.set("PrivKey", data);
 									show("decrypt");
@@ -131,7 +132,7 @@ $_ready(() => {
 										}
 
 									} else {
-										dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP key to import it.");
+										dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP key.");
 										show("login");
 									}
 									break;

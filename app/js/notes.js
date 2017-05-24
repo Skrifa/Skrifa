@@ -215,7 +215,6 @@ $_ready(() => {
 											var date = new Date().toLocaleString();
 
 											encrypt(json.Title).then(function(ciphertext) {
-												json.Content = json.Content.replace(/<img class="lazy" src=/g, "<img data-original=").replace(/data-url/g, "src");
 												encrypt(json.Content).then(function(ciphertext2) {
 													db.note.add({
 														Title: ciphertext.data,
@@ -332,8 +331,6 @@ $_ready(() => {
 										decrypt(data).then((plaintext) => {
 											var regex = /.*\n/g;
 											var html = "";
-											console.log(plaintext);
-											console.log(regex.exec(plaintext));
 
 											while ((m = regex.exec(plaintext.data)) !== null) {
 											    // This is necessary to avoid infinite loops with zero-width matches
@@ -399,6 +396,7 @@ $_ready(() => {
 				$_("[data-action='edit-notebook']").hide();
 				$_("[data-action='delete-notebook']").hide();
 			}
+			$("[data-view='notes'] .side-nav").removeClass("active");
 			loadNotes();
 		}
 	});

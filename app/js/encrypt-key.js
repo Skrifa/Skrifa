@@ -52,6 +52,7 @@ $_ready(() => {
 					privateKey: openpgp.key.readArmored(key).keys[0]
 				};
 				self.reset();
+				$_("[data-form='encrypt-key'] [data-content='status']").text("");
 				show("notes");
 
 			} else {
@@ -61,12 +62,13 @@ $_ready(() => {
 
 
 		} else {
-			$_("[data-form='offline-key'] [data-content='status']").text("Passphrases does not match");
+			$_("[data-form='encrypt-key'] [data-content='status']").text("Passphrases does not match");
 		}
 	});
 
 	$_("[data-view='encrypt-key'] [type='reset']").click(function(){
 		Storage.remove ("TempKey");
+		$_("[data-form='encrypt-key'] [data-content='status']").text("");
 		show("login");
 	});
 });

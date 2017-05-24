@@ -326,7 +326,7 @@ $_ready(() => {
 									}
 								});
 							}else{
-								show("notes");
+								show("settings");
 							}
 						});
 					});
@@ -399,16 +399,19 @@ $_ready(() => {
 
 	$_("[data-form='migrate-backup'] [type='reset']").click(function(){
 		$_("[data-form='migrate-backup'] input[name='passphrase']").value("");
+		$_("[data-modal='migrate-backup'] span").text("");
 		$_("[data-modal='migrate-backup']").removeClass('active');
 	});
 
 	$_("[data-form='skrup-backup'] [type='reset']").click(function(){
 		$_("[data-form='skrup-backup'] input[name='passphrase']").value("");
+		$_("[data-modal='skrup-backup'] span").text("");
 		$_("[data-modal='skrup-backup']").removeClass('active');
 	});
 
 	$_("[data-form='clear-data'] [type='reset']").click(function(){
 		$_("[data-modal='clear-data']").removeClass('active');
+		$_("[data-modal='clear-data'] span").text("");
 	});
 
 	$_("[data-form='migrate-backup']").submit(function(event){
@@ -536,7 +539,9 @@ $_ready(() => {
 																		fs.writeFile(directory, JSON.stringify(json), 'utf8', function (error) {
 																			if(error){
 																				dialog.showErrorBox("Error creating backup", "There was an error creating your backup, file was not created.");
+																				show("settings");
 																			}else{
+																				$_("[data-modal='migrate-backup'] span").text("");
 																				show("notes");
 																			}
 																		});
@@ -566,6 +571,8 @@ $_ready(() => {
 									}
 								}
 							});
+						} else {
+							$_("[data-modal='migrate-backup'] span").text("");
 						}
 					});
 					self.reset();
@@ -672,6 +679,7 @@ $_ready(() => {
 					});
 
 					$_("[data-modal='skrup-backup']").removeClass('active');
+					$_("[data-modal='skrup-backup'] span").text("");
 					self.reset();
 				});
 			}
@@ -695,6 +703,8 @@ $_ready(() => {
 				}).then(function(){
 					$_("[data-content='note-container']").html("");
 					$_("[data-content='notebook-list']").html("");
+					$_("[data-modal='clear-data']").removeClass('active');
+					$_("[data-modal='clear-data'] span").text("");
 					show("login");
 				});
 			}
