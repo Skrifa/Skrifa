@@ -209,7 +209,11 @@ $_ready(() => {
 
 									case "skrifa":
 										var json = JSON.parse(data);
-										if(json.Title && json.Content && json.CDate && json.MDate && json.Color){
+										if(json.Title && json.Content && json.Color){
+											if (json.CDate && json.MDate) {
+												json.CreationDate = json.CDate;
+												json.ModificationDate = json.MDate;
+											}
 
 											wait("Importing New Note");
 											var date = new Date().toLocaleString();
@@ -219,7 +223,7 @@ $_ready(() => {
 													db.note.add({
 														Title: ciphertext.data,
 														Content: ciphertext2.data,
-														CreationDate: json.CDate,
+														CreationDate: json.CreationDate,
 														ModificationDate: date,
 														SyncDate: '',
 														Color: json.Color,
