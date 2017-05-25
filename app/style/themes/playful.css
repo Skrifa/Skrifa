@@ -29,12 +29,12 @@ body.playful {
   background-color: #ffffff;
 }
 
-section h1 {
+.playful section h1 {
   font-weight: bold;
   font-size: 2.5em;
 }
 
-section p{
+.playful section p{
   color: rgba(0, 0, 0, 0.87);
 }
 
@@ -67,11 +67,11 @@ section p{
 
 .playful .side-nav {
   padding: 1em;
-  background-color: #efefef;
+  background-color: rgb(246, 249, 250);
 }
 
 .playful .side-nav [data-content="notebook-list"] li {
-  box-shadow: 0 12px 22px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 22px 0px rgba(0, 0, 0, 0.06);
   border-radius: 3px;
   background-color: #ffffff;
   margin-bottom: 1.5em;
@@ -81,14 +81,6 @@ section p{
 
 .playful .side-nav [data-content="notebook-list"] li:hover {
   box-shadow: 0 6px 22px 0px rgba(0, 0, 0, 0.12);
-}
-
-.playful [data-view="notes"] ul {
-  margin-top: 2em;
-}
-
-.playful [data-view="notes"] ul li small{
-  margin-top: 8px;
 }
 
 .playful .side-nav button,
@@ -117,24 +109,170 @@ section p{
  * ==========================================================================
  */
 
+.playful [data-view="decrypt"] .middle {
+  top: initial;
+  left: initial;
+  bottom: initial;
+  transform: translate(0, 0);
+  position: relative;
+  min-height: 100vh;
+}
+
+.playful [data-view="decrypt"] h1 {
+  position: absolute;
+  top: 20vh;
+  left: 0;
+  right: 0;
+}
+
+.playful [data-view="decrypt"] [data-form] {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.playful [data-form="decrypt"] label {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.75em;
+}
+
+.playful [data-form="decrypt"] button[type="submit"] {
+  margin: 2em auto;
+}
+
+.playful [data-view="loading"] {
+  background-color: rgb(246, 249, 250);
+}
+
+.playful [data-view="loading"] img {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.playful [data-view="notes"] [data-menu="notes"] {
+  background-color: #ffffff;
+  border-radius: 50%;
+  padding: 1em;
+  margin: 1em;
+}
+
+.playful [data-view="notes"] .logo small {
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.playful [data-view="notes"] .top-nav ul {
+  padding: 0 2em;
+  margin-top: 2em;
+}
+
+.playful [data-view="notes"] .top-nav ul li {
+  width: 10em;
+}
+
+.playful [data-view="notes"] .top-nav ul li span {
+  width: 2.5em;
+  height: 2.5em;
+  background-color: rgb(246, 249, 250);
+  border-radius: 50%;
+  padding-top: 10%;
+  margin: 0 auto;
+}
+
+.playful [data-view="notes"] .top-nav ul li small{
+  margin-top: 8px;
+}
+
+.playful section [data-form] {
+  background-color: rgb(246, 249, 250);
+}
 
 
+
+
+
+
+
+/*.playful section .middle {
+  padding: 0;
+  top: 100%;
+  -webkit-transform: translate(-50%,-100%);
+    -moz-transform: translate(-50%,-100%);
+    -o-transform: translate(-50%,-100%);
+    -ms-transform: translate(-50%,-100%);
+}*/
+
+
+.playful section [data-form] .row {
+  align-items: flex-start;
+}
+
+.playful section [data-form] .col {
+  border: 0;
+}
+
+.playful section [data-form] .buttons {
+  margin-top: 2em;
+}
+
+.playful section [data-form] button {
+  margin: 1em;
+}
+
+.playful section [data-form] label {
+  margin: 1em 0;
+}
 /*
  * ==========================================================================
  * Modal/Form Elements Styling
  * ==========================================================================
  */
 
-.playful [data-modal] {
 
+.playful [data-modal] {
+  background-color: rgba(0, 0, 0, 0.24);
 }
 
 .playful [data-modal] [data-form] {
+  background-color: #ffffff;
+  width: 100%;
+  border-radius: 0;
+  padding: 2em 0 0;
+  top: initial;
+  bottom: 0;
+  -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%,0);
+}
 
+.playful [data-modal] [data-form] .buttons {
+  margin-top: 3em;
+  padding: 2em;
+  background-color: rgb(246, 249, 250);
+}
+
+.playful [data-modal] [data-form] .buttons button{
+  margin: 0 1em;
+  width: 9em;
+}
+
+.playful [data-modal] [data-form] label {
+  font-weight: bold;
+  font-size: 1.563em;
+}
+
+.playful [data-modal] [data-form] h2 {
+  font-size: 1.563em;
 }
 
 .playful [data-form] button {
-
+  border-radius: 20em;
+  margin: 0 auto;
+  background-color: #ffffff;
+  font-weight: 600;
 }
 
 .playful [data-form] button:focus {
@@ -154,15 +292,19 @@ section p{
 }
 
 .playful [data-form] textarea {
-
+  max-width: 700px;
+  width: 80%;
+  margin: 2em auto;
+  background-color: #EFEFEF;
+  padding: 1em;
 }
 
 .playful [data-form] [type='submit'] {
-
+  margin-top: 2em;
 }
 
 .playful [data-form] [type='reset'] {
-
+  color: #FF3B30;
 }
 
 .playful [data-form] [type='submit']:active {
@@ -210,7 +352,7 @@ section p{
  */
 
 .playful [data-view="editor"] .side-nav {
-  background-color: #FAFAFA;
+  background-color: rgb(246, 249, 250);
   width: 15vw;
   max-width: 104px;
   overflow: visible;
@@ -268,22 +410,22 @@ section p{
   text-align: center;
   border-radius: 50%;
   padding: 1em;
-  color: #ffffff;
+  background-color: #ffffff;
 }
 
 .playful .tools-section:first-child:before {
   content: "\f1dc";
-  background-color: #FF3B30;
+  color: #FF3B30;
 }
 
 .playful .tools-section:nth-child(2):before {
   content: "\f1fc";
-  background-color: #1AD6FD;
+  color: #1AD6FD;
 }
 
 .playful .tools-section:nth-child(3):before {
   content: "\f12e";
-  background-color: #0BD318;
+  color: #0BD318;
 }
 
 .playful .tools-section:last-child button {
@@ -291,19 +433,15 @@ section p{
 }
 
 .playful .tools-section:last-child button:first-child {
-  background-color: #FFCC00;
+  color: #FFCC00;
   margin-top: 0;
 }
 
 .playful .tools-section:last-child button {
-  background-color: rgba(74, 74, 74, 0.24);
+  color: rgba(0, 0, 0, 0.87);
   width: 48px;
   height: 48px;
   margin: 1.5em auto;
-}
-
-.playful .tools-section:last-child button:hover {
-  color: #ffffff;
 }
 
 .playful .tools-buttons button {
@@ -311,7 +449,7 @@ section p{
   display: block;
   width: 100%;
   text-align: left;
-  font-weight: bold;
+  font-weight: 300;
   padding: 0.3em 1.5em;
   color: rgba(0, 0, 0, 0.53);
   margin: 1em auto;
@@ -338,12 +476,11 @@ section p{
 }
 
 .playful .top-nav ul{
-  width: 100%;
-  max-width: 350px;
+  width: auto;
   float: right;
   padding: 0 2em;
   margin-top: 1em;
-  background-color: #EFEFEF;
+  background-color: rgb(246, 249, 250);
   border-radius: 20em 0 0 20em;
 }
 
