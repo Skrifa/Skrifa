@@ -65,12 +65,17 @@ body.playful {
  * ==========================================================================
  */
 
-.playful .side-nav {
-  padding: 1em;
+.playful [data-view="notes"] .side-nav {
   background-color: rgb(246, 249, 250);
+  padding: 8em 1em 1em;
 }
 
-.playful .side-nav [data-content="notebook-list"] li {
+/*.playful .side-nav {
+  padding: 1em;
+  background-color: rgb(246, 249, 250);
+}*/
+
+.playful [data-view="notes"] [data-content="notebook-list"] li {
   box-shadow: 0 12px 22px 0px rgba(0, 0, 0, 0.06);
   border-radius: 3px;
   background-color: #ffffff;
@@ -79,7 +84,7 @@ body.playful {
   text-align: left;
 }
 
-.playful .side-nav [data-content="notebook-list"] li:hover {
+.playful [data-view="notes"] [data-content="notebook-list"] li:hover {
   box-shadow: 0 6px 22px 0px rgba(0, 0, 0, 0.12);
 }
 
@@ -103,13 +108,69 @@ body.playful {
 
 }
 
+.playful [data-view="notes"] .top-nav ul {
+  padding: 0 2em;
+  margin-top: 2em;
+}
+
+.playful [data-view="notes"] .top-nav ul li {
+  width: 10em;
+}
+
+.playful [data-view="notes"] .top-nav ul li[data-action="new-note"] .fa{ color: #FFCC00; }
+.playful [data-view="notes"] .top-nav ul li[data-action="import-note"] .fa{ color: #FF3B30; }
+.playful [data-view="notes"] .top-nav ul li[data-action="new-notebook"] .fa{ color: #1AD6FD; }
+.playful [data-view="notes"] .top-nav ul li[data-action="settings"] .fa{ color: #0BD318; }
+
+.playful [data-view="notes"] .top-nav ul li span {
+  width: 2.5em;
+  height: 2.5em;
+  background-color: rgb(246, 249, 250);
+  border-radius: 50%;
+  padding-top: 10%;
+  margin: 0 auto;
+}
+
+.playful [data-view="notes"] .top-nav ul li small {
+  margin-top: 8px;
+}
+
+.playful [data-view="notes"] [data-content="welcome"] {
+  padding: 1em 2em;
+  margin-top: 4em;
+  position: relative;
+  top: initial;
+  left: initial;
+  transform: translate(0, 0);
+}
+
+/*.playful .top-nav ul{
+  width: auto;
+  float: right;
+  padding: 0 2em;
+  margin-top: 1em;
+  background-color: rgb(246, 249, 250);
+  border-radius: 20em 0 0 20em;
+}*/
+
+.playful .top-nav ul li {
+  font-weight: 600;
+}
+
+.playful .top-nav ul li span {
+  margin-right: 10px;
+}
+
 /*
  * ==========================================================================
  * View Elements Styling
  * ==========================================================================
  */
 
-.playful [data-view="decrypt"] .middle {
+.playful [data-view="decrypt"] .middle,
+.playful [data-view="new-notebook"] .middle,
+.playful [data-view="edit-notebook"] .middle,
+.playful [data-view="delete-notebook"] .middle {
   top: initial;
   left: initial;
   bottom: initial;
@@ -118,28 +179,14 @@ body.playful {
   min-height: 100vh;
 }
 
-.playful [data-view="decrypt"] h1 {
+.playful [data-view="decrypt"] h1,
+.playful [data-view="new-notebook"] h1,
+.playful [data-view="edit-notebook"] h1,
+.playful [data-view="delete-notebook"] h1 {
   position: absolute;
   top: 20vh;
   left: 0;
   right: 0;
-}
-
-.playful [data-view="decrypt"] [data-form] {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.playful [data-form="decrypt"] label {
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 0.75em;
-}
-
-.playful [data-form="decrypt"] button[type="submit"] {
-  margin: 2em auto;
 }
 
 .playful [data-view="loading"] {
@@ -155,7 +202,7 @@ body.playful {
   background-color: #ffffff;
   border-radius: 50%;
   padding: 1em;
-  margin: 1em;
+  margin: 2.5em 1em;
 }
 
 .playful [data-view="notes"] .logo small {
@@ -163,37 +210,9 @@ body.playful {
   font-weight: 600;
 }
 
-.playful [data-view="notes"] .top-nav ul {
-  padding: 0 2em;
-  margin-top: 2em;
+.playful [data-view="notes"] [data-content="note-container"] {
+  padding: 4em 1em;
 }
-
-.playful [data-view="notes"] .top-nav ul li {
-  width: 10em;
-}
-
-.playful [data-view="notes"] .top-nav ul li span {
-  width: 2.5em;
-  height: 2.5em;
-  background-color: rgb(246, 249, 250);
-  border-radius: 50%;
-  padding-top: 10%;
-  margin: 0 auto;
-}
-
-.playful [data-view="notes"] .top-nav ul li small{
-  margin-top: 8px;
-}
-
-.playful section [data-form] {
-  background-color: rgb(246, 249, 250);
-}
-
-
-
-
-
-
 
 /*.playful section .middle {
   padding: 0;
@@ -204,26 +223,6 @@ body.playful {
     -ms-transform: translate(-50%,-100%);
 }*/
 
-
-.playful section [data-form] .row {
-  align-items: flex-start;
-}
-
-.playful section [data-form] .col {
-  border: 0;
-}
-
-.playful section [data-form] .buttons {
-  margin-top: 2em;
-}
-
-.playful section [data-form] button {
-  margin: 1em;
-}
-
-.playful section [data-form] label {
-  margin: 1em 0;
-}
 /*
  * ==========================================================================
  * Modal/Form Elements Styling
@@ -234,6 +233,76 @@ body.playful {
 .playful [data-modal] {
   background-color: rgba(0, 0, 0, 0.24);
 }
+
+.playful [data-view="decrypt"] [data-form],
+.playful [data-view="new-notebook"] [data-form],
+.playful [data-view="edit-notebook"] [data-form],
+.playful [data-view="delete-notebook"] [data-form] {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(246, 249, 250);
+}
+
+.playful [data-form="decrypt"] label,
+.playful [data-form="new-notebook"] label,
+.playful [data-form="edit-notebook"] label,
+.playful [data-form="delete-notebook"] label {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.75em;
+}
+
+.playful [data-form] input {
+  margin: 1em auto 2em;
+}
+
+.playful [data-form] button {
+  border-radius: 20em;
+  margin: 0 auto;
+  background-color: #ffffff;
+  font-weight: 600;
+}
+
+.playful [data-form] textarea {
+  max-width: 700px;
+  width: 80%;
+  margin: 2em auto;
+  background-color: #EFEFEF;
+  padding: 1em;
+}
+
+.playful [data-form] .buttons {
+  margin-top: 2em;
+}
+
+.playful [data-form] .buttons button {
+  margin: 1em;
+}
+
+.playful [data-form="decrypt"] button[type="submit"] {
+  margin: 2em auto 1em;
+}
+
+.playful [data-view="delete-notebook"] [data-form] label{
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.75em;
+  text-align: left;
+  max-width: 150px;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.playful [data-view="delete-notebook"] [data-form] input[type="radio"] {
+  margin-right: 1em;
+}
+
+/*.playful section [data-form] button {
+  margin: 1em;
+}*/
 
 .playful [data-modal] [data-form] {
   background-color: #ffffff;
@@ -246,6 +315,18 @@ body.playful {
     -moz-transform: translate(-50%, 0);
     -o-transform: translate(-50%, 0);
     -ms-transform: translate(-50%,0);
+}
+
+.playful [data-modal] [data-form] .row {
+  align-items: flex-start;
+}
+
+.playful [data-modal] [data-form] .col {
+  border: 0;
+}
+
+.playful [data-modal] [data-form] label {
+  margin: 1em 0;
 }
 
 .playful [data-modal] [data-form] .buttons {
@@ -268,12 +349,7 @@ body.playful {
   font-size: 1.563em;
 }
 
-.playful [data-form] button {
-  border-radius: 20em;
-  margin: 0 auto;
-  background-color: #ffffff;
-  font-weight: 600;
-}
+
 
 .playful [data-form] button:focus {
 
@@ -283,25 +359,15 @@ body.playful {
 
 }
 
-.playful [data-form] input {
-
-}
-
 .playful [data-form] select {
 
 }
 
-.playful [data-form] textarea {
-  max-width: 700px;
-  width: 80%;
-  margin: 2em auto;
-  background-color: #EFEFEF;
-  padding: 1em;
-}
 
-.playful [data-form] [type='submit'] {
+
+/*.playful [data-form] [type='submit'] {
   margin-top: 2em;
-}
+}*/
 
 .playful [data-form] [type='reset'] {
   color: #FF3B30;
@@ -330,15 +396,32 @@ body.playful {
  */
 
 .playful .grid article {
+  background-color: #ffffff !important;
+  box-shadow: 0 5px 32px 0px rgba(0, 0, 0, 0.06);
+  width: calc(50% - 1em);
+  height: 9em;
+  margin: 1em 0.5em;
+  max-width: none;
+  transition: all 0.3s;
+}
 
+.playful .grid article:hover {
+  box-shadow: 0 12px 12px 0px rgba(0, 0, 0, 0.06)
+}
+
+.playful .grid article h2 {
+  font-weight: 600;
+  font-size: 1.125em;
 }
 
 .playful .grid .note-actions {
-
+  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+  padding-top: 2em;
 }
 
 .playful .grid .note-actions .fa {
-
+  margin: 1em 5%;
+  padding: 10px;
 }
 
 .playful .grid .note-actions .fa:hover {
@@ -475,23 +558,6 @@ body.playful {
   font-weight: 600;
 }
 
-.playful .top-nav ul{
-  width: auto;
-  float: right;
-  padding: 0 2em;
-  margin-top: 1em;
-  background-color: rgb(246, 249, 250);
-  border-radius: 20em 0 0 20em;
-}
-
-.playful .top-nav ul li {
-  font-weight: 600;
-}
-
-.playful .top-nav ul li span {
-  margin-right: 10px;
-}
-
 .playful #editor {
   padding-top: 2em;
 }
@@ -512,20 +578,30 @@ body.playful {
 .playful #editor h5 { font-size: 1.25em; }
 .playful #editor h6 { font-size: 1em; }
 
-@media screen and (min-width: 37.56255em){
-    #editor {
-      width: calc(100% - 10% - 15vw);
-      position: relative;
-      left: 9vw;
-      max-width: 800px;
-      margin: 0 auto;
-      float: none;
-    }
-}
-
 
 /*
  * ==========================================================================
  * Extra Styling
  * ==========================================================================
  */
+ @media screen and (min-width: 37.56255em) {
+   .playful [data-view="notes"] .side-nav {
+     padding-top: 3em;
+   }
+
+   #editor {
+     width: calc(100% - 10% - 15vw);
+     position: relative;
+     left: 9vw;
+     max-width: 800px;
+     margin: 0 auto;
+     float: none;
+   }
+ }
+
+ @media screen and (min-width: 62em) {
+   .playful .grid article {
+      width: calc(30% - 2em);
+      margin: 1.5em 1em;
+   }
+ }
