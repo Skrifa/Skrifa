@@ -57,10 +57,6 @@ body.playful {
   text-decoration: underline;
 }
 
-.playful section {
-
-}
-
 .playful blockquote {
   width: 100%;
   margin: 0;
@@ -81,10 +77,6 @@ body.playful {
 .playful tr,
 .playful td {
   border: 2px solid #efefef
-}
-
-.playful mark {
-
 }
 
 .playful pre {
@@ -128,7 +120,7 @@ body.playful {
 
 .playful [data-view="notes"] .top-nav ul li,
 .playful [data-view="preview"] .top-nav ul li {
-  width: 10em;
+  width: 8em;
 }
 
 .playful [data-view="preview"] .top-nav ul li {
@@ -377,11 +369,6 @@ body.playful {
     -ms-transform: translate(-50%,0);
 }
 
-
-
-
-
-
 .playful [data-form] .row {
   align-items: flex-start;
 }
@@ -392,6 +379,13 @@ body.playful {
 
 .playful [data-form] .col:nth-child(2) {
   margin-top: 2em;
+}
+
+.playful [data-form] .horizontal button {
+  background-color: transparent;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.75em;
 }
 
 .playful [data-modal] [data-form] label {
@@ -421,9 +415,6 @@ body.playful {
 .playful [data-form] select {
   background-color: #efefef;
 }
-
-
-
 
 .playful [data-form] [type='reset'] {
   color: #FF3B30;
