@@ -17,6 +17,18 @@
  * ==========================================================================
  */
 
+ ::-webkit-scrollbar {
+     width: 5px;
+     height: 5px;
+     background: #efefef;
+ }
+
+ ::-webkit-scrollbar-thumb {
+   background: rgba(0, 0, 0, 0.2);
+   outline: 1px solid slategrey;
+   border-radius: 1em;
+ }
+
 body.playful {
   text-rendering: optimizeLegibility;     /* [1] */
   -webkit-font-smoothing: antialiased;        /* [2] */
@@ -39,16 +51,39 @@ body.playful {
 }
 
 .playful a {
+  font-weight: bold;
+  cursor: pointer;
+  color: #FFCC00;
+}
 
+.playful a:hover {
+  text-decoration: underline;
 }
 
 .playful section {
 
 }
 
+.playful blockquote {
+  width: 100%;
+  margin: 0;
+  border-left: 5px solid #0BD318;
+  padding-left: 3em;
+}
+
+.playful .table-wrapper {
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.playful table{
+  min-width: 100%;
+  min-height: 5em;
+}
+
 .playful tr,
 .playful td {
-
+  border: 2px solid #efefef
 }
 
 .playful mark {
@@ -56,7 +91,7 @@ body.playful {
 }
 
 .playful pre {
-
+  background-color: #efefef;
 }
 
 /*
@@ -142,6 +177,15 @@ body.playful {
   top: initial;
   left: initial;
   transform: translate(0, 0);
+}
+
+.playful [data-view="editor"] .top-nav {
+  width: auto;
+  float: right;
+  padding: 0 2em;
+  margin-top: 1em;
+  background-color: rgb(246, 249, 250);
+  border-radius: 20em 0 0 20em;
 }
 
 /*.playful .top-nav ul{
@@ -269,7 +313,7 @@ body.playful {
   max-width: 700px;
   width: 80%;
   margin: 2em auto;
-  background-color: #EFEFEF;
+  background-color: #efefef;
   padding: 1em;
 }
 
@@ -360,7 +404,7 @@ body.playful {
 }
 
 .playful [data-form] select {
-
+  background-color: #efefef;
 }
 
 
@@ -496,20 +540,9 @@ body.playful {
   background-color: #ffffff;
 }
 
-.playful .tools-section:first-child:before {
-  content: "\f1dc";
-  color: #FF3B30;
-}
-
-.playful .tools-section:nth-child(2):before {
-  content: "\f1fc";
-  color: #1AD6FD;
-}
-
-.playful .tools-section:nth-child(3):before {
-  content: "\f12e";
-  color: #0BD318;
-}
+.playful .tools-section:first-child:before { content: "\f1dc"; color: #FF3B30; }
+.playful .tools-section:nth-child(2):before { content: "\f1fc"; color: #1AD6FD; }
+.playful .tools-section:nth-child(3):before { content: "\f12e"; color: #0BD318; }
 
 .playful .tools-section:last-child button {
   margin: 0 auto 1em;
@@ -559,7 +592,42 @@ body.playful {
 }
 
 .playful #editor {
-  padding-top: 2em;
+  height: auto;
+  min-height: 100vh;
+  padding-top: 6em;
+  margin-bottom: 5em;
+}
+
+.playful #editor iframe,
+.playful #editor embed,
+.playful #editor object,
+.playful #editor img {
+  width: 100%;
+  max-width: 100%;
+  margin: 2em auto;
+}
+
+.playful #editor .video-wrapper {
+  width: 100%;
+  max-width: 100%;
+  margin: 2em auto;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  background-color: #efefef;
+}
+
+.playful #editor .video-wrapper webview,
+.playful #editor .video-wrapper iframe,
+.playful #editor .video-wrapper embed,
+.playful #editor .video-wrapper object {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .playful #editor h1,
