@@ -87,8 +87,6 @@ $_ready(() => {
 																		notebook = "Inbox";
 																		$_(".logo h1").text("Inbox");
 																		$_(".logo small").text("A place for any note");
-																		$_("[data-action='edit-notebook']").hide();
-																		$_("[data-action='delete-notebook']").hide();
 																		loadContent();
 																	}).catch(function(error) {
 
@@ -162,8 +160,6 @@ $_ready(() => {
 																notebook = "Inbox";
 																$_(".logo h1").text("Inbox");
 																$_(".logo small").text("A place for any note");
-																$_("[data-action='edit-notebook']").hide();
-																$_("[data-action='delete-notebook']").hide();
 																loadContent();
 															}).catch(function(error) {
 
@@ -223,8 +219,6 @@ $_ready(() => {
 															notebook = "Inbox";
 															$_(".logo h1").text("Inbox");
 															$_(".logo small").text("A place for any note");
-															$_("[data-action='edit-notebook']").hide();
-															$_("[data-action='delete-notebook']").hide();
 															loadContent();
 														}).catch(function(error) {
 
@@ -268,8 +262,6 @@ $_ready(() => {
 											notebook = "Inbox";
 											$_(".logo h1").text("Inbox");
 											$_(".logo small").text("A place for any note");
-											$_("[data-action='edit-notebook']").hide();
-											$_("[data-action='delete-notebook']").hide();
 											loadContent();
 										}).catch(function(){
 											dialog.showErrorBox("Error restoring from backup", "There was an error restoring your notes, none where imported.");
