@@ -308,29 +308,29 @@ $_ready(() => {
 								Notebook: item2.Notebook,
 							});
 						});
-					}).then(function(){
-						var date = new Date().toLocaleDateString().replace(/\//g, "-");
-						dialog.showSaveDialog({
-							title: "Choose Directory to Save Backup",
-							buttonLabel: "Choose",
-							defaultPath: `Skrifa Backup ${date}.skb`
-						},
-						function(directory){
-							if(directory){
-								wait("Writing Backup to File");
-								fs.writeFile(directory, JSON.stringify(json), 'utf8', function (error) {
-									if(error){
-										dialog.showErrorBox("Error creating backup", "There was an error creating your backup, file was not created.");
-									}else{
-										show("notes");
-									}
-								});
-							}else{
-								show("settings");
-							}
-						});
 					});
 
+				}).then(function(){
+					var date = new Date().toLocaleDateString().replace(/\//g, "-");
+					dialog.showSaveDialog({
+						title: "Choose Directory to Save Backup",
+						buttonLabel: "Choose",
+						defaultPath: `Skrifa Backup ${date}.skb`
+					},
+					function(directory){
+						if(directory){
+							wait("Writing Backup to File");
+							fs.writeFile(directory, JSON.stringify(json), 'utf8', function (error) {
+								if(error){
+									dialog.showErrorBox("Error creating backup", "There was an error creating your backup, file was not created.");
+								}else{
+									show("notes");
+								}
+							});
+						}else{
+							show("settings");
+						}
+					});
 				});
 				break;
 
