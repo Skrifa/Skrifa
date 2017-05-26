@@ -20,12 +20,9 @@
  ::-webkit-scrollbar {
      width: 5px;
      height: 5px;
-     background: #efefef;
  }
 
  ::-webkit-scrollbar-thumb {
-   background: rgba(0, 0, 0, 0.2);
-   outline: 1px solid slategrey;
    border-radius: 1em;
  }
 
@@ -105,11 +102,6 @@ body.playful {
   padding: 8em 1em 1em;
 }
 
-/*.playful .side-nav {
-  padding: 1em;
-  background-color: rgb(246, 249, 250);
-}*/
-
 .playful [data-view="notes"] [data-content="notebook-list"] li {
   box-shadow: 0 12px 22px 0px rgba(0, 0, 0, 0.06);
   border-radius: 3px;
@@ -123,33 +115,25 @@ body.playful {
   box-shadow: 0 6px 22px 0px rgba(0, 0, 0, 0.12);
 }
 
-.playful .side-nav button,
-.playful .side-nav li {
-
-}
-
-.playful .top-nav button,
-.playful .top-nav li {
-
-}
-
-.playful .side-nav button:hover,
-.playful .side-nav li:hover {
-
-}
-
-.playful .top-nav button:hover,
-.playful .top-nav li:hover {
-
-}
-
 .playful [data-view="notes"] .top-nav ul {
   padding: 0 2em;
   margin-top: 2em;
 }
 
-.playful [data-view="notes"] .top-nav ul li {
+.playful [data-view="preview"] .top-nav ul {
+  text-align: center;
+  padding: 0;
+  margin-top: 1em;
+}
+
+.playful [data-view="notes"] .top-nav ul li,
+.playful [data-view="preview"] .top-nav ul li {
   width: 10em;
+}
+
+.playful [data-view="preview"] .top-nav ul li {
+  margin: 0;
+  width: 4em;
 }
 
 .playful [data-view="notes"] .top-nav ul li[data-action="new-note"] .fa{ color: #FFCC00; }
@@ -157,7 +141,13 @@ body.playful {
 .playful [data-view="notes"] .top-nav ul li[data-action="new-notebook"] .fa{ color: #1AD6FD; }
 .playful [data-view="notes"] .top-nav ul li[data-action="settings"] .fa{ color: #0BD318; }
 
-.playful [data-view="notes"] .top-nav ul li span {
+.playful [data-view="preview"] .top-nav ul li[data-action="back"] .fa{ color: #FFCC00; }
+.playful [data-view="preview"] .top-nav ul li[data-action="export"] .fa{ color: #FF3B30; }
+.playful [data-view="preview"] .top-nav ul li[data-action="share"] .fa{ color: #1AD6FD; }
+.playful [data-view="preview"] .top-nav ul li[data-action="edit"] .fa{ color: #0BD318; }
+
+.playful [data-view="notes"] .top-nav ul li span,
+.playful [data-view="preview"] .top-nav ul li span {
   width: 2.5em;
   height: 2.5em;
   background-color: rgb(246, 249, 250);
@@ -166,7 +156,13 @@ body.playful {
   margin: 0 auto;
 }
 
-.playful [data-view="notes"] .top-nav ul li small {
+.playful [data-view="preview"] .top-nav ul li span {
+  display: block;
+  padding-top: 12px;
+}
+
+.playful [data-view="notes"] .top-nav ul li small,
+.playful [data-view="preview"] .top-nav ul li small {
   margin-top: 8px;
 }
 
@@ -188,15 +184,6 @@ body.playful {
   border-radius: 20em 0 0 20em;
 }
 
-/*.playful .top-nav ul{
-  width: auto;
-  float: right;
-  padding: 0 2em;
-  margin-top: 1em;
-  background-color: rgb(246, 249, 250);
-  border-radius: 20em 0 0 20em;
-}*/
-
 .playful .top-nav ul li {
   font-weight: 600;
 }
@@ -214,7 +201,10 @@ body.playful {
 .playful [data-view="decrypt"] .middle,
 .playful [data-view="new-notebook"] .middle,
 .playful [data-view="edit-notebook"] .middle,
-.playful [data-view="delete-notebook"] .middle {
+.playful [data-view="delete-notebook"] .middle,
+.playful [data-view="export-note"] .middle,
+.playful [data-view="share"] .middle,
+.playful [data-view="settings"] .middle {
   top: initial;
   left: initial;
   bottom: initial;
@@ -226,12 +216,17 @@ body.playful {
 .playful [data-view="decrypt"] h1,
 .playful [data-view="new-notebook"] h1,
 .playful [data-view="edit-notebook"] h1,
-.playful [data-view="delete-notebook"] h1 {
+.playful [data-view="delete-notebook"] h1,
+.playful [data-view="export-note"] h1,
+.playful [data-view="share"] h1,
+.playful [data-view="settings"] h1 {
   position: absolute;
   top: 20vh;
   left: 0;
   right: 0;
 }
+
+.playful [data-view="share"] h1 { top: 2vh; }
 
 .playful [data-view="loading"] {
   background-color: rgb(246, 249, 250);
@@ -258,15 +253,6 @@ body.playful {
   padding: 4em 1em;
 }
 
-/*.playful section .middle {
-  padding: 0;
-  top: 100%;
-  -webkit-transform: translate(-50%,-100%);
-    -moz-transform: translate(-50%,-100%);
-    -o-transform: translate(-50%,-100%);
-    -ms-transform: translate(-50%,-100%);
-}*/
-
 /*
  * ==========================================================================
  * Modal/Form Elements Styling
@@ -281,12 +267,37 @@ body.playful {
 .playful [data-view="decrypt"] [data-form],
 .playful [data-view="new-notebook"] [data-form],
 .playful [data-view="edit-notebook"] [data-form],
-.playful [data-view="delete-notebook"] [data-form] {
+.playful [data-view="delete-notebook"] [data-form],
+.playful [data-view="export-note"] [data-form],
+.playful [data-view="share"] [data-form],
+.playful [data-view="settings"] [data-form] {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   background-color: rgb(246, 249, 250);
+}
+
+.playful [data-view="settings"] [data-form]{
+  top: 50%;
+  bottom: initial;
+  width: 100%;
+}
+
+.playful [data-view="settings"] [data-form] .vertical {
+  width: 45%;
+  margin: 0 auto 4em;
+}
+
+.playful [data-view="settings"] [data-form] select {
+  background-color: #ffffff;
+}
+
+.playful [data-view="settings"] [data-form] button[data-action] {
+  background-color: transparent;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.75em;
 }
 
 .playful [data-form="decrypt"] label,
@@ -296,6 +307,15 @@ body.playful {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 0.75em;
+}
+
+.playful [data-form="export-note"] [data-action] {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.85em;
+  padding: 0;
+  margin: 1em;
+  background-color: transparent;
 }
 
 .playful [data-form] input {
@@ -344,10 +364,6 @@ body.playful {
   margin-right: 1em;
 }
 
-/*.playful section [data-form] button {
-  margin: 1em;
-}*/
-
 .playful [data-modal] [data-form] {
   background-color: #ffffff;
   width: 100%;
@@ -361,12 +377,21 @@ body.playful {
     -ms-transform: translate(-50%,0);
 }
 
-.playful [data-modal] [data-form] .row {
+
+
+
+
+
+.playful [data-form] .row {
   align-items: flex-start;
 }
 
-.playful [data-modal] [data-form] .col {
-  border: 0;
+.playful [data-form] .col {
+  border: 0 !important;
+}
+
+.playful [data-form] .col:nth-child(2) {
+  margin-top: 2em;
 }
 
 .playful [data-modal] [data-form] label {
@@ -393,45 +418,17 @@ body.playful {
   font-size: 1.563em;
 }
 
-
-
-.playful [data-form] button:focus {
-
-}
-
-.playful [data-form] button:active {
-
-}
-
 .playful [data-form] select {
   background-color: #efefef;
 }
 
 
 
-/*.playful [data-form] [type='submit'] {
-  margin-top: 2em;
-}*/
 
 .playful [data-form] [type='reset'] {
   color: #FF3B30;
 }
 
-.playful [data-form] [type='submit']:active {
-
-}
-
-.playful [data-form] [type='reset']:active {
-
-}
-
-.playful [data-form] [type='submit']:focus {
-
-}
-
-.playful [data-form] [type='reset']:focus {
-
-}
 
 /*
  * ==========================================================================
@@ -468,9 +465,6 @@ body.playful {
   padding: 10px;
 }
 
-.playful .grid .note-actions .fa:hover {
-
-}
 
 /*
  * ==========================================================================
@@ -591,23 +585,36 @@ body.playful {
   font-weight: 600;
 }
 
-.playful #editor {
+.playful #editor,
+.playful #preview {
   height: auto;
   min-height: 100vh;
   padding-top: 6em;
   margin-bottom: 5em;
 }
 
+.playful #preview {
+  padding-top: 2em;
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .playful #editor iframe,
 .playful #editor embed,
 .playful #editor object,
-.playful #editor img {
+.playful #editor img,
+.playful #preview iframe,
+.playful #preview embed,
+.playful #preview object,
+.playful #preview img {
   width: 100%;
   max-width: 100%;
   margin: 2em auto;
 }
 
-.playful #editor .video-wrapper {
+.playful #editor .video-wrapper,
+.playful #preview .video-wrapper {
   width: 100%;
   max-width: 100%;
   margin: 2em auto;
@@ -622,7 +629,11 @@ body.playful {
 .playful #editor .video-wrapper webview,
 .playful #editor .video-wrapper iframe,
 .playful #editor .video-wrapper embed,
-.playful #editor .video-wrapper object {
+.playful #editor .video-wrapper object,
+.playful #preview .video-wrapper webview,
+.playful #preview .video-wrapper iframe,
+.playful #preview .video-wrapper embed,
+.playful #preview .video-wrapper object {
   position: absolute;
   top: 0;
   left: 0;
@@ -635,16 +646,28 @@ body.playful {
 .playful #editor h3,
 .playful #editor h4,
 .playful #editor h5,
-.playful #editor h6 {
+.playful #editor h6,
+.playful #preview h1,
+.playful #preview h2,
+.playful #preview h3,
+.playful #preview h4,
+.playful #preview h5,
+.playful #preview h6 {
   font-weight: bold;
 }
 
-.playful #editor h1 { font-size: 3em; }
-.playful #editor h2 { font-size: 2.5em; }
-.playful #editor h3 { font-size: 1.938em; }
-.playful #editor h4 { font-size: 1.563em; }
-.playful #editor h5 { font-size: 1.25em; }
-.playful #editor h6 { font-size: 1em; }
+.playful #editor h1,
+.playful #preview h1 { font-size: 3em; }
+.playful #editor h2,
+.playful #preview h2 { font-size: 2.5em; }
+.playful #editor h3,
+.playful #preview h3 { font-size: 1.938em; }
+.playful #editor h4,
+.playful #preview h4 { font-size: 1.563em; }
+.playful #editor h5,
+.playful #preview h5 { font-size: 1.25em; }
+.playful #editor h6,
+.playful #preview h6 { font-size: 1em; }
 
 
 /*
@@ -664,6 +687,14 @@ body.playful {
      max-width: 800px;
      margin: 0 auto;
      float: none;
+   }
+
+   .playful [data-view="share"] h1 {
+     top: 20vh;
+   }
+
+   .playful [data-form] .col:nth-child(2) {
+     margin-top: 0;
    }
  }
 
