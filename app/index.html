@@ -115,7 +115,7 @@
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<label>Repeat encryption Passphrase:</label>
 					<input type="password" name="rpassphrase" required="true" placeholder="Passphrase">
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Create Key Pair</button>
 					</div>
@@ -133,7 +133,7 @@
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<label>Repeat encryption Passphrase:</label>
 					<input type="password" name="rpassphrase" required="true" placeholder="Passphrase">
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Import</button>
 					</div>
@@ -171,7 +171,7 @@
 				<form data-form="insert-html" class="vertical align-center padded-1">
 					<label>HTML Code:</label>
 					<textarea placeholder="HTML Code"></textarea>
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Ok</button>
 					</div>
@@ -182,7 +182,7 @@
 				<form data-form="edit-html" class="vertical align-center padded-1">
 					<label>HTML Code:</label>
 					<textarea placeholder="HTML Code"></textarea>
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Edit</button>
 					</div>
@@ -193,7 +193,7 @@
 				<form data-form="insert-snippet" class="vertical align-center padded-1">
 					<label>Select a Language</label>
 					<select name="language"></select>
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Ok</button>
 					</div>
@@ -206,7 +206,7 @@
 					<input type="number" placeholder="Rows" data-input="rows" min="0" required="true">
 					<label>Columns:</label>
 					<input type="number" placeholder="Columns" data-input="columns" min="0" required="true">
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Ok</button>
 					</div>
@@ -219,7 +219,7 @@
 					<input type="text" placeholder="Text" data-input="text" required="true">
 					<label>URL to link to:</label>
 					<input type="text" placeholder="Link" data-input="link" required="true">
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Ok</button>
 					</div>
@@ -232,7 +232,7 @@
 					<button data-action='local-image' class="button">Select Image</button>
 					<label>Image URL:</label>
 					<input type="text" placeholder="www.example.com/image.png" required="true">
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Ok</button>
 					</div>
@@ -243,7 +243,7 @@
 				<form data-form="unsaved" class="vertical align-center padded-1">
 					<h2>You have unsaved changes, do you want to exit? This changes will be lost.</h2>
 					<input type="hidden" required="true">
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Exit</button>
 					</div>
@@ -339,7 +339,7 @@
 						</div>
 						<div class="col s12 vertical">
 							<span data-content="status"></span>
-							<div>
+							<div class="buttons">
 								<button type="reset">Cancel</button>
 							</div>
 						</div>
@@ -385,7 +385,7 @@
 					<input type="text" placeholder="Notebook's name" data-input="name" required="true">
 					<label>Description:</label>
 					<input type="text" placeholder="What this notebook is for" data-input="description">
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Ok</button>
 					</div>
@@ -401,7 +401,7 @@
 					<input type="text" placeholder="Notebook's name" data-input="name" required="true">
 					<label>Description:</label>
 					<input type="text" placeholder="What this notebook is for" data-input="description">
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Save</button>
 					</div>
@@ -416,7 +416,7 @@
 					<p>What should happen to the notes currently inside this notebook?</p>
 					<button data-action="delete-move-inbox">Move Notes to Inbox</button>
 					<button data-action="delete-everything">Delete Everything</button>
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 					</div>
 				</form>
@@ -433,7 +433,7 @@
 					<button data-action="export-md">Markdown</button>
 					<button data-action="export-html">HTML</button>
 					<button data-action="export-pdf">PDF</button>
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 					</div>
 				</form>
@@ -444,7 +444,7 @@
 			<div data-modal="delete-note">
 				<form data-form="delete-note" class="vertical align-center padded-1">
 					<h2>Are you sure you want to delete this note?</h2>
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Delete</button>
 					</div>
@@ -492,7 +492,7 @@
 					<p>Please enter your passphrase to continue. You will now have to choose the new key you'll be migrating to and then the location you want to save your backup to.</p>
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<span class="status"></span>
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Migrate</button>
 					</div>
@@ -505,7 +505,7 @@
 					<p>This allows the creation of a backup that you can then import to any Skrifa app, however this backup will not be encrypted and thus the notes in it can be read by anyone. Pleas eneter your password to continue:</p>
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<span class="status"></span>
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Create</button>
 					</div>
@@ -518,7 +518,7 @@
 					<p>Please enter your passphrase to continue. Remember this action is definitive, use with precaution!</p>
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<span class="status"></span>
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Clear</button>
 					</div>
@@ -577,7 +577,7 @@
 						</div>
 					</div>
 
-					<div>
+					<div class="buttons">
 						<button type="reset">Cancel</button>
 						<button type="submit">Ok</button>
 					</div>
