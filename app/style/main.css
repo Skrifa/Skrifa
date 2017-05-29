@@ -79,11 +79,13 @@ b {
 
 ::-webkit-scrollbar {
     background: transparent;
-	width: 6px;
+	width: 5px;
+	height: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.2);
+	border-radius: 1em;
 }
 
 [data-action='local-image'] {
