@@ -1,0 +1,768 @@
+/*
+ * Theme: Playful
+ * Author: Luis Fernando Saavedra Meza <saavedra.f12@gmail.com>
+ */
+
+/*
+ * ==========================================================================
+ * Font Importing
+ * ==========================================================================
+ */
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700');
+
+
+/*
+ * ==========================================================================
+ * Common Elements Styling
+ * ==========================================================================
+ */
+
+body.playful {
+	text-rendering: optimizeLegibility;     /* [1] */
+	-webkit-font-smoothing: antialiased;        /* [2] */
+	-moz-osx-font-smoothing: grayscale;     /* [3] */
+	font-smoothing: antialiased;
+	font: normal 100%/1.4 'Source Sans Pro', -apple-system,
+	                    BlinkMacSystemFont, "Segoe UI", Roboto,
+	                    Oxygen, Ubuntu, Cantarell, "Fira Sans",
+	                    "Droid Sans","Helvetica Neue", sans-serif;
+	background-color: #ffffff;
+}
+
+.playful section h1 {
+	font-weight: bold;
+	font-size: 2.5em;
+}
+
+.playful section p{
+	color: rgba(0, 0, 0, 0.87);
+}
+
+.playful a {
+	font-weight: bold;
+	cursor: pointer;
+	color: #FFCC00;
+}
+
+.playful a:hover {
+	text-decoration: underline;
+}
+
+.playful blockquote {
+	width: 100%;
+	margin: 0;
+	border-left: 5px solid #0BD318;
+	padding-left: 3em;
+}
+
+.playful .table-wrapper {
+	width: 100%;
+	overflow-x: scroll;
+}
+
+.playful table{
+	min-width: 100%;
+	min-height: 5em;
+}
+
+.playful tr,
+.playful td {
+	border: 2px solid #efefef
+}
+
+.playful pre {
+	background-color: #efefef;
+}
+
+/*
+ * ==========================================================================
+ * Navigation Styling
+ * ==========================================================================
+ */
+
+.playful [data-view="notes"] .side-nav {
+	background-color: rgb(246, 249, 250);
+	padding: 8em 1em 1em;
+}
+
+.playful [data-view="notes"] [data-content="notebook-list"] li {
+	box-shadow: 0 12px 22px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 3px;
+	background-color: #ffffff;
+	margin-bottom: 1.5em;
+	transition: all 0.3s;
+	text-align: left;
+}
+
+.playful [data-view="notes"] [data-content="notebook-list"] li:hover {
+	box-shadow: 0 6px 22px 0px rgba(0, 0, 0, 0.12);
+}
+
+.playful [data-view="notes"] .top-nav ul {
+	padding: 0 2em;
+	margin-top: 2em;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: stretch;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.playful [data-view="preview"] .top-nav ul {
+	text-align: center;
+	padding: 0;
+	margin-top: 1em;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.playful [data-view="notes"] .top-nav ul li  {
+	width: calc(100% / 2 - 0.5em);
+}
+
+.playful [data-view="preview"] .top-nav ul li {
+	width: calc(100% / 3 - 0.5em);
+}
+
+.playful [data-view="notes"] .top-nav ul li[data-action="new-note"] .fa{ color: #FFCC00; }
+.playful [data-view="notes"] .top-nav ul li[data-action="import-note"] .fa{ color: #FF3B30; }
+.playful [data-view="notes"] .top-nav ul li[data-action="new-notebook"] .fa{ color: #1AD6FD; }
+.playful [data-view="notes"] .top-nav ul li[data-action="settings"] .fa{ color: #0BD318; }
+
+.playful [data-view="preview"] .top-nav ul li[data-action="back"] .fa{ color: #FFCC00; }
+.playful [data-view="preview"] .top-nav ul li[data-action="export"] .fa{ color: #FF3B30; }
+.playful [data-view="preview"] .top-nav ul li[data-action="share"] .fa{ color: #1AD6FD; }
+.playful [data-view="preview"] .top-nav ul li[data-action="edit"] .fa{ color: #0BD318; }
+
+.playful [data-view="notes"] .top-nav ul li span,
+.playful [data-view="preview"] .top-nav ul li span {
+	width: 2.5em;
+	height: 2.5em;
+	background-color: rgb(246, 249, 250);
+	border-radius: 50%;
+	padding-top: 12px;
+	margin: 0 auto;
+}
+
+.playful [data-view="preview"] .top-nav ul li span {
+	display: block;
+	padding-top: 12px;
+}
+
+.playful [data-view="notes"] .top-nav ul li small,
+.playful [data-view="preview"] .top-nav ul li small {
+	margin-top: 8px;
+}
+
+.playful [data-view="notes"] [data-content="welcome"] {
+	padding: 1em 2em;
+	margin-top: 4em;
+	position: relative;
+	top: initial;
+	left: initial;
+	transform: translate(0, 0);
+}
+
+.playful [data-view="editor"] .top-nav {
+	width: auto;
+	float: right;
+	padding: 0 2em;
+	margin-top: 1em;
+	background-color: rgb(246, 249, 250);
+	border-radius: 20em 0 0 20em;
+}
+
+.playful .top-nav ul li {
+	font-weight: 600;
+}
+
+.playful .top-nav ul li span {
+	margin-right: 10px;
+}
+
+/*
+ * ==========================================================================
+ * View Elements Styling
+ * ==========================================================================
+ */
+
+.playful [data-view="decrypt"] .middle,
+.playful [data-view="new-notebook"] .middle,
+.playful [data-view="edit-notebook"] .middle,
+.playful [data-view="delete-notebook"] .middle,
+.playful [data-view="export-note"] .middle,
+.playful [data-view="share"] .middle,
+.playful [data-view="settings"] .middle {
+	top: initial;
+	left: initial;
+	bottom: initial;
+	transform: translate(0, 0);
+	position: relative;
+	min-height: 100vh;
+}
+
+.playful [data-view="decrypt"] h1,
+.playful [data-view="new-notebook"] h1,
+.playful [data-view="edit-notebook"] h1,
+.playful [data-view="delete-notebook"] h1,
+.playful [data-view="export-note"] h1,
+.playful [data-view="share"] h1,
+.playful [data-view="settings"] h1 {
+	position: absolute;
+	top: 20vh;
+	left: 0;
+	right: 0;
+}
+
+.playful [data-view="share"] h1 { top: 2vh; }
+
+.playful [data-view="loading"] {
+	background-color: rgb(246, 249, 250);
+}
+
+.playful [data-view="loading"] img {
+	max-width: 300px;
+	max-height: 300px;
+}
+
+.playful [data-view="notes"] [data-menu="notes"] {
+	background-color: #ffffff;
+	border-radius: 50%;
+	padding: 1em;
+	margin: 2.5em 1em;
+}
+
+.playful [data-view="notes"] .logo small {
+	font-size: 1em;
+	font-weight: 600;
+}
+
+.playful [data-view="notes"] [data-content="note-container"] {
+	padding: 4em 1em;
+}
+
+/*
+ * ==========================================================================
+ * Modal/Form Elements Styling
+ * ==========================================================================
+ */
+
+
+.playful [data-modal] {
+	background-color: rgba(0, 0, 0, 0.24);
+}
+
+.playful [data-view="decrypt"] [data-form],
+.playful [data-view="new-notebook"] [data-form],
+.playful [data-view="edit-notebook"] [data-form],
+.playful [data-view="delete-notebook"] [data-form],
+.playful [data-view="export-note"] [data-form],
+.playful [data-view="share"] [data-form],
+.playful [data-view="settings"] [data-form] {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgb(246, 249, 250);
+}
+
+.playful [data-view="settings"] [data-form]{
+	top: 50%;
+	bottom: initial;
+	width: 100%;
+	transform: translate(0, 0) !important;
+}
+
+.playful [data-view="settings"] [data-form] p {
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.playful [data-view="settings"] [data-form] .vertical {
+	width: 45%;
+	margin: 0 auto 4em;
+}
+
+.playful [data-view="settings"] [data-form] select {
+	background-color: #ffffff;
+}
+
+.playful [data-view="settings"] [data-form] button[data-action] {
+	background-color: transparent;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.75em;
+}
+
+.playful [data-form="decrypt"] label,
+.playful [data-form="new-notebook"] label,
+.playful [data-form="edit-notebook"] label,
+.playful [data-form="delete-notebook"] label {
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.75em;
+}
+
+.playful [data-form="export-note"] [data-action] {
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.85em;
+	padding: 0;
+	margin: 1em;
+	background-color: transparent;
+}
+
+.playful [data-form] input {
+	margin: 1em auto 2em;
+}
+
+.playful [data-form] button {
+	border-radius: 20em;
+	margin: 0 auto;
+	background-color: #ffffff;
+	font-weight: 600;
+}
+
+.playful [data-form] textarea {
+	max-width: 700px;
+	width: 80%;
+	margin: 2em auto;
+	background-color: #efefef;
+	padding: 1em;
+}
+
+.playful [data-form] .buttons {
+	margin-top: 2em;
+}
+
+.playful [data-form] .buttons button {
+	margin: 1em;
+}
+
+.playful [data-form="decrypt"] button[type="submit"] {
+	margin: 2em auto 1em;
+}
+
+.playful [data-view="delete-notebook"] [data-form] label{
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.75em;
+	text-align: left;
+	max-width: 150px;
+	display: block;
+	margin: 0 auto;
+	cursor: pointer;
+}
+
+.playful [data-view="delete-notebook"] [data-form] input[type="radio"] {
+	margin-right: 1em;
+}
+
+.playful [data-modal] [data-form] {
+	background-color: #ffffff;
+	width: 100%;
+	border-radius: 0;
+	padding: 2em 0 0;
+	top: initial;
+	bottom: 0;
+	-webkit-transform: translate(-50%, 0);
+	-moz-transform: translate(-50%, 0);
+	-o-transform: translate(-50%, 0);
+	-ms-transform: translate(-50%,0);
+}
+
+.playful [data-form] .row {
+	align-items: flex-start;
+}
+
+.playful [data-form] .col {
+	border: 0 !important;
+}
+
+.playful [data-form] .col:nth-child(2) {
+	margin-top: 2em;
+}
+
+.playful [data-form] .horizontal button {
+	background-color: transparent;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.75em;
+}
+
+.playful [data-modal] [data-form] label {
+	margin: 1em 0;
+}
+
+.playful [data-modal] [data-form] .buttons {
+	margin-top: 3em;
+	padding: 2em;
+	background-color: rgb(246, 249, 250);
+}
+
+.playful [data-modal] [data-form] .buttons button{
+	margin: 0 1em;
+	width: 9em;
+}
+
+.playful [data-modal] [data-form] label {
+	font-weight: bold;
+	font-size: 1.563em;
+}
+
+.playful [data-modal] [data-form] h2 {
+	font-size: 1.563em;
+	max-width: 600px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.playful [data-form] select {
+	background-color: #efefef;
+}
+
+.playful [data-form] [type='reset'] {
+	color: #FF3B30;
+}
+
+
+/*
+ * ==========================================================================
+ * Note List Elements Styling
+ * ==========================================================================
+ */
+
+.playful .grid article {
+	background-color: #ffffff !important;
+	box-shadow: 0 5px 32px 0px rgba(0, 0, 0, 0.06);
+	width: calc(50% - 1em);
+	height: 9em;
+	margin: 1em 0.5em;
+	max-width: none;
+	transition: all 0.3s;
+}
+
+.playful .grid article:hover {
+	box-shadow: 0 12px 12px 0px rgba(0, 0, 0, 0.06)
+}
+
+.playful .grid article h2 {
+	font-weight: 600;
+	font-size: 1.125em;
+}
+
+.playful .grid .note-actions {
+	background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+	padding-top: 2em;
+}
+
+.playful .grid .note-actions .fa {
+	margin: 1em 5%;
+	padding: 10px;
+}
+
+
+/*
+ * ==========================================================================
+ * Editor and Preview Elements Styling
+ * ==========================================================================
+ */
+
+.playful [data-view="editor"] .side-nav {
+	background-color: rgb(246, 249, 250);
+	overflow: visible;
+	display: block;
+	width: 100%;
+	max-width: none;
+	height: 5em;
+	bottom: 0;
+}
+
+.playful .editor-tools {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: stretch;
+	justify-content: center;
+	height: 5em;
+	padding-top: 1.8em;
+	padding-right: 1em;
+	padding-left: 1em;
+}
+
+.playful .tools-section{
+	height: 60px;
+	margin: 0 0.5em;
+	position: relative;
+}
+
+.playful .tools-section:not(:last-child) .tools-buttons {
+	position: absolute;
+	min-width: 250px;
+	width: 40vw;
+	max-width: 250px;
+	background-color: #fff;
+	box-shadow: 0 5px 22px 0 rgba(0, 0, 0, 0.12);
+	border-radius: 5px;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s;
+	left: 0;
+	bottom: 150%;
+	top: initial;
+}
+
+.playful .tools-section:not(:last-child):hover .tools-buttons {
+	opacity: 1;
+	visibility: visible;
+}
+
+.playful .tools-section h3{
+	display: none;
+}
+
+.playful .tools-section:last-child {
+	height: auto;
+}
+
+.playful .tools-section:last-child button:after {
+	display: none;
+}
+
+.playful .tools-section:before,
+.playful .tools-section:last-child button  {
+	font-family: 'FontAwesome';
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	border-radius: 50%;
+	padding: 1em;
+	background-color: #ffffff;
+}
+
+.playful .tools-section:first-child:before { content: "\f1dc"; color: #FF3B30; }
+.playful .tools-section:nth-child(2):before { content: "\f1fc"; color: #1AD6FD; }
+.playful .tools-section:nth-child(3):before { content: "\f12e"; color: #0BD318; }
+
+.playful .tools-section:last-child button {
+	margin: 0 auto 1em;
+}
+
+.playful .tools-section:last-child button:first-child {
+	color: #FFCC00;
+	margin-top: 0;
+}
+
+.playful .tools-section:last-child button {
+	color: rgba(0, 0, 0, 0.87);
+	width: 48px;
+	height: 48px;
+	margin: 0 0.5em;
+}
+
+.playful .tools-section:last-child .tools-buttons {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	margin-top: -0.8em;
+}
+
+.playful .tools-buttons button {
+	position: relative;
+	display: block;
+	width: 100%;
+	text-align: left;
+	font-weight: 300;
+	padding: 0.3em 1.5em;
+	color: rgba(0, 0, 0, 0.53);
+	margin: 1em auto;
+	transition: all 0.3s;
+}
+
+.playful .tools-buttons button:hover {
+	color: #000000;
+}
+
+.playful .tools-buttons button:before {
+	display: inline-block;
+	width: 1em;
+}
+
+.playful .tools-buttons button:after {
+	content: attr(title);
+	display: inline-block;
+	margin-left: 1.5em;
+	color: #000000;
+	font-size: 1.125em;
+	font-family: 'Source Sans Pro';
+	font-weight: 600;
+}
+
+.playful #editor,
+.playful #preview {
+	height: auto;
+	min-height: 100vh;
+	padding-top: 6em;
+	margin-bottom: 5em;
+}
+
+.playful #preview {
+	padding-top: 2em;
+	width: 80%;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.playful #editor iframe,
+.playful #editor embed,
+.playful #editor object,
+.playful #editor img,
+.playful #preview iframe,
+.playful #preview embed,
+.playful #preview object,
+.playful #preview img {
+	width: 100%;
+	max-width: 100%;
+	margin: 2em auto;
+}
+
+.playful #editor .video-wrapper,
+.playful #preview .video-wrapper {
+	width: 100%;
+	max-width: 100%;
+	margin: 2em auto;
+	position: relative;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	height: 0;
+	overflow: hidden;
+	background-color: #efefef;
+}
+
+.playful #editor .video-wrapper webview,
+.playful #editor .video-wrapper iframe,
+.playful #editor .video-wrapper embed,
+.playful #editor .video-wrapper object,
+.playful #preview .video-wrapper webview,
+.playful #preview .video-wrapper iframe,
+.playful #preview .video-wrapper embed,
+.playful #preview .video-wrapper object {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.playful #editor h1,
+.playful #editor h2,
+.playful #editor h3,
+.playful #editor h4,
+.playful #editor h5,
+.playful #editor h6,
+.playful #preview h1,
+.playful #preview h2,
+.playful #preview h3,
+.playful #preview h4,
+.playful #preview h5,
+.playful #preview h6 {
+	font-weight: bold;
+}
+
+.playful #editor h1,
+.playful #preview h1 { font-size: 3em; }
+.playful #editor h2,
+.playful #preview h2 { font-size: 2.5em; }
+.playful #editor h3,
+.playful #preview h3 { font-size: 1.938em; }
+.playful #editor h4,
+.playful #preview h4 { font-size: 1.563em; }
+.playful #editor h5,
+.playful #preview h5 { font-size: 1.25em; }
+.playful #editor h6,
+.playful #preview h6 { font-size: 1em; }
+
+
+/*
+ * ==========================================================================
+ * Extra Styling
+ * ==========================================================================
+ */
+ @media screen and (min-width: 37.56255em) {
+	.playful [data-view="notes"] .side-nav {
+		padding-top: 3em;
+	}
+
+	.playful [data-view="editor"] .side-nav {
+		width: 15vw;
+		height: 100%;
+		max-width: 104px;
+	}
+
+	.playful .editor-tools {
+		display: block;
+		height: auto;
+		padding-top: 0;
+		padding-right: 0;
+		padding-left: 0;
+		margin: 1em auto;
+	}
+
+	.playful .tools-section:not(:last-child) .tools-buttons {
+		left: 110%;
+		top: -150%;
+		bottom: initial;
+	}
+
+	.playful .tools-section{
+		margin: 1em auto;
+	}
+
+	.playful .tools-section:last-child .tools-buttons {
+		display: block;
+		margin-top: 0;
+	}
+
+	.playful .tools-section:last-child button {
+		margin: 1.5em auto;
+	}
+
+	.playful #editor {
+		width: calc(100% - 10% - 15vw);
+		position: relative;
+		left: 9vw;
+		max-width: 800px;
+		margin: 0 auto;
+		float: none;
+	}
+
+	.playful [data-view="share"] h1 {
+		top: 20vh;
+	}
+
+	.playful [data-form] .col:nth-child(2) {
+		margin-top: 0;
+	}
+
+	.playful [data-view="notes"] .top-nav ul li {
+		width: calc(100% / 4 - 0.5em);
+	}
+
+	.playful [data-view="preview"] .top-nav ul li {
+		width: calc(100% / 5 - 0.5em);
+	}
+ }
+
+ @media screen and (min-width: 62em) {
+	.playful .grid article {
+		width: calc(30% - 2em);
+		margin: 1.5em 1em;
+	}
+ }
