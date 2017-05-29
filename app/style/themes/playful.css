@@ -425,6 +425,9 @@ body.playful {
 
 .playful [data-modal] [data-form] h2 {
   font-size: 1.563em;
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .playful [data-form] select {
@@ -480,9 +483,12 @@ body.playful {
 
 .playful [data-view="editor"] .side-nav {
   background-color: rgb(246, 249, 250);
-  width: 15vw;
-  max-width: 104px;
   overflow: visible;
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 5em;
+  bottom: 0;
 }
 
 .playful .editor-tools {
@@ -490,18 +496,25 @@ body.playful {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: center;
+  height: 5em;
+  padding-top: 1.8em;
+  padding-right: 1em;
+  padding-left: 1em;
 }
 
 .playful .tools-section{
   height: 60px;
-  margin: 1em auto;
+  margin: 0 0.5em;
   position: relative;
 }
 
 .playful .tools-section:not(:last-child) .tools-buttons {
   position: absolute;
-  left: 130%;
-  top: -150%;
+  min-width: 250px;
   width: 40vw;
   max-width: 250px;
   background-color: #fff;
@@ -510,6 +523,9 @@ body.playful {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s;
+  left: 0;
+  bottom: 150%;
+  top: initial;
 }
 
 .playful .tools-section:not(:last-child):hover .tools-buttons {
@@ -557,7 +573,14 @@ body.playful {
   color: rgba(0, 0, 0, 0.87);
   width: 48px;
   height: 48px;
-  margin: 1.5em auto;
+  margin: 0 0.5em;
+}
+
+.playful .tools-section:last-child .tools-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-top: -0.8em;
 }
 
 .playful .tools-buttons button {
@@ -684,6 +707,40 @@ body.playful {
  @media screen and (min-width: 37.56255em) {
    .playful [data-view="notes"] .side-nav {
      padding-top: 3em;
+   }
+
+   .playful [data-view="editor"] .side-nav {
+     width: 15vw;
+     height: 100%;
+     max-width: 104px;
+   }
+
+   .playful .editor-tools {
+     display: block;
+     height: auto;
+     padding-top: 0;
+     padding-right: 0;
+     padding-left: 0;
+     margin: 1em auto;
+   }
+
+   .playful .tools-section:not(:last-child) .tools-buttons {
+     left: 110%;
+     top: -150%;
+     bottom: initial;
+   }
+
+   .playful .tools-section{
+     margin: 1em auto;
+   }
+
+   .playful .tools-section:last-child .tools-buttons {
+      display: block;
+      margin-top: 0;
+   }
+
+   .playful .tools-section:last-child button {
+     margin: 1.5em auto;
    }
 
    #editor {
