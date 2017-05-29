@@ -116,9 +116,9 @@
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<label>Repeat encryption Passphrase:</label>
 					<input type="password" name="rpassphrase" required="true" placeholder="Passphrase">
-					<div class="buttons">
-						<button type="submit">Create Key Pair</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Create Key Pair</button>
 					</div>
 					<span data-content="status"></span>
 				</form>
@@ -134,9 +134,9 @@
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<label>Repeat encryption Passphrase:</label>
 					<input type="password" name="rpassphrase" required="true" placeholder="Passphrase">
-					<div class="buttons">
-						<button type="submit">Import</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Import</button>
 					</div>
 					<span data-content="status"></span>
 				</form>
@@ -161,9 +161,9 @@
 				<form data-form="insert-video" class="vertical align-center padded-1">
 					<label>Embed Code:</label>
 					<textarea placeholder="Video Embed Code"></textarea>
-					<div class="buttons">
-						<button type="submit">Ok</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Ok</button>
 					</div>
 				</form>
 			</div>
@@ -172,9 +172,9 @@
 				<form data-form="insert-html" class="vertical align-center padded-1">
 					<label>HTML Code:</label>
 					<textarea placeholder="HTML Code"></textarea>
-					<div class="buttons">
-						<button type="submit">Ok</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Ok</button>
 					</div>
 				</form>
 			</div>
@@ -183,9 +183,9 @@
 				<form data-form="edit-html" class="vertical align-center padded-1">
 					<label>HTML Code:</label>
 					<textarea placeholder="HTML Code"></textarea>
-					<div class="buttons">
-						<button type="submit">Edit</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Edit</button>
 					</div>
 				</form>
 			</div>
@@ -194,9 +194,9 @@
 				<form data-form="insert-snippet" class="vertical align-center padded-1">
 					<label>Select a Language</label>
 					<select name="language"></select>
-					<div class="buttons">
-						<button type="submit">Ok</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Ok</button>
 					</div>
 				</form>
 			</div>
@@ -207,9 +207,9 @@
 					<input type="number" placeholder="Rows" data-input="rows" min="0" required="true">
 					<label>Columns:</label>
 					<input type="number" placeholder="Columns" data-input="columns" min="0" required="true">
-					<div class="buttons">
-						<button type="submit">Ok</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Ok</button>
 					</div>
 				</form>
 			</div>
@@ -220,9 +220,9 @@
 					<input type="text" placeholder="Text" data-input="text" required="true">
 					<label>URL to link to:</label>
 					<input type="text" placeholder="Link" data-input="link" required="true">
-					<div class="buttons">
-						<button type="submit">Ok</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Ok</button>
 					</div>
 				</form>
 			</div>
@@ -233,20 +233,20 @@
 					<button data-action='local-image' class="button">Select Image</button>
 					<label>Image URL:</label>
 					<input type="text" placeholder="www.example.com/image.png" required="true">
-					<div class="buttons">
-						<button type="submit">Ok</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Ok</button>
 					</div>
 				</form>
 			</div>
 
-			<div data-modal="unsaved" data-insert-element="Image">
+			<div data-modal="unsaved">
 				<form data-form="unsaved" class="vertical align-center padded-1">
 					<h2>You have unsaved changes, do you want to exit? This changes will be lost.</h2>
 					<input type="hidden" required="true">
-					<div class="buttons">
-						<button type="submit">Exit</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Exit</button>
 					</div>
 				</form>
 			</div>
@@ -344,7 +344,7 @@
 						</div>
 						<div class="col s12 vertical">
 							<span data-content="status"></span>
-							<div class="buttons">
+							<div>
 								<button type="reset">Cancel</button>
 							</div>
 						</div>
@@ -357,10 +357,11 @@
 			<div class="middle padded-2 align-center">
 				<h1>Message</h1>
 				<form method="post" data-form="pgp-message">
-					<div class="buttons">
-						<button type="submit">Write to File</button>
-						<button data-action="copy-message">Copy to Clipboard</button>
+					<div>
 						<button type="reset">Back</button>
+						<button data-action="copy-message">Copy to Clipboard</button>
+						<button type="submit">Write to File</button>
+
 					</div>
 				</form>
 				<pre data-content="message"></pre>
@@ -389,9 +390,9 @@
 					<input type="text" placeholder="Notebook's name" data-input="name" required="true">
 					<label>Description:</label>
 					<input type="text" placeholder="What this notebook is for" data-input="description">
-					<div class="buttons">
-						<button type="submit">Ok</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Ok</button>
 					</div>
 				</form>
 			</div>
@@ -405,9 +406,9 @@
 					<input type="text" placeholder="Notebook's name" data-input="name" required="true">
 					<label>Description:</label>
 					<input type="text" placeholder="What this notebook is for" data-input="description">
-					<div class="buttons">
-						<button type="submit">Save</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Save</button>
 					</div>
 				</form>
 
@@ -416,12 +417,11 @@
 		<section data-view="delete-notebook">
 			<div class="middle padded-2">
 				<h1>Delete Notebook</h1>
-				<form method="post" data-form="delete-notebook" class="vertical align-center padded-2">
+				<form method="post" data-form="delete-notebook" class="align-center padded-2">
 					<p>What should happen to the notes currently inside this notebook?</p>
-					<label><input type='radio' name='strategy' value="move" required="true"> Move Notes to Inbox</label>
-					<label><input type='radio' name='strategy' value="delete" required="true"> Delete Everything</label>
-					<div class="buttons">
-						<button type="submit">Delete</button>
+					<button data-action="delete-move-inbox">Move Notes to Inbox</button>
+					<button data-action="delete-everything">Delete Everything</button>
+					<div>
 						<button type="reset">Cancel</button>
 					</div>
 				</form>
@@ -438,7 +438,7 @@
 					<button data-action="export-md">Markdown</button>
 					<button data-action="export-html">HTML</button>
 					<button data-action="export-pdf">PDF</button>
-					<div class="buttons">
+					<div>
 						<button type="reset">Cancel</button>
 					</div>
 				</form>
@@ -446,12 +446,12 @@
 		</section>
 
 		<section data-view="notes">
-			<div data-modal="delete-note" data-insert-element="Video">
+			<div data-modal="delete-note">
 				<form data-form="delete-note" class="vertical align-center padded-1">
 					<h2>Are you sure you want to delete this note?</h2>
-					<div class="buttons">
-						<button type="submit">Delete</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Delete</button>
 					</div>
 				</form>
 			</div>
@@ -497,9 +497,9 @@
 					<p>Please enter your passphrase to continue. You will now have to choose the new key you'll be migrating to and then the location you want to save your backup to.</p>
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<span class="status"></span>
-					<div class="buttons">
-						<button type="submit">Migrate</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Migrate</button>
 					</div>
 				</form>
 			</div>
@@ -510,9 +510,9 @@
 					<p>This allows the creation of a backup that you can then import to any Skrifa app, however this backup will not be encrypted and thus the notes in it can be read by anyone. Pleas eneter your password to continue:</p>
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<span class="status"></span>
-					<div class="buttons">
-						<button type="submit">Create</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Create</button>
 					</div>
 				</form>
 			</div>
@@ -523,9 +523,9 @@
 					<p>Please enter your passphrase to continue. Remember this action is definitive, use with precaution!</p>
 					<input type="password" name="passphrase" required="true" placeholder="Passphrase">
 					<span class="status"></span>
-					<div class="buttons">
-						<button type="submit">Clear</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Clear</button>
 					</div>
 				</form>
 			</div>
@@ -583,9 +583,9 @@
 						</div>
 					</div>
 
-					<div class="buttons">
-						<button type="submit">Ok</button>
+					<div>
 						<button type="reset">Cancel</button>
+						<button type="submit">Ok</button>
 					</div>
 				</form>
 			</div>
