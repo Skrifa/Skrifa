@@ -110,22 +110,30 @@ body.playful {
 .playful [data-view="notes"] .top-nav ul {
   padding: 0 2em;
   margin-top: 2em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .playful [data-view="preview"] .top-nav ul {
   text-align: center;
   padding: 0;
   margin-top: 1em;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.playful [data-view="notes"] .top-nav ul li,
-.playful [data-view="preview"] .top-nav ul li {
-  width: 8em;
+.playful [data-view="notes"] .top-nav ul li  {
+  width: calc(100% / 2 - 0.5em);
 }
 
 .playful [data-view="preview"] .top-nav ul li {
-  margin: 0;
-  width: 4em;
+  width: calc(100% / 3 - 0.5em);
 }
 
 .playful [data-view="notes"] .top-nav ul li[data-action="new-note"] .fa{ color: #FFCC00; }
@@ -144,7 +152,7 @@ body.playful {
   height: 2.5em;
   background-color: rgb(246, 249, 250);
   border-radius: 50%;
-  padding-top: 10%;
+  padding-top: 12px;
   margin: 0 auto;
 }
 
@@ -274,6 +282,13 @@ body.playful {
   top: 50%;
   bottom: initial;
   width: 100%;
+  transform: translate(0, 0) !important;
+}
+
+.playful [data-view="settings"] [data-form] p {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .playful [data-view="settings"] [data-form] .vertical {
@@ -686,6 +701,14 @@ body.playful {
 
    .playful [data-form] .col:nth-child(2) {
      margin-top: 0;
+   }
+
+   .playful [data-view="notes"] .top-nav ul li {
+     width: calc(100% / 4 - 0.5em);
+   }
+
+   .playful [data-view="preview"] .top-nav ul li {
+     width: calc(100% / 5 - 0.5em);
    }
  }
 
