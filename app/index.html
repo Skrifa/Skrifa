@@ -412,13 +412,12 @@
 		<section data-view="delete-notebook">
 			<div class="middle padded-2">
 				<h1>Delete Notebook</h1>
-				<form method="post" data-form="delete-notebook" class="vertical align-center padded-2">
+				<form method="post" data-form="delete-notebook" class="align-center padded-2">
 					<p>What should happen to the notes currently inside this notebook?</p>
-					<p><input type='radio' name='strategy' value="move" required="true"> Move Notes to Inbox</p>
-					<p><input type='radio' name='strategy' value="delete" required="true"> Delete Everything</p>
+					<button data-action="delete-move-inbox">Move Notes to Inbox</button>
+					<button data-action="delete-everything">Delete Everything</button>
 					<div>
 						<button type="reset">Cancel</button>
-						<button type="submit">Delete</button>
 					</div>
 				</form>
 			</div>
