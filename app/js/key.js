@@ -14,8 +14,8 @@ $_ready(() => {
 					// Set options for key generation
 					var options = {
 						userIds: [{
-							name: Storage.get("User"),
-							email: Storage.get("User") + "@skrifa.xyz"
+							name: Storage.get("User").trim().split("@")[0],
+							email: Storage.get("User")
 						}],
 						numBits: 4096,
 						passphrase: $_("[data-form='key'] input[name='passphrase']").value()         // protects the private key
@@ -30,7 +30,7 @@ $_ready(() => {
 
 						// Build the data that will be sent to the server
 						var inputs = {
-							"user": Storage.get("User"),
+							"user": Storage.get("User").trim().split("@")[0],
 							// Encrypt the key using CryptoJS
 							"key": CryptoJS.AES.encrypt(privkey, $_("[data-form='key'] input[name='passphrase']").value()).toString(),
 							"pub": pubkey,
