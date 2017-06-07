@@ -4,8 +4,8 @@
   "version": "0.2.6",
   "description": "A simple word processor built with web technologies",
   "devDependencies": {
-    "electron": "^1.6.2",
-    "electron-builder": "^17.8.0"
+    "electron": "^1.6.10",
+    "electron-builder": "^18.5.1"
   },
   "scripts": {
     "pack": "build --dir",
@@ -20,6 +20,7 @@
   "license": "GPL-3.0",
   "build": {
     "appId": "com.hyuchia.skrifa",
+    "electronVersion": "1.6.10",
     "mac": {
       "category": "public.app-category.productivity",
       "target": [
