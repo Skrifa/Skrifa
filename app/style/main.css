@@ -92,6 +92,11 @@ b {
 	margin: 0 auto;
 }
 
+input[type="color"] {
+	width: 6em;
+	height: 3.5em;
+}
+
 /*
  * ==========================================================================
  * Navigation Styling

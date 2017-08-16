@@ -227,6 +227,19 @@
 				</form>
 			</div>
 
+			<div data-modal="color-picker" data-insert-element="Link">
+				<form data-form="color-picker" class="vertical align-center padded-1">
+					<label>Text:</label>
+					<p></p>
+					<label>Color:</label>
+					<input type="color" data-input="color" value="#424242" required="true">
+					<div class="buttons">
+						<button type="reset">Cancel</button>
+						<button type="submit">Ok</button>
+					</div>
+				</form>
+			</div>
+
 			<div data-modal="insert-image" data-insert-element="Image">
 				<form data-form="insert-image" class="vertical align-center padded-1">
 					<label>Load local Image:</label>
@@ -272,7 +285,6 @@
 		                    <button class="fa fa-italic" data-tool="italic"  title="Italic"></button>
 		                    <button class="fa fa-underline" data-tool="underline"  title="Underline"></button>
 		                    <button class="fa fa-strikethrough" data-tool="strikeThrough"  title="Strike Through"></button>
-							<!--<button class="fa fa-pencil" data-tool="mark"  title="Highplayful"></button>-->
 							<div>
 		                        <button class="fa fa-align-left" data-tool="Left" title="Align Left"></button>
 		                        <button class="fa fa-align-center" data-tool="Center" title="Align Center"></button>
@@ -283,6 +295,7 @@
 								<button class="fa fa-list-ul" data-tool="ul" title="Unordered List"></button>
 			                    <button class="fa fa-list-ol" data-tool="ol" title="Ordered List"></button>
 			                    <button class="fa fa-quote-right" data-tool="blockquote" title="Quote"></button>
+								<button class="fa fa-paint-brush" data-tool="color"  title="Color Picker"></button>
 							</div>
 						</div>
 	                </div>

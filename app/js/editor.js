@@ -169,6 +169,12 @@ $_ready(() => {
 				$_("[data-modal='insert-link']").addClass("active");
 				break;
 
+			case "color":
+				$_("[data-modal='color-picker'] p").text(getSelectionText().trim());
+				document.execCommand('insertHTML', false, "<span class='colorPicker-div'></span>");
+				$_("[data-modal='color-picker']").addClass("active");
+				break;
+
 			case "image":
 				document.execCommand('insertHTML', false, "<span class='insertImage-div'></span>");
 				$_("[data-modal='insert-image']").addClass("active");
@@ -384,12 +390,37 @@ $_ready(() => {
 		}
 		$_("[data-modal='insert-link']").removeClass("active");
 		this.reset();
-		$_("span.insertLink-div").remove();;
+		$_("span.insertLink-div").remove();
 	});
 
 	$_("[data-form='insert-link'] [type='reset']").click(function(){
+		document.execCommand("undo", false, null);
 		$_("[data-modal='insert-link']").removeClass("active");
 		$_("span.insertLink-div").remove();
+	});
+
+	$_("[data-form='color-picker']").submit(function(event){
+		event.preventDefault();
+		var text = $_("[data-form='color-picker'] p").text().trim();
+		var color = $_("[data-form='color-picker'] [data-input='color']").value();
+		if(text != "" && color != ""){
+			$("span.colorPicker-div").replaceWith("<span style=' color: " + color + ";'>" + text + "</span>");
+		}
+		$_("[data-modal='color-picker']").removeClass("active");
+		$_("[data-form='color-picker'] p").style("color", "inherit");
+		this.reset();
+		$_("span.colorPicker-div-div").remove();
+	});
+
+	$_("[data-form='color-picker'] input").on("input", function () {
+		$_("[data-form='color-picker'] p").style("color", this.value);
+	});
+
+	$_("[data-form='color-picker'] [type='reset']").click(function(){
+		document.execCommand("undo", false, null);
+		$_("[data-form='color-picker'] p").style("color", "inherit");
+		$_("[data-modal='color-picker']").removeClass("active");
+		$_("span.colorPicker-div").remove();
 	});
 
 	$_("[data-form='insert-html']").submit(function(event){
