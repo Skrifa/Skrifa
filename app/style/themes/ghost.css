@@ -44,7 +44,7 @@ body.ghost {
  */
 
 .ghost .side-nav {
-    background: rgba(0, 0, 0, 0.05);
+    background: #f4f4f4;
 }
 
 .ghost .top-nav {
