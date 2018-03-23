@@ -47,7 +47,14 @@ $_ready(() => {
 							Notebook: notebook
 						}).then(function(lastID){
 							addNote(lastID, "New Note", color);
-							show('notes');
+							db.note.where(":id").equals(parseInt(lastID)).first().then(function (note) {
+									decrypt(note.Content).then(function(plaintext) {
+											$_("#editor").html(plaintext.data);
+											currentContent = plaintext.data;
+											show("editor")
+							});
+							});
+					      	show('notes');
 						});
 					});
 				});
