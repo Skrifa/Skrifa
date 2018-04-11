@@ -54,7 +54,6 @@ $_ready(() => {
 											show("editor")
 							});
 							});
-					      	show('notes');
 						});
 					});
 				});
