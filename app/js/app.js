@@ -8,34 +8,27 @@
 
 // Show the loading screen with a custom message
 function wait (message) {
-	$_('[data-view]').removeClass("active");
-	$_('[data-view="loading"] h2').text(message);
-	$_('[data-view="loading"]').addClass("active");
+	$_('[data-view]').removeClass ("active");
+	$_('[data-view="loading"] h2').text (message);
+	$_('[data-view="loading"]').addClass ("active");
 }
 
 // Show a given view, it will hide all views and then show the given one.
 function show (view) {
-	$_('[data-view]').removeClass("active");
-	$_(`[data-view="${view}"]`).addClass("active");
+	$_('[data-view]').removeClass ("active");
+	$_(`[data-view="${view}"]`).addClass ("active");
 }
 
 // Encrypt data using OpenPGP.js
-function encrypt (data, options) {
-	// Check if custom options where provided, in case they weren't, use the
-	// default ones defined in the decrypt.js file
-	if (typeof options == 'undefined') {
-		encryptOptions.data = data;
-		return openpgp.encrypt(encryptOptions);
-	} else {
-		options.data = data;
-		return openpgp.encrypt(options);
-	}
+function encrypt (data, options = encryptOptions) {
+	options.data = data;
+	return openpgp.encrypt (options);
 }
 
 // Decrypt data
 function decrypt (data) {
-	decryptOptions.message = openpgp.message.readArmored(data);
-	return openpgp.decrypt(decryptOptions);
+	decryptOptions.message = openpgp.message.readArmored (data);
+	return openpgp.decrypt (decryptOptions);
 }
 
 // Get the title of a note
@@ -110,98 +103,85 @@ function loadNotes () {
 		$_("[data-content='welcome']").hide();
 		wait("Loading your notes");
 
-		db.transaction('r', db.note, function() {
-			var ht = "";
-			// Check if the notebook is empty to show the welcome screen
-			db.note.where("Notebook").equals(notebook).count(function(count) {
-				if (count <= 0) {
-					$_("[data-content='welcome']").show();
-				}
+		return notes.getAll ().then ((notes) => {
+			if (Object.keys (notes).length <= 0) {
+				$_("[data-content='welcome']").show();
+			}
+
+			const notebookNotes = Object.values (notes).filter ((note) => {
+				return note.Notebook == notebook;
 			});
 
 			// Check the ordering settings for the notes and get all the notes
 			if (settings.sort == "newer") {
-				db.note.where("Notebook").equals(notebook).reverse().each(function(item, cursor){
-					var item = item;
-
-					// Decrypt the note title and add it
-					decrypt(item.Title).then(function(plaintext) {
-						addNote(item.id, plaintext.data, item.Color);
-					});
-				});
-			} else {
-				db.note.where("Notebook").equals(notebook).each(function(item, cursor) {
-					var item = item;
-
-					// Decrypt the note title and add it
-					decrypt(item.Title).then(function(plaintext) {
-						addNote(item.id, plaintext.data, item.Color);
-					});
-				});
-
+				notebookNotes.reverse ();
 			}
 
+			const promises = [];
+			for (const note of notebookNotes) {
+				// Decrypt the note title and add it
+				promises.push (decrypt(note.Title).then ((plaintext) => {
+					addNote (note.id, plaintext.data, note.Color);
+				}));
+			}
 		}).then(function() {
-			show("notes");
+			show ("notes");
 		});
 	}
+	return Promise.reject ();
 }
 
 // Load notebook list
 function loadNotebooks() {
-	return new Promise((resolve, reject) => {
-		wait("Wait while your notebooks are decrypted");
-		if (key != null) {
-			// Remove previous content
-			$_("[data-content='notebook-list']").html("");
+	wait("Wait while your notebooks are decrypted");
+	if (key != null) {
+		// Remove previous content
+		$_("[data-content='notebook-list']").html("");
 
-			// Add Inbox notebook by default
-			$_("[data-content='notebook-list']").append('<li data-notebook="Inbox">Inbox</li>');
+		// Add Inbox notebook by default
+		$_("[data-content='notebook-list']").append('<li data-notebook="Inbox">Inbox</li>');
 
-			// Temporary array to store the notebooks
-			var notebooksTemp = [];
+		// Temporary array to store the notebooks
+		var notebooksTemp = [];
 
-			// Get all notebooks
-			db.transaction('r', db.notebook, function() {
-				db.notebook.each(function(item, cursor) {
-
-					// Decrypt the name of each notebook
-					decrypt(item.Name).then(function(plaintext) {
-						// Push decrypted notebook to array
-						notebooksTemp.push({
-							id: item.id,
-							Name: plaintext.data
-						});
-					});
-
-				});
-			}).then(function() {
-				// Order notebooks alphabetically
-				notebooksTemp.sort(function(a, b){
-					var A = a.Name.toLowerCase();
-					var B = b.Name.toLowerCase();
-					if (A < B){
-						return -1;
-					}
-					if(A > B){
-						return 1;
-					}
-					return 0;
-				});
-				// Build the notebook buttons for the side bar
-				for(var i in notebooksTemp) {
-					$_("[data-content='notebook-list']").append('<li data-notebook="' + notebooksTemp[i].id + '">' + notebooksTemp[i].Name + '</li>');
+		return notebooks.getAll ().then ((notebooks) => {
+			const promises = [];
+			for (const notebook of notebooks) {
+				// Decrypt the name of each notebook
+				promises.push (decrypt(notebook.Name).then ((plaintext) => {
+					return {
+						id: notebook.id,
+						Name: plaintext.data
+					};
+				}));
+			}
+			return Promise.all (promises);
+		}).then ((notebooks) => {
+			notebooks.sort(function(a, b){
+				var A = a.Name.toLowerCase();
+				var B = b.Name.toLowerCase();
+				if (A < B){
+					return -1;
 				}
-				resolve();
+				if(A > B){
+					return 1;
+				}
+				return 0;
 			});
-		}
-	});
+
+			// Build the notebook buttons for the side bar
+			for(const notebook of notebooks) {
+				$_("[data-content='notebook-list']").append('<li data-notebook="' + notebook.id + '">' + notebook.Name + '</li>');
+			}
+		});
+	}
+	return Promise.reject ();
 }
 
 // Load notebook list and notes
 function loadContent () {
 	loadNotebooks().then(() => {
-		loadNotes();
+		loadNotes ();
 	});
 }
 
@@ -284,9 +264,11 @@ $_ready(() => {
 	}
 
 	// Go to decrypt screen if a private key is already stored
-	if(Storage.get("PrivKey") != null && Storage.get("PrivKey") != "null"){
-		show("decrypt");
-	}
+	Storage.get("PrivKey").then (() => {
+		show ("decrypt");
+	}).catch (() => {
+
+	});
 
 	// Change view settings, currently saved for future uses
 	if(settings.view == "list"){

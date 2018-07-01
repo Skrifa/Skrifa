@@ -37,7 +37,7 @@ $_ready(() => {
 				encrypt("New Note").then(function(ciphertext) {
 					encrypt('<h1>New Note</h1>').then(function(ciphertext2) {
 						var color = colors[Math.floor(Math.random()*colors.length)];
-						db.note.add({
+						notes.set(null, {
 							Title: ciphertext.data,
 							Content: ciphertext2.data,
 							CreationDate: date,
@@ -45,9 +45,14 @@ $_ready(() => {
 							SyncDate: "",
 							Color: color,
 							Notebook: notebook
-						}).then(function(lastID){
-							addNote(lastID, "New Note", color);
-							show('notes');
+						}).then(function({key, value}){
+							console.log (value);
+							addNote (key, "New Note", color);
+							decrypt(value.Content).then(function(plaintext) {
+								$_("#editor").html(plaintext.data);
+								currentContent = plaintext.data;
+								show("editor")
+							});
 						});
 					});
 				});
@@ -73,7 +78,7 @@ $_ready(() => {
 				if(id == null){
 					id = $_(this).data("id");
 				}
-				db.note.where(":id").equals(parseInt(id)).first().then(function (note) {
+				notes.get (parseInt(id)).then(function (note) {
 					decrypt(note.Content).then(function(plaintext) {
 						$_("#editor").html(plaintext.data);
 						currentContent = plaintext.data;
@@ -94,7 +99,7 @@ $_ready(() => {
 						currentContent = null;
 					}
 
-					db.note.where(":id").equals(parseInt(id)).first().then(function (note) {
+					notes.get (parseInt(id)).then(function (note) {
 
 						decrypt(note.Content).then(function(plaintext) {
 							$_("#preview").html(plaintext.data);
@@ -151,7 +156,7 @@ $_ready(() => {
 
 												encrypt(html).then(function(ciphertext2) {
 													var color = colors[Math.floor(Math.random()*colors.length)];
-													db.note.add({
+													notes.set(null, {
 														Title: ciphertext.data,
 														Content: ciphertext2.data,
 														CreationDate: date,
@@ -159,8 +164,8 @@ $_ready(() => {
 														SyncDate: '',
 														Color: color,
 														Notebook: notebook
-													}).then(function(lastID){
-														addNote(lastID, h1, color);
+													}).then(function({key, value}){
+														addNote(key, h1, color);
 														show('notes');
 													});
 												});
@@ -185,7 +190,7 @@ $_ready(() => {
 
 													encrypt(html).then(function(ciphertext2) {
 														var color = colors[Math.floor(Math.random()*colors.length)];
-														db.note.add({
+														notes.set(null, {
 															Title: ciphertext.data,
 															Content: ciphertext2.data,
 															CreationDate: date,
@@ -193,8 +198,8 @@ $_ready(() => {
 															SyncDate: '',
 															Color: color,
 															Notebook: notebook
-														}).then(function(lastID){
-															addNote(lastID, h1, color);
+														}).then(function({key, value}){
+															addNote(key, h1, color);
 															show('notes');
 														});
 													});
@@ -220,7 +225,7 @@ $_ready(() => {
 
 											encrypt(json.Title).then(function(ciphertext) {
 												encrypt(json.Content).then(function(ciphertext2) {
-													db.note.add({
+													notes.set(null, {
 														Title: ciphertext.data,
 														Content: ciphertext2.data,
 														CreationDate: json.CreationDate,
@@ -228,8 +233,8 @@ $_ready(() => {
 														SyncDate: '',
 														Color: json.Color,
 														Notebook: notebook
-													}).then(function(lastID){
-														addNote(lastID, json.Title, json.Color);
+													}).then(function({key, value}){
+														addNote(key, json.Title, json.Color);
 														show('notes');
 													});
 												});
@@ -244,7 +249,7 @@ $_ready(() => {
 											wait("Importing New Note");
 											var date = new Date().toLocaleString();
 											decrypt(json.Title).then((plaintext) => {
-												db.note.add({
+												notes.set(null, {
 													Title: json.Title,
 													Content: json.Content,
 													CreationDate: json.CreationDate,
@@ -252,8 +257,8 @@ $_ready(() => {
 													SyncDate: '',
 													Color: json.Color,
 													Notebook: notebook
-												}).then(function(lastID){
-													addNote(lastID, plaintext.data, json.Color);
+												}).then(function({key, value}){
+													addNote(key, plaintext.data, json.Color);
 													show('notes');
 												});
 											}).catch((error) => {
@@ -285,7 +290,7 @@ $_ready(() => {
 
 											encrypt(html).then(function(ciphertext2) {
 												var color = colors[Math.floor(Math.random()*colors.length)];
-												db.note.add({
+												notes.set(null, {
 													Title: ciphertext.data,
 													Content: ciphertext2.data,
 													CreationDate: date,
@@ -293,8 +298,8 @@ $_ready(() => {
 													SyncDate: '',
 													Color: color,
 													Notebook: notebook
-												}).then(function(lastID){
-													addNote(lastID, "Imported Note", color);
+												}).then(function({key, value}){
+													addNote(key, "Imported Note", color);
 													show('notes');
 												});
 											});
@@ -312,7 +317,7 @@ $_ready(() => {
 											encrypt(h1).then(function(ciphertext) {
 												encrypt(html).then(function(ciphertext2) {
 													var color = colors[Math.floor(Math.random()*colors.length)];
-													db.note.add({
+													notes.set(null, {
 														Title: ciphertext.data,
 														Content: ciphertext2.data,
 														CreationDate: date,
@@ -320,8 +325,8 @@ $_ready(() => {
 														SyncDate: '',
 														Color: color,
 														Notebook: notebook
-													}).then(function(lastID){
-														addNote(lastID, h1, color);
+													}).then(function({key, value}){
+														addNote(key, h1, color);
 														show('notes');
 													});
 												});
@@ -351,7 +356,7 @@ $_ready(() => {
 											encrypt("Imported Note").then(function(ciphertext) {
 												encrypt(html).then(function(ciphertext2) {
 													var color = colors[Math.floor(Math.random()*colors.length)];
-													db.note.add({
+													notes.set(null, {
 														Title: ciphertext.data,
 														Content: ciphertext2.data,
 														CreationDate: date,
@@ -359,8 +364,8 @@ $_ready(() => {
 														SyncDate: '',
 														Color: color,
 														Notebook: notebook
-													}).then(function(lastID){
-														addNote(lastID, "Imported Note", color);
+													}).then(function({key, value}){
+														addNote(key, "Imported Note", color);
 														show('notes');
 													});
 												});
@@ -388,7 +393,7 @@ $_ready(() => {
 			$_(".logo h1").text($_(this).text());
 
 			if (notebook != "Inbox") {
-				db.notebook.where("id").equals(parseInt(notebook)).first(function(item, cursor){
+				notebooks.get (parseInt(notebook)).then (function(item){
 					decrypt(item.Description).then(function(plaintext) {
 						$_(".logo small").text(plaintext.data);
 						$_("[data-action='edit-notebook']").style({display: "inline-block"});
@@ -431,8 +436,7 @@ $_ready(() => {
 
 		// Check if the note is not being moved to the same notebook
 		if (dragTarget != notebook) {
-			db.transaction('rw', db.note, function() {
-				db.note.where("id").equals(parseInt(dragging)).modify({Notebook: dragTarget});
+			notes.update (parseInt(dragging), {Notebook: dragTarget}).then (() => {
 				$_("[data-nid='" + dragging + "']").remove();
 				dragging = null;
 				dragTarget = null;
@@ -442,7 +446,7 @@ $_ready(() => {
 
 	$_("[data-form='delete-note']").submit(function(event){
 		event.preventDefault();
-		db.note.where("id").equals(parseInt(deltempid)).delete().then(function(){
+		notes.remove (parseInt(deltempid)).then(function(){
 			$_("[data-nid='" + deltempid + "']").remove();
 			$_("[data-modal='delete-note']").removeClass("active");
 			deltempid = null;

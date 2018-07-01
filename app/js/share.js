@@ -56,7 +56,7 @@ $_ready(() => {
 				if(directory){
 					wait("Exporting Note to File");
 
-					db.note.where("id").equals(parseInt(id)).first(function(note){
+					notes.get (parseInt(id)).then (function(note){
 						delete note.Notebook;
 						delete note.SyncDate;
 						// Decrypt note content
@@ -131,7 +131,7 @@ $_ready(() => {
 											var content;
 											// Ask where the note should be saved
 
-											db.note.where("id").equals(parseInt(id)).first(function(note){
+											notes.get (parseInt(id)).then (function(note){
 												decrypt(note.Content).then((plaintext) => {
 
 													note.Content = htmlToText.fromString(plaintext.data, {
@@ -216,7 +216,7 @@ $_ready(() => {
 												if(directory){
 													wait("Exporting Note to File");
 
-													db.note.where("id").equals(parseInt(id)).first(function(note){
+													notes.get (parseInt(id)).then (function(note){
 														delete note.Notebook;
 														delete note.SyncDate;
 														// Decrypt note content

@@ -30,7 +30,7 @@ $_ready(function(){
 	// Export in an encrypted Skrifa Format (.skf)
 	$_("[data-form='export-note'] [data-action='export-skf']").click(function(event){
 		wait("Exporting Note to File");
-		db.note.where("id").equals(parseInt(id)).first(function(note){
+		notes.get (parseInt(id)).then (function(note){
 			// Remove unnecessary metadata
 			delete note.Notebook;
 			delete note.SyncDate;
@@ -42,7 +42,7 @@ $_ready(function(){
 	// Export in an unencrypted Skrifa Format (.skrifa)
 	$_("[data-form='export-note'] [data-action='export-skrifa']").click(function(event){
 		wait("Exporting Note to File");
-		db.note.where("id").equals(parseInt(id)).first(function(note){
+		notes.get (parseInt(id)).then (function(note){
 			decrypt(note.Content).then((plaintext) => {
 				// Add attributes that are compatible with the Chrome version
 				note.Content = plaintext.data;
@@ -62,7 +62,7 @@ $_ready(function(){
 	// Export in MarkDown Format
 	$_("[data-form='export-note'] [data-action='export-md']").click(function(event){
 		wait("Exporting Note to File");
-		db.note.where("id").equals(parseInt(id)).first(function(note){
+		notes.get (parseInt(id)).then (function(note){
 			decrypt(note.Content).then((plaintext) => {
 				var und = new upndown();
 
@@ -89,7 +89,7 @@ $_ready(function(){
 				dialog.showErrorBox("Error Exporting Note", "The note template could not be found, the note was not exported.");
 				show("export-note");
 			} else {
-				db.note.where("id").equals(parseInt(id)).first(function(note){
+				notes.get (parseInt(id)).then (function(note){
 					decrypt(note.Content).then((plaintext) => {
 
 						// Insert note information in the template file and export it

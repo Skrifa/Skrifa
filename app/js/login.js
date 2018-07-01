@@ -1,90 +1,78 @@
-$_ready(() => {
+$_ready (() => {
 
 	// Login Form Functionality for Skrifa.xyz accounts
-	$_("[data-form='login']").submit(function(event) {
+	$_('[data-form="login"]').submit(function(event) {
 
 		// Prevent the form to reload the page
-		event.preventDefault();
-
-		// Get the data from the form
-		var inputs = {
-			user: $_("[data-form='login'] input[name='user']").value().trim(),
-			password: $_("[data-form='login'] input[name='password']").value()
-		}
-
-		// Serialize data into a url encoded format
-		var str = [];
-		for(var value in inputs) {
-			str.push(encodeURIComponent(value) + "=" + encodeURIComponent(inputs[value]));
-		}
-		str = str.join("&");
+		event.preventDefault ();
+		const status = (text) => $_('[data-form="login"] [data-content="status"]').text (text);
 
 		// Check if the user is online since it's needed to validate the data
 		// and the key must be downloaded from the server
 		if (navigator.onLine) {
-			wait("Logging In");
-			// Make the Post request to the server
-			Request.post(`${base}/login`, str,
-				{
-					onload: function(data) {
-						// Check if data was received
-						if (data.response != null) {
+			wait ('Logging In');
 
-							// Check if there was not any error
-							if (typeof data.response.error == 'undefined') {
+			Request.post (`${base}/login`, {
+				user: $_('[data-form="login"] input[name="user"]').value ().trim (),
+				password: $_('[data-form="login"] input[name="password"]').value ()
+			}).then ((response) => {
+				const data = response.json ();
 
-								// Save user data to localstorage
-								Storage.set("User", data.response.User + '@skrifa.xyz');
-								Storage.set("PubKey", data.response.Public);
-								Storage.set("PrivKey", data.response.Secret);
+				// Check if data was received
+				if (data.response !== null) {
 
-								// Check if a key was received
-								if (data.response.Public != null && data.response.Public != "") {
-									// Key was received and must be unencrypted
-									show("decrypt");
-								} else {
-									// No key was received meaning that the user
-									// has not created one yet, needs to do it
-									// for the first time now.
-									show("key");
-								}
-							} else {
-								// Show error at login page
-								$_("[data-form='login'] [data-content='status']").text(data.response.error);
-								show("login");
-							}
+					// Check if there was not any error
+					if (typeof data.response.error === 'undefined') {
+
+						// Save user data to localstorage
+						Storage.set('User', data.response.User + '@skrifa.xyz');
+						Storage.set('PubKey', data.response.Public);
+						Storage.set('PrivKey', data.response.Secret);
+
+						// Check if a key was received
+						if (data.response.Public != null && data.response.Public != '') {
+							// Key was received and must be unencrypted
+							show ('decrypt');
 						} else {
-							$_("[data-form='login'] [data-content='status']").text("An error ocurred, please try again.");
-							show("login");
+							// No key was received meaning that the user
+							// has not created one yet, needs to do it
+							// for the first time now.
+							show ('key');
 						}
-					},
-					onerror: function(error) {
-						console.log(error);
-						show("login");
+					} else {
+						// Show error at login page
+						status (data.response.error);
+						show ('login');
 					}
-				}, "json"
-			);
+				} else {
+					status ('An error ocurred, please try again.');
+					show('login');
+				}
+			}).catch (() => {
+				status ('You must be online to log in.');
+				show ('login');
+			});
 		} else {
-			$_("[data-form='login'] [data-content='status']").text("You must be online to log in.");
+			status ('You must be online to log in.');
 		}
 	});
 
-	$_("[data-form='local-key']").submit(function(event) {
-		event.preventDefault();
+	$_('[data-form="local-key"]').submit ((event) => {
+		event.preventDefault ();
 	});
 
-	$_("[data-view='login'] [data-action='new-offline-key']").click(function() {
-		show("offline-key");
+	$_('[data-view="login"] [data-action="new-offline-key"]').click (() => {
+		show ('offline-key');
 	});
 
 	// Import a previously owned PGP key, can be pretty much any PGP key created
 	// with any other software, it must be in an asc file and armored.
-	$_("[data-view='login'] [data-action='import-offline-key']").click(function() {
+	$_('[data-view="login"] [data-action="import-offline-key"]').click(function() {
 
 		dialog.showOpenDialog(
 			{
-				title: "Import Your Key",
-				buttonLabel: "Import",
+				title: 'Import Your Key',
+				buttonLabel: 'Import',
 				filters: [
 					// skk file extension is saved for the future and may be removed
 					{name: 'Custom File Type', extensions: ['skk', 'asc']},
@@ -93,13 +81,13 @@ $_ready(() => {
 			},
 			function(file) {
 				if (file) {
-					wait("Reading Key File");
+					wait('Reading Key File');
 					fs.readFile(file[0], 'utf8', function (error, data) {
 						if (error) {
-							dialog.showErrorBox("Error reading file", "There was an error reading the file, key was not imported.");
-							show("login");
+							dialog.showErrorBox('Error reading file', 'There was an error reading the file, key was not imported.');
+							show('login');
 						} else {
-							var extension = file[0].split(".").pop();
+							var extension = file[0].split('.').pop();
 
 							// Check the extension of the imported key file
 							switch(extension) {
@@ -107,15 +95,14 @@ $_ready(() => {
 								// skk files contain keys in an encrypted manner so
 								// once saved, it just needs to be decrypted to use.
 								// This is saved for the future
-								case "skk":
-									Storage.set("PrivKey", data);
-									show("decrypt");
+								case 'skk':
+									Storage.set('PrivKey', data);
+									show('decrypt');
 									break;
 
 								// asc files are probably a PGP key created by other
 								// application, they must be encrypted to be saved
-								// in the Indexed DB
-								case "asc":
+								case 'asc':
 									var importedKey = openpgp.key.readArmored(data).keys;
 
 									// Check if the file actually had a key
@@ -124,16 +111,16 @@ $_ready(() => {
 										// Check if the key is a private one and not
 										// just a public key or a message.
 										if (importedKey[0].isPrivate()) {
-											Storage.set("TempKey", data);
-											show("encrypt-key");
+											Storage.set('TempKey', data);
+											show('encrypt-key');
 										} else {
-											dialog.showErrorBox("Error parsing Key", "No private key was found, make sure you are trying to import a private key.");
-											show("login");
+											dialog.showErrorBox('Error parsing Key', 'No private key was found, make sure you are trying to import a private key.');
+											show('login');
 										}
 
 									} else {
-										dialog.showErrorBox("Error parsing Key", "There was an error reading your key, make sure it is a valid PGP key.");
-										show("login");
+										dialog.showErrorBox('Error parsing Key', 'There was an error reading your key, make sure it is a valid PGP key.');
+										show('login');
 									}
 									break;
 							}

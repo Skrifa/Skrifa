@@ -1,57 +1,48 @@
-function saveNote(){
-	wait("Saving your note");
+function saveNote () {
+	wait ("Saving your note");
 	// Set the note content to save
-	var html = $_("#editor").html();
-	var date = new Date().toLocaleString();
+	const html = $_("#editor").html ();
+	const date = new Date ().toLocaleString ();
 	currentContent = html;
-	db.transaction('rw', db.note, function(){
-		// Get note title
-		var h1 = $_("#editor h1").first();
-		if (typeof h1 != 'undefined') {
-			if (h1.collection.length > 0) {
-				var text = h1.text().trim();
-				if (text != ""){
-					h1 = text;
-				} else {
-					h1 = "Untitled";
-				}
+
+	// Get note title
+	let h1 = $_("#editor h1").first ();
+	if (typeof h1 != 'undefined') {
+		if (h1.collection.length > 0) {
+			var text = h1.text ().trim ();
+			if (text !== ""){
+				h1 = text;
 			} else {
 				h1 = "Untitled";
 			}
 		} else {
 			h1 = "Untitled";
 		}
+	} else {
+		h1 = "Untitled";
+	}
 
-		// Change title in the note container
-		$_("[data-nid='" + id + "'] h2").text(h1);
-		if(html && h1 && date){
-			// Encrypt content
-			encrypt(html).then(function(ciphertext) {
-
-				encrypt(h1).then(function(ciphertext2) {
-					// Update the note
-					db.note.where("id").equals(parseInt(id)).modify({
-						Content: ciphertext.data,
-						Title: ciphertext2.data,
-						ModificationDate: date
-					}).then(function(){
-						// Set the unsaved state to false
-						unsaved = false;
-						$_("[data-action='save']").removeClass('unsaved');
-						// Show the editor again
-						show("editor");
-					});
-				});
-			});
-		} else {
-			dialog.showErrorBox("Error saving", "There was an error saving your note, please try again.");
-			unsaved = true;
-			show("editor");
-		}
-	}).catch(function(){
-		dialog.showErrorBox("Error saving", "There was an error saving your note, please try again.");
-		unsaved = true;
-		show("editor");
+	// Encrypt content
+	encrypt(html).then((ciphertext) => {
+		encrypt(h1).then((ciphertext2) => {
+			// Update the note
+			notes.update (parseInt(id), {
+				Content: ciphertext.data,
+				Title: ciphertext2.data,
+				ModificationDate: date
+			}).then(() => {
+				// Set the unsaved state to false
+				unsaved = false;
+				$_("[data-action='save']").removeClass ('unsaved');
+				$_("[data-nid='" + id + "'] h2").text(h1);
+				// Show the editor again
+				show ("editor");
+			}).catch(function(){
+				dialog.showErrorBox("Error saving", "There was an error saving your note, please try again.");
+				unsaved = true;
+				show("editor");
+			});;
+		});
 	});
 }
 
@@ -234,8 +225,7 @@ $_ready(() => {
 				currentContent = null;
 			}
 
-			db.note.where(":id").equals(parseInt(id)).first().then(function (note) {
-
+			notes.get (parseInt(id)).then ((note) => {
 				decrypt(note.Content).then(function(plaintext) {
 					$_("#preview").html(plaintext.data);
 					Prism.highlightAll(true, null);
@@ -254,7 +244,7 @@ $_ready(() => {
 					MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 					show("preview")
 				});
-			});
+			})
 		}
 	});
 
@@ -275,7 +265,7 @@ $_ready(() => {
 					id = $_(this).data("id");
 				}
 
-				db.note.where(":id").equals(parseInt(id)).first().then(function (note) {
+				notes.get (parseInt(id)).then(function (note) {
 
 					decrypt(note.Content).then(function(plaintext) {
 						$_("#editor").html("");
