@@ -46,7 +46,6 @@ $_ready(() => {
 							Color: color,
 							Notebook: notebook
 						}).then(function({key, value}){
-							console.log (value);
 							addNote (key, "New Note", color);
 							decrypt(value.Content).then(function(plaintext) {
 								$_("#editor").html(plaintext.data);

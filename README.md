@@ -9,7 +9,7 @@ With a minimal, distraction free, simple and yet powerful interface, it's focuse
 From text styling to videos and images, and there are also features for more specific things like **writing code, math and data tables**
 
 ### Writing Math
-Having a suitable notebook for any ocation is something we all need, Skrifa has Mathjax capabilities so that you can write math formulas and some LaTEX code, ideal for students and people who work with math! Doing it is as simple as just typing your formula like this:
+Having a suitable notebook for any ocation is something we all need, Skrifa has Mathjax capabilities so that you can write math formulas and some LaTeX code, ideal for students and people who work with math! Doing it is as simple as just typing your formula like this:
 $x + y = z$
 
 ### Writing Code
