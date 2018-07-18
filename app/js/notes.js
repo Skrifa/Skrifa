@@ -1,6 +1,6 @@
 $_ready(() => {
 
-	$("[data-view='notes']").on("click", "[data-action]",function(){
+	$_("[data-view='notes']").on("click", "[data-action]",function(){
 		switch ($_(this).data("action")) {
 
 			case "settings":
@@ -32,34 +32,19 @@ $_ready(() => {
 
 			case "new-note":
 				wait("Wait while your note is created");
-				var date = new Date().toLocaleString();
-
-				encrypt("New Note").then(function(ciphertext) {
-					encrypt('<h1>New Note</h1>').then(function(ciphertext2) {
-						var color = colors[Math.floor(Math.random()*colors.length)];
-						notes.set(null, {
-							Title: ciphertext.data,
-							Content: ciphertext2.data,
-							CreationDate: date,
-							ModificationDate: date,
-							SyncDate: "",
-							Color: color,
-							Notebook: notebook
-						}).then(function({key, value}){
-							addNote (key, "New Note", color);
-							decrypt(value.Content).then(function(plaintext) {
-								$_("#editor").html(plaintext.data);
-								currentContent = plaintext.data;
-								show("editor")
-							});
-						});
+				Note.create ({ Notebook: notebook }).then ((id, note) => {
+					addNote (key, "New Note", color);
+					decrypt(note.Content).then ((plaintext) => {
+						$_("#editor").html (plaintext.data);
+						currentContent = plaintext.data;
+						show("editor")
 					});
 				});
 				break;
 
 			case "change-view":
 				if($_(this).hasClass("fa-th")){
-					$("[data-content='note-container']").removeClass("grid");
+					$_("[data-content='note-container']").removeClass("grid");
 					$_("[data-content='note-container']").addClass("list");
 					Storage.set('view', "list");
 				}else{
@@ -146,7 +131,7 @@ $_ready(() => {
 										var md = new MarkdownIt();
 										var html = md.render(data);
 										var date = new Date().toLocaleString();
-										var h1 = $(html).filter("h1").text().trim();
+										var h1 = $_(html).filter("h1").text().trim();
 										h1 = h1 != "" ? h1: 'Imported Note';
 										if(h1 && html && date){
 											wait("Importing New Note");
@@ -180,7 +165,7 @@ $_ready(() => {
 											var html = result.value; // The generated HTML
 											var messages = result.messages; // Any messages, such as warnings during conversion
 											var date = new Date().toLocaleString();
-											var h1 = $(html).filter("h1").text().trim();
+											var h1 = $_(html).filter("h1").text().trim();
 											h1 = h1 != "" ? h1: 'Imported Note';
 											if(h1 && html && date){
 												wait("Importing New Note");
@@ -309,7 +294,7 @@ $_ready(() => {
 									case "html":
 										var html = data;
 										var date = new Date().toLocaleString();
-										var h1 = $(html).filter("h1").text().trim();
+										var h1 = $_(html).filter("h1").text().trim();
 										h1 = h1 != "" ? h1: 'Imported Note';
 										if(h1 && html && date){
 											wait("Importing New Note");
@@ -404,7 +389,7 @@ $_ready(() => {
 				$_("[data-action='edit-notebook']").hide();
 				$_("[data-action='delete-notebook']").hide();
 			}
-			$("[data-view='notes'] .side-nav").removeClass("active");
+			$_("[data-view='notes'] .side-nav").removeClass("active");
 			loadNotes();
 		}
 	});

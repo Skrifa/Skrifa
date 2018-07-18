@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, session} = require('electron');
 const path = require('path');
 const url = require('url');
 
@@ -11,8 +11,19 @@ function createWindow () {
 	win = new BrowserWindow({
 		width: 800,
 		height: 600,
-		icon: __dirname + '/img/icon.png'
+		icon: __dirname + '/img/icon.png',
+		webPreferences: {
+			//nodeIntegration: false,
+			//contextIsolation: true,
+			preload: './preload.js'
+		}
 	});
+
+
+	session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+		callback({responseHeaders: `default-src 'none'`})
+	});
+
 
 	// macOS won't allow edition shortcuts like copy and paste unless there is
 	// an explicit entry in the apps menu for them.

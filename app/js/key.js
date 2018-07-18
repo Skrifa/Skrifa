@@ -1,9 +1,9 @@
 $_ready(() => {
 
 	// Listener for the submit button
-	$_("[data-form='key']").submit(function(event){
-		event.preventDefault();
-		var self = this;
+	$_("[data-form='key']").submit (function (event){
+		event.preventDefault ();
+		const status = (text) => $_('[data-form="key"] [data-content="status"]').text (text);
 
 		// Check if the user is online
 		if(navigator.onLine){
@@ -79,18 +79,18 @@ $_ready(() => {
 										});
 
 										self.reset();
-										$_("[data-form='key'] [data-content='status']").text("");
+										status ("");
 
 										show("notes");
 
 									} else {
-										$_("[data-form='key'] [data-content='status']").text("An error has ocurred, please try again.");
+										status ("An error has ocurred, please try again.");
 										show("key");
 									}
 								},
 
 								onerror: function(data){
-									$_("[data-form='key'] [data-content='status']").text("An error has ocurred, please try again.");
+									status ("An error has ocurred, please try again.");
 									show("key");
 								}
 
@@ -100,13 +100,13 @@ $_ready(() => {
 
 
 				} else {
-					$_("[data-form='key'] [data-content='status']").text("Passphrase too short, must be at least 8 characters long.");
+					status ("Passphrase too short, must be at least 8 characters long.");
 				}
 			} else {
-				$_("[data-form='key'] [data-content='status']").text("Passphrases does not match");
+				status ("Passphrases does not match");
 			}
 		} else {
-			$_("[data-form='key'] [data-content='status']").text("You need to be online so that we can save your keys.");
+			status ("You need to be online so that we can save your keys.");
 		}
 
 	});

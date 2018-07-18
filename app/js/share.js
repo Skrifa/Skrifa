@@ -16,7 +16,7 @@ $_ready(() => {
 				// Check if the user is online
 				if (navigator.onLine) {
 					// Make request to obtain the key of the requested user
-					Request.json(base + "/key/" + user, {
+					Request.json (base + "/key/" + user, {
 						onload: function(data){
 							// Check if server returned any error
 							if(!data.response.error){
@@ -28,7 +28,6 @@ $_ready(() => {
 							}
 						},
 						onerror: function(error){
-							console.log(error);
 							reject(error);
 						}
 					});

@@ -4,8 +4,8 @@
   "version": "0.2.6",
   "description": "A simple word processor built with web technologies",
   "devDependencies": {
-    "electron": "^1.6.10",
-    "electron-builder": "^18.5.1"
+    "electron": "^2.0.3",
+    "electron-builder": "^20.18.0"
   },
   "scripts": {
     "pack": "build --dir",

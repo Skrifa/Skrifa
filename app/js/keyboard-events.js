@@ -63,24 +63,9 @@ $_ready(() => {
 	keyboardJS.bind ('ctrl + n', () => {
 		if ($_('[data-view="notes"]').isVisible ()) {
 			wait('Wait while your note is created');
-			var date = new Date ().toLocaleString ();
-
-			encrypt ('New Note').then ((title) => {
-				encrypt ('<h1>New Note</h1>').then ((content) => {
-					var color = colors[Math.floor (Math.random () *colors.length)];
-					notes.set (null, {
-						Title: title.data,
-						Content: content.data,
-						CreationDate: date,
-						ModificationDate: date,
-						SyncDate: '',
-						Color: color,
-						Notebook: notebook
-					}).then (({key, value}) => {
-						addNote (key, 'New Note', color);
-						show ('notes');
-					});
-				});
+			Note.create ({ Notebook: notebook }).then (({key: id, value: note}) => {
+				addNote (id, 'New Note', note.Color);
+				show ('notes');
 			});
 		}
 	});

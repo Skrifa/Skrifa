@@ -5,7 +5,7 @@ $_ready (() => {
 	});
 
 	$_('[data-form="pgp-message"] [type="submit"]').click (() => {
-		dialog.showSaveDialog({
+		dialog.showSaveDialog ({
 			title: 'Choose Directory to Save the Note',
 			buttonLabel: 'Save',
 			defaultPath:  $_('#preview h1').first ().text () + '.asc'
@@ -27,7 +27,7 @@ $_ready (() => {
 		clipboard.writeText ($_('[data-content="message"]').text ());
 	});
 
-	$_('[data-form="pgp-message"] [type="reset"]').click(() => {
+	$_('[data-form="pgp-message"] [type="reset"]').click (() => {
 		$_('[data-content="message"]').text ('');
 		show ('share');
 	});

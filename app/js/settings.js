@@ -1,6 +1,6 @@
 $_ready(() => {
 
-	$("[data-view='settings']").on("click", "[data-action]",function(){
+	$_("[data-view='settings']").on("click", "[data-action]",function(){
 		switch ($_(this).data("action")) {
 
 			case "import-backup":
@@ -284,7 +284,6 @@ $_ready(() => {
 				}
 
 				notebooks.each(function(key, item){
-					console.log (item);
 					json.notebooks[item.id] = {
 						id: item.id,
 						Name: item.Name,
@@ -379,7 +378,7 @@ $_ready(() => {
 	});
 
 	$_("[data-action='change-theme']").change(function(){
-		$("body").removeClass();
+		$_("body").removeClass();
 		$_("body").addClass($_("[data-action='change-theme'] :checked").value());
 		settings.theme = $_("[data-action='change-theme'] :checked").value();
 		Storage.set("settings", JSON.stringify(settings));

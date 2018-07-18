@@ -22,26 +22,23 @@ function saveNote () {
 		h1 = "Untitled";
 	}
 
-	// Encrypt content
-	encrypt(html).then((ciphertext) => {
-		encrypt(h1).then((ciphertext2) => {
-			// Update the note
-			notes.update (parseInt(id), {
-				Content: ciphertext.data,
-				Title: ciphertext2.data,
-				ModificationDate: date
-			}).then(() => {
-				// Set the unsaved state to false
-				unsaved = false;
-				$_("[data-action='save']").removeClass ('unsaved');
-				$_("[data-nid='" + id + "'] h2").text(h1);
-				// Show the editor again
-				show ("editor");
-			}).catch(function(){
-				dialog.showErrorBox("Error saving", "There was an error saving your note, please try again.");
-				unsaved = true;
-				show("editor");
-			});;
+	Note.encrypt ({ Title: h1, Content: h1}).then ((note) => {
+		const date = new Date ().toLocaleString ();
+		notes.update (parseInt(id), {
+			Content: note.Content,
+			Title: note.Title,
+			ModificationDate: date
+		}).then(() => {
+			// Set the unsaved state to false
+			unsaved = false;
+			$_("[data-action='save']").removeClass ('unsaved');
+			$_("[data-nid='" + id + "'] h2").text(h1);
+			// Show the editor again
+			show ("editor");
+		}).catch(function(){
+			dialog.showErrorBox("Error saving", "There was an error saving your note, please try again.");
+			unsaved = true;
+			show("editor");
 		});
 	});
 }
@@ -63,7 +60,7 @@ $_ready(() => {
 
 	// Handle indent events
 	var map = {9: false, 16: false};
-	$("#editor").on('keydown', function(e) {
+	$_("#editor").keydown (function(e) {
 	  var keyCode = e.keyCode || e.which;
 		if (keyCode in map) {
         	map[keyCode] = true;
@@ -88,7 +85,9 @@ $_ready(() => {
 			unsaved = false;
 			$_("[data-action='save']").removeClass('unsaved');
 		}
-	}).keyup(function(e) {
+	});
+
+	$_("#editor").keyup(function(e) {
 		var keyCode = e.keyCode || e.which;
 	    if (keyCode in map) {
 	        map[keyCode] = false;
@@ -155,13 +154,13 @@ $_ready(() => {
 				break;
 
 			case "link":
-				$_("[data-modal='insert-link'] input[data-input='text']").value(getSelectionText().trim());
+				$_("[data-modal='insert-link'] input[data-input='text']").value(Text.selection ().trim());
 				document.execCommand('insertHTML', false, "<span class='insertLink-div'></span>");
 				$_("[data-modal='insert-link']").addClass("active");
 				break;
 
 			case "color":
-				$_("[data-modal='color-picker'] p").text(getSelectionText().trim());
+				$_("[data-modal='color-picker'] p").text(Text.selection ().trim());
 				document.execCommand('insertHTML', false, "<span class='colorPicker-div'></span>");
 				$_("[data-modal='color-picker']").addClass("active");
 				break;
@@ -196,11 +195,11 @@ $_ready(() => {
 	/*
 	 * Actions for the editor toolbar
 	 */
-	$("[data-action='save']").click(function(){
+	$_("[data-action='save']").click(function(){
 		saveNote();
 	});
 
-	$("[data-action='back']").click(function(){
+	$_("[data-action='back']").click(function(){
 		if(unsaved){
 			$_("[data-form='unsaved'] input").value('back');
 			$_("[data-modal='unsaved']").addClass('active');
@@ -213,7 +212,7 @@ $_ready(() => {
 		}
 	});
 
-	$("[data-view='editor'] [data-action='preview']").click(function(){
+	$_("[data-view='editor'] [data-action='preview']").click(function(){
 		if(unsaved){
 			$_("[data-form='unsaved'] input").value('preview');
 			$_("[data-modal='unsaved']").addClass('active');
@@ -322,7 +321,7 @@ $_ready(() => {
 				table += '</tr>';
 			}
 			table += '</table></div><br>';
-			$("span.insertTable-div").replaceWith(table);
+			$_("span.insertTable-div").replaceWith(table);
 			$_("[data-modal='insert-table']").removeClass("active");
 			this.reset();
 			$_("span.insertTable-div").remove();
@@ -339,7 +338,7 @@ $_ready(() => {
 		var value = $_("[data-form='insert-video'] textarea").value().trim();
 		if(value != ""){
 			value = value.replace(/<iframe/g, "<webview").replace(/<\/iframe>/g, "</webview>");
-			$("span.insertVideo-div").replaceWith("<br><div class='video-wrapper'>" + value + "</div><br>");
+			$_("span.insertVideo-div").replaceWith("<br><div class='video-wrapper'>" + value + "</div><br>");
 		}
 		$_("[data-modal='insert-video']").removeClass("active");
 		this.reset();
@@ -357,7 +356,7 @@ $_ready(() => {
 		var self = this;
 		if(value != ""){
 			toDataUrl(value, function(url){
-				$("span.insertImage-div").replaceWith("<img class='lazy' src='" + url+ "' alt='" + value + "' data-url='" + value + "'>");
+				$_("span.insertImage-div").replaceWith("<img class='lazy' src='" + url+ "' alt='" + value + "' data-url='" + value + "'>");
 				$_("span.insertImage-div").remove();
 				$_("[data-modal='insert-image']").removeClass("active");
 				self.reset();
@@ -376,7 +375,7 @@ $_ready(() => {
 		var text = $_("[data-form='insert-link'] [data-input='text']").value().trim();
 		var link = $_("[data-form='insert-link'] [data-input='link']").value().trim();
 		if(text != "" && link != ""){
-			$("span.insertLink-div").replaceWith("<a href='" + link + "' target='_blank'>" + text + "</a>");
+			$_("span.insertLink-div").replaceWith("<a href='" + link + "' target='_blank'>" + text + "</a>");
 		}
 		$_("[data-modal='insert-link']").removeClass("active");
 		this.reset();
@@ -394,7 +393,7 @@ $_ready(() => {
 		var text = $_("[data-form='color-picker'] p").text().trim();
 		var color = $_("[data-form='color-picker'] [data-input='color']").value();
 		if(text != "" && color != ""){
-			$("span.colorPicker-div").replaceWith("<span style=' color: " + color + ";'>" + text + "</span>");
+			$_("span.colorPicker-div").replaceWith("<span style=' color: " + color + ";'>" + text + "</span>");
 		}
 		$_("[data-modal='color-picker']").removeClass("active");
 		$_("[data-form='color-picker'] p").style("color", "inherit");
@@ -417,9 +416,9 @@ $_ready(() => {
 		event.preventDefault();
 		var value = $_("[data-form='insert-html'] textarea").value().trim();
 		if(value != ""){
-			$("span.insertHTML-div").replaceWith(value);
+			$_("span.insertHTML-div").replaceWith(value);
 		}
-		$("[data-modal='insert-html']").removeClass("active");
+		$_("[data-modal='insert-html']").removeClass("active");
 		this.reset();
 		$_("span.insertHTML-div").remove();
 	});
@@ -443,7 +442,7 @@ $_ready(() => {
 	$_("[data-form='insert-snippet']").submit(function(event){
 		event.preventDefault();
 		var code = "<pre><code class='language-" + $_("[data-form='insert-snippet'] select").value() + "'>Your Code...</code></pre><br>";
-		$("span.insertSnippet").replaceWith(code);
+		$_("span.insertSnippet").replaceWith(code);
 		$_("[data-modal='insert-snippet']").removeClass("active");
 		this.reset();
 		$_("span.insertSnippet").remove();
@@ -476,16 +475,16 @@ $_ready(() => {
 						if (extension == "png") {
 							var image = nativeImage.createFromPath(file[0]);
 							image = image.resize({quality: settings.imageCompression});
-							$("span.insertImage-div").replaceWith("<img class='lazy' src='" + image.toDataURL() + "' alt='" + imageName + "' data-url='" + imageName + "'>");
+							$_("span.insertImage-div").replaceWith("<img class='lazy' src='" + image.toDataURL() + "' alt='" + imageName + "' data-url='" + imageName + "'>");
 							$_("span.insertImage-div").remove();
 							$_("[data-modal='insert-image']").removeClass("active");
 						/*} else if (extension == "svg") {
-							$("span.insertImage-div").replaceWith(data);
+							$_("span.insertImage-div").replaceWith(data);
 							$_("span.insertImage-div").remove();
 							$_("[data-modal='insert-image']").removeClass("active");*/
 						} else {
 							toDataUrl(file[0], function(url){
-								$("span.insertImage-div").replaceWith("<img class='lazy' src='" + url + "' alt='" + imageName + "' data-url='" + imageName + "'>");
+								$_("span.insertImage-div").replaceWith("<img class='lazy' src='" + url + "' alt='" + imageName + "' data-url='" + imageName + "'>");
 								$_("span.insertImage-div").remove();
 								$_("[data-modal='insert-image']").removeClass("active");
 							});

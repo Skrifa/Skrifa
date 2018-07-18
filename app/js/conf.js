@@ -16,7 +16,6 @@ const nativeImage = require('electron').nativeImage
 const {shell} = require('electron');
 const fs = require('fs');
 const MarkdownIt = require('markdown-it');
-const $ = require('jquery');
 const openpgp = require('openpgp');
 const CryptoJS = require('crypto-js');
 const htmlBoilerplatePDF = require('html-boilerplate-pdf');
@@ -35,9 +34,6 @@ const Storage = new Space ();
 openpgp.initWorker({ path:'node_modules/openpgp/dist/openpgp.worker.min.js' }); // set the relative web worker path
 
 openpgp.config.aead_protect = true; // activate fast AES-GCM mode (not yet OpenPGP standard)
-
-// Required global variables for many functions
-var storage = localStorage;
 
 var base = 'https://skrifa.xyz/';
 
