@@ -237,9 +237,9 @@ $_ready(() => {
 	// Check if there are any updates available
 	if (navigator.onLine) {
 		Request.json ('https://skrifa.xyz/latest').then ((data) => {
-			if (data.response.version) {
+			if (data.version) {
 				// Compare version numbers
-				if (parseInt(data.response.version.replace(/\./g,"")) > parseInt(pkg.version.replace(/\./g,""))) {
+				if (parseInt(data.version.replace(/\./g,"")) > parseInt(pkg.version.replace(/\./g,""))) {
 					$_("[data-action='update']").show();
 				}
 			}
