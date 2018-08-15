@@ -1,11 +1,11 @@
 {
   "name": "Skrifa",
   "productName": "Skrifa",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "A simple word processor built with web technologies",
   "devDependencies": {
     "electron": "^2.0.3",
-    "electron-builder": "^20.18.0"
+    "electron-builder": "^20.28.1"
   },
   "scripts": {
     "pack": "build --dir",

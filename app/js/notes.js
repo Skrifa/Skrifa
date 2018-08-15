@@ -32,9 +32,10 @@ $_ready(() => {
 
 			case "new-note":
 				wait("Wait while your note is created");
-				Note.create ({ Notebook: notebook }).then ((id, note) => {
+				Note.create ({ Notebook: notebook }).then (({key, value}) => {
+					var color = colors[Math.floor(Math.random()*colors.length)];
 					addNote (key, "New Note", color);
-					decrypt(note.Content).then ((plaintext) => {
+					decrypt(value.Content).then ((plaintext) => {
 						$_("#editor").html (plaintext.data);
 						currentContent = plaintext.data;
 						show("editor")
