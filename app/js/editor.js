@@ -22,7 +22,7 @@ function saveNote () {
 		h1 = "Untitled";
 	}
 
-	Note.encrypt ({ Title: h1, Content: h1}).then ((note) => {
+	Note.encrypt ({ Title: h1, Content: html}).then ((note) => {
 		const date = new Date ().toLocaleString ();
 		notes.update (parseInt(id), {
 			Content: note.Content,
