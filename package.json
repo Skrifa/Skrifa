@@ -1,26 +1,52 @@
 {
   "name": "Skrifa",
   "productName": "Skrifa",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "A simple word processor built with web technologies",
+  "main": "main.js",
+  "keywords": [
+    "skrifa",
+    "word",
+    "processor",
+    "note",
+    "notebook"
+  ],
+  "author": "Diego Islas Ocampo <dev@hyuchia.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@aegis-framework/artemis": "^0.3.17",
+    "@aegis-framework/kayros.css": "^0.4.4",
+    "crypto-js": "^3.1.9-1",
+    "dexie": "^1.5.1",
+    "font-awesome": "^4.7.0",
+    "html-boilerplate-pdf": "^5.1.1",
+    "html-to-text": "^5.0.0",
+    "jquery": "^3.3.1",
+    "keyboardjs": "^2.5.1",
+    "mammoth": "^1.4.8",
+    "markdown-it": "^8.4.2",
+    "mathjax": "^2.7.5",
+    "openpgp": "^2.5.4",
+    "pickadate": "^3.6.2",
+    "require-all": "^3.0.0",
+    "upndown": "^2.1.0"
+  },
   "devDependencies": {
-    "electron": "^1.6.10",
-    "electron-builder": "^18.5.1"
+    "@babel/core": "^7.1.6",
+    "electron": "^3.0.10",
+    "electron-builder": "^20.38.2",
+    "parcel": "^1.10.3"
   },
   "scripts": {
     "pack": "build --dir",
     "dist": "build -mwl",
-    "postinstall": "install-app-deps",
-    "start": "electron ./app --enable-logging",
+    "start": "electron .",
     "dev": "NODE_ENV='development' npm run start",
     "mac": "build --m",
     "linux": "build --l"
   },
-  "author": "Diego Islas Ocampo <hyuchia@gmail.com>",
-  "license": "GPL-3.0",
   "build": {
     "appId": "com.hyuchia.skrifa",
-    "electronVersion": "1.6.10",
     "mac": {
       "category": "public.app-category.productivity",
       "target": [

@@ -50,6 +50,8 @@ function getTitle (html, suggested) {
 	}
 }
 
+
+
 // Function to add a note to the notes container
 function addNote (noteID, noteTitle, noteColor) {
 
@@ -255,6 +257,37 @@ function toDataUrl (url, callback) {
 	xhr.send();
 }
 
+function newNote () {
+	if ($_("[data-view='notes']").isVisible()) {
+		wait("Wait while your note is created");
+		var date = new Date().toLocaleString();
+
+		encrypt("New Note").then(function(ciphertext) {
+			encrypt('<h1>New Note</h1>').then(function(ciphertext2) {
+				var color = colors[Math.floor(Math.random()*colors.length)];
+				return db.note.add({
+					Title: ciphertext.data,
+					Content: ciphertext2.data,
+					CreationDate: date,
+					ModificationDate: date,
+					SyncDate: "",
+					Color: color,
+					Notebook: notebook
+				}).then(function(lastID){
+					addNote(lastID, "New Note", color);
+					db.note.where(":id").equals(parseInt(lastID)).first().then(function (note) {
+						decrypt(note.Content).then(function(plaintext) {
+							$_("#editor").html(plaintext.data);
+							currentContent = plaintext.data;
+							show("editor")
+						});
+					});
+				});
+			});
+			});
+	}
+}
+
 $_ready(() => {
 
 	// Check if there are any updates available
@@ -314,5 +347,6 @@ $_ready(() => {
 			$("[data-view='" +$_(this).data("menu") + "'] .side-nav").addClass("active");
 		}
 	});
+
 
 });
