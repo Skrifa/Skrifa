@@ -1,12 +1,33 @@
-dist
-node_modules
-npm-debug.log
+# System Files
 .DS_Store
+*~
+._*
+~*
 .thumbs
 .Thumbs
+
+# Package File
 *.zip
 *.rar
-._*
-*.skf
-*.skb
-*~
+
+# IDE/Text Editor Generated
+.vscode
+.buildconfig
+
+# Package Managers
+node_modules
+package-lock.json
+
+# Build systems
+.cache
+dist/dist
+
+# Other
+cache
+src
+build
+release
+*.log
+.conf
+.ftpconfig
+.sftpconfig
